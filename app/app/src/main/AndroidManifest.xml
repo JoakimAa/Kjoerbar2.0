@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kjoerbar">
         <activity
+            android:name=".AddDrinkActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnitWorkshopActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnitCatalogActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SessionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
