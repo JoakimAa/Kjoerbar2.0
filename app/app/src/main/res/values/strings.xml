@@ -3,5 +3,10 @@
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="sign_in_failed">Sign in failed</string>
+    <string name="no_network">No network</string>
+    <string name="logged_out">has been logged out</string>
+    <string name="logged_in_as">logged in as: </string>
+    <string name="log_out">Log out</string>
 
 </resources>
