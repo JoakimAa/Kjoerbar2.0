@@ -14,7 +14,8 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.helpers.Datahandler;
+import com.illusion_softworks.kjoerbar.datahandler.UserDatahandler;
+import com.illusion_softworks.kjoerbar.helpers.DummyData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,6 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Datahandler.populateData();
         createSignInIntent();
     }
 
@@ -82,10 +82,10 @@ public class SignInActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             user = FirebaseAuth.getInstance().getCurrentUser();
+            DummyData.populateData();
             //Toast.makeText(getApplicationContext(), R.string.logged_in_as + user.getDisplayName(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
         }
         else {
             // Sign in failed
@@ -109,10 +109,13 @@ public class SignInActivity extends AppCompatActivity {
 
     public void delete() {
         // [START auth_fui_delete]
+        UserDatahandler.removeUserFromFirebase();
         AuthUI.getInstance()
                 .delete(this)
                 .addOnCompleteListener(task -> {
-                    // ...
+                    Intent intent = new Intent(this, SignInActivity.class);
+                    startActivity(intent);
+
                 });
         // [END auth_fui_delete]
     }
