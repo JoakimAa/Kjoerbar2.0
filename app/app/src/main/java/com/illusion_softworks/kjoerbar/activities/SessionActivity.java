@@ -1,8 +1,10 @@
-package com.illusion_softworks.kjoerbar;
+package com.illusion_softworks.kjoerbar.activities;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.illusion_softworks.kjoerbar.R;
 
 public class SessionActivity extends AppCompatActivity {
 

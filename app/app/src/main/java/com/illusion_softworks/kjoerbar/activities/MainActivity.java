@@ -1,4 +1,4 @@
-package com.illusion_softworks.kjoerbar;
+package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.illusion_softworks.kjoerbar.R;
 
 public class MainActivity extends AppCompatActivity {
 

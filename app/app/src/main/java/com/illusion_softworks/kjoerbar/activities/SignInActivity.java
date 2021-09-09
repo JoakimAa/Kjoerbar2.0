@@ -1,4 +1,4 @@
-package com.illusion_softworks.kjoerbar;
+package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.helpers.Datahandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +31,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Datahandler.populateData();
         createSignInIntent();
     }
 
@@ -41,8 +44,6 @@ public class SignInActivity extends AppCompatActivity {
         //     .setHandleCodeInApp(true) // This must be set to true
         //    .setUrl("https://google.com") // This URL needs to be whitelisted
         //   .build();
-
-
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder()
@@ -84,6 +85,7 @@ public class SignInActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), R.string.logged_in_as + user.getDisplayName(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
         }
         else {
             // Sign in failed
