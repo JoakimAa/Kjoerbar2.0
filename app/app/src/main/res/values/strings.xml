@@ -9,4 +9,13 @@
     <string name="logged_in_as">logged in as: </string>
     <string name="log_out">Log out</string>
 
+    <!-- Nav -->
+    <string name="settings">Settings</string>
+    <string name="friends">Friends</string>
+    <string name="map">Map</string>
+    <string name="sessions">Sessions</string>
+    <string name="alcohol_unit_catalog">Alcohol Catalog</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+
 </resources>

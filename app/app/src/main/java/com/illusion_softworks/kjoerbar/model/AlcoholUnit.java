@@ -1,9 +1,8 @@
 package com.illusion_softworks.kjoerbar.model;
 
 public class AlcoholUnit {
-    private String name, producer, category;
-    private double amount;
-    private double percent;
+    private final String name, producer, category;
+    private final double amount, percent;
 
     public AlcoholUnit(String name, String producer, String category, double percent, int amount) {
         this.name = name;
