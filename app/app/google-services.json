@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "947706501874-su4ovvbtu3ae9epoe72ponnant301e8o.apps.googleusercontent.com",
+          "client_id": "947706501874-9lcuncc9607buu3bcco9c1gbvitjr0fa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.illusion_softworks.kjoerbar",
+            "certificate_hash": "488e89c7ee4aadffcff1fa18ccecf0faad5165b8"
+          }
+        },
+        {
+          "client_id": "947706501874-e2nj7b0i01ri7cjugf00fggm7o4leqrt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.illusion_softworks.kjoerbar",
