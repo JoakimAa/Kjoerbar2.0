@@ -115,5 +115,7 @@ public class User {
         return alcoholUnitCatalog;
     }
 
-
+    public void addAlcoholUnitToCatalog(AlcoholUnit alcoholUnit) {
+        alcoholUnitCatalog.addAlcoholUnit(alcoholUnit);
+    }
 }
