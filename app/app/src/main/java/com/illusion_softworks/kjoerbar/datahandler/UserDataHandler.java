@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
 
-public class UserDatahandler {
+public class UserDataHandler {
     private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
 
     public static void addUserToFirestore(User user) {

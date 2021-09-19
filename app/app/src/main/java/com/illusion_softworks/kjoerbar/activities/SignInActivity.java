@@ -16,7 +16,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.UserDatahandler;
+import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.helpers.DummyData;
 
 import java.util.Arrays;
@@ -116,7 +116,7 @@ public class SignInActivity extends AppCompatActivity {
 
     public void delete() {
         // [START auth_fui_delete]
-        UserDatahandler.removeUserFromFirebase();
+        UserDataHandler.removeUserFromFirebase();
         AuthUI.getInstance()
                 .delete(this)
                 .addOnCompleteListener(task -> {
