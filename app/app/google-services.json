@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "947706501874",
+    "project_id": "kjoerbar2dot0",
+    "storage_bucket": "kjoerbar2dot0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947706501874:android:76801e9c90dc115c568e6b",
+        "android_client_info": {
+          "package_name": "com.illusion_softworks.kjoerbar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947706501874-su4ovvbtu3ae9epoe72ponnant301e8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.illusion_softworks.kjoerbar",
+            "certificate_hash": "635923b2c3dfe6a88ca0d0fa8b099dfc62280592"
+          }
+        },
+        {
+          "client_id": "947706501874-vt4c61q1hqup127vo5kqbaprmmq3d83j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoms6PaO5kK1GG8TPHd_InqVumrbyIGQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947706501874-vt4c61q1hqup127vo5kqbaprmmq3d83j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
