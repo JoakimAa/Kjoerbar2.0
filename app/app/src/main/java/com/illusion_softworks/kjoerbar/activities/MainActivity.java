@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,41 +29,63 @@ public class MainActivity extends AppCompatActivity {
     public ActionBarDrawerToggle actionBarDrawerToggle;
     Button btnLogout;
 
+    private FragmentManager supportFragmentManager;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setViews();
+        //setViews();
         //setDrawerMenu();
+
+        supportFragmentManager = getSupportFragmentManager();
+        navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment);
+        navController = navHostFragment.getNavController();
     }
 
-    private void setViews() {
-        btnLogout = findViewById(R.id.btnLogout);
+//    private void setViews() {
+//        btnLogout = findViewById(R.id.btnLogout);
+//
+//        //Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
+//        btnLogout.setOnClickListener(this::signOut);
+//
+//        /*btnNavMap.setOnClickListener(view -> {
+//            Intent intent = new Intent(view.getContext(), MapActivity.class);
+//            startActivity(intent);
+//        });*/
+//        /*btnNavFriends.setOnClickListener(view -> {
+//            Intent intent = new Intent(view.getContext(), FriendsActivity.class);
+//            startActivity(intent);
+//        });*/
+//
+//        drawerLayout = findViewById(R.id.my_drawer_layout);
+//    }
 
-        //Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_LONG).show();
-        btnLogout.setOnClickListener(this::signOut);
 
-        /*btnNavMap.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), MapActivity.class);
-            startActivity(intent);
-        });*/
-        /*btnNavFriends.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), FriendsActivity.class);
-            startActivity(intent);
-        });*/
+//    private void setDrawerMenu() {
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+//
+//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//        actionBarDrawerToggle.syncState();
+//
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//    }
 
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-    }
-
-
-    private void setDrawerMenu() {
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-    }
+//    public void signOut(View view) {
+//        // [START auth_fui_signout]
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        AuthUI.getInstance()
+//                .signOut(this)
+//                .addOnCompleteListener(task -> {
+//                    assert user != null;
+//                    //Toast.makeText(getApplicationContext(), user.getDisplayName() +" "+ R.string.logged_out, Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(view.getContext(), SignInActivity.class));
+//                    finish();
+//                });
+//        // [END auth_fui_signout]
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,17 +119,5 @@ public class MainActivity extends AppCompatActivity {
         //return super.onOptionsItemSelected(item);
    // }
 
-    public void signOut(View view) {
-        // [START auth_fui_signout]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    assert user != null;
-                    //Toast.makeText(getApplicationContext(), user.getDisplayName() +" "+ R.string.logged_out, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(view.getContext(), SignInActivity.class));
-                    finish();
-                });
-        // [END auth_fui_signout]
-    }
+
 }
