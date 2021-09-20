@@ -1,18 +1,26 @@
 package com.illusion_softworks.kjoerbar.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.google.firebase.database.Exclude;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Session {
-    UUID uuid = UUID.randomUUID();
+    /*UUID uuid = UUID.randomUUID();
     @Exclude
-    private String uid = uuid.toString();
+    private String uid = uuid.toString();*/
     private SessionLimit sessionLimit;
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender;
+    private final LocalDateTime startDateTime = LocalDateTime.now();
+    private LocalDateTime endDateTime;
 
     public Session() {}
 
@@ -21,18 +29,21 @@ public class Session {
         this.userGender = userGender;
     }
 
-    public Session(String uid, SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
-        this.uid = uid;
+    public Session(SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
+        this(userWeight, userGender);
         this.sessionLimit = sessionLimit;
         this.alcoholUnits = alcoholUnits;
-        this.userWeight = userWeight;
-        this.userGender = userGender;
     }
 
-    @Exclude
+    /*public Session(String uid, SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
+        this(sessionLimit, alcoholUnits, userWeight, userGender);
+        this.uid = uid;
+    }*/
+
+    /*@Exclude
     public String getUid() {
         return uid;
-    }
+    }*/
 
     public SessionLimit getSessionLimit() {
         return sessionLimit;
@@ -64,6 +75,22 @@ public class Session {
 
     public void setUserGender(String userGender) {
         this.userGender = userGender;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return startDateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 }
 
