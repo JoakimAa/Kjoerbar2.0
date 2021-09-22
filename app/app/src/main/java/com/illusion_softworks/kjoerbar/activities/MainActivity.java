@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 //        drawerLayout = findViewById(R.id.my_drawer_layout);
 //    }
 
-
 //    private void setDrawerMenu() {
 //        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 //
@@ -71,20 +70,6 @@ public class MainActivity extends AppCompatActivity {
 //        actionBarDrawerToggle.syncState();
 //
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-//    }
-
-//    public void signOut(View view) {
-//        // [START auth_fui_signout]
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        AuthUI.getInstance()
-//                .signOut(this)
-//                .addOnCompleteListener(task -> {
-//                    assert user != null;
-//                    //Toast.makeText(getApplicationContext(), user.getDisplayName() +" "+ R.string.logged_out, Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(view.getContext(), SignInActivity.class));
-//                    finish();
-//                });
-//        // [END auth_fui_signout]
 //    }
 
     @Override
@@ -99,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         //if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             int id = item.getItemId();
-            if (id == R.id.nav_sessions) {
-                Intent intent = new Intent(this, HistoryActivity.class);
+            if (id == R.id.nav_home) {
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 return true;
             }
@@ -114,10 +99,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent3);
                 return true;
             }
+            else if (id == R.id.nav_sessions) {
+                Intent intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            /*else if (id == R.id.nav_map) {
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.nav_friends) {
+                Intent intent = new Intent(view.getContext(), FriendsActivity.class);
+                startActivity(intent);
+            }*/
+
             return super.onOptionsItemSelected(item);
         }
         //return super.onOptionsItemSelected(item);
    // }
 
-
+    public void signOut(View view) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task -> {
+                    assert user != null;
+                    //Toast.makeText(getApplicationContext(), user.getDisplayName() +" "+ R.string.logged_out, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(view.getContext(), SignInActivity.class));
+                    finish();
+                });
+    }
 }

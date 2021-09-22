@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
@@ -16,7 +17,8 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.UserDatahandler;
+import com.illusion_softworks.kjoerbar.datahandler.AlcoholUnitCatalogDataHandler;
+import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.helpers.DummyData;
 
 import java.util.Arrays;
@@ -35,6 +37,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
+        AlcoholUnitCatalogDataHandler.getAlcoholUnitCatalog();
+        DummyData.addDataToFirestore();
         Log.d("SIGNIN", "Signin");
     }
 
@@ -80,23 +84,24 @@ public class SignInActivity extends AppCompatActivity {
         //}
     //}
 
-    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+    private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            DummyData.populateData();
-            Toast.makeText(getApplicationContext(), R.string.logged_in_as + user.getDisplayName(), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            Log.d("SIGNIN", "crash");
-
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            user = auth.getCurrentUser();
+            assert user != null;
+            Log.d("USER", user.toString());
+            if (auth.getCurrentUser() != null) {
+                Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                UserDataHandler.addAlcoholUnitsToCatalog(AlcoholUnitCatalogDataHandler.getAlcoholUnits());
+                startActivity(intent);
+            }
         }
         else {
             // Sign in failed
             if (response == null) {
-                // User pressed back button
-                //showSnackbar(R.string.sign_in_cancelled);
                 //Toast.makeText(getApplicationContext(), R.string.sign_in_failed, Toast.LENGTH_LONG).show();
                 Log.d("SIGNIN", "Signin failed");
                 return;
@@ -104,26 +109,19 @@ public class SignInActivity extends AppCompatActivity {
 
             if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
                 //Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_LONG).show();
-                //showSnackbar(R.string.no_internet_connection);
                 Log.d("SIGNIN", "No network");
                 return;
             }
-
-            //showSnackbar(R.string.unknown_error);
-            //Log.e(TAG, "Sign-in error: ", response.getError());
         }
     }
 
     public void delete() {
-        // [START auth_fui_delete]
-        UserDatahandler.removeUserFromFirebase();
+        UserDataHandler.removeUserFromFirebase();
         AuthUI.getInstance()
                 .delete(this)
                 .addOnCompleteListener(task -> {
                     Intent intent = new Intent(this, SignInActivity.class);
                     startActivity(intent);
-
                 });
-        // [END auth_fui_delete]
     }
 }

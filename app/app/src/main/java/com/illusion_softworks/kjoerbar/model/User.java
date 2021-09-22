@@ -10,12 +10,9 @@ public class User {
     private String gender, name;
     private Preferences preferences;
     private boolean isToSAccepted = false;
-    private SessionHistory sessionHistory;
     private Session currentSession;
-    private AlcoholUnitCatalog alcoholUnitCatalog = AlcoholUnitCatalogDataHandler.getAlcoholUnitCatalog();
 
-    public User() {
-    }
+    public User() { }
 
     public User(int weight, int height, int age, String gender, String name) {
         this.weight = weight;
@@ -91,18 +88,6 @@ public class User {
         isToSAccepted = toSAccepted;
     }
 
-    public SessionHistory getSessionHistory() {
-        return sessionHistory;
-    }
-
-    public void addSessionToHistory(Session session) {
-        sessionHistory.addSession(session);
-    }
-
-    public void removeSessionFromHistory(Session session) {
-        sessionHistory.removeSession(session);
-    }
-
     public Session getCurrentSession() {
         return currentSession;
     }
@@ -111,11 +96,4 @@ public class User {
         currentSession = session;
     }
 
-    public AlcoholUnitCatalog getAlcoholUnitCatalog() {
-        return alcoholUnitCatalog;
-    }
-
-    public void addAlcoholUnitToCatalog(AlcoholUnit alcoholUnit) {
-        alcoholUnitCatalog.addAlcoholUnit(alcoholUnit);
-    }
 }

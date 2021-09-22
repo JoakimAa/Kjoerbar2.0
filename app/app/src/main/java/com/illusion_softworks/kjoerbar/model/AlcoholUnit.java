@@ -1,15 +1,18 @@
 package com.illusion_softworks.kjoerbar.model;
 
 public class AlcoholUnit {
-    private final String name, producer, category;
-    private final double amount, percent;
+    private final String name, producer, category, amountType;
+    private final double amount, percent, gramAlcoholPerUnit;
 
-    public AlcoholUnit(String name, String producer, String category, double percent, int amount) {
+
+    public AlcoholUnit(String name, String producer, String category, String amountType, double amount, double percent, double gramAlcoholPerUnit) {
         this.name = name;
         this.producer = producer;
         this.category = category;
-        this.percent = percent;
+        this.amountType = amountType;
         this.amount = amount;
+        this.percent = percent;
+        this.gramAlcoholPerUnit = gramAlcoholPerUnit;
     }
 
     public String getName() {
@@ -24,11 +27,19 @@ public class AlcoholUnit {
         return category;
     }
 
-    public double getPercent() {
-        return percent;
+    public String getAmountType() {
+        return amountType;
     }
 
     public double getAmount() {
         return amount;
+    }
+
+    public double getPercent() {
+        return percent;
+    }
+
+    public double getGramAlcoholPerUnit() {
+        return gramAlcoholPerUnit;
     }
 }
