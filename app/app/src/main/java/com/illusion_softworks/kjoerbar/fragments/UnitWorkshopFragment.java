@@ -9,8 +9,6 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +48,8 @@ public class UnitWorkshopFragment extends Fragment {
     }
 
     private void addAlcoholUnitToCatalog(View view) {
-        AlcoholUnit greyGoose = new AlcoholUnit("Grey Goose", "Grey Goose", "Vodka", "cl", 4, 40.0, 12.6);
-        UserDataHandler.addAlcoholUnitToCatalog(greyGoose);
+        /*AlcoholUnit greyGoose = new AlcoholUnit("Grey Goose", "Grey Goose", "Vodka", "cl", 4, 40.0, 12.6);
+        UserDataHandler.addAlcoholUnitToCatalog(greyGoose);*/
     }
 
     @Override

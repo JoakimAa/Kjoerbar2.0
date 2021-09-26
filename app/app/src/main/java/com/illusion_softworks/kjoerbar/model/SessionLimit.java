@@ -3,7 +3,8 @@ package com.illusion_softworks.kjoerbar.model;
 import java.time.LocalDateTime;
 
 public class SessionLimit {
-    private int maxPerMill, maxAlcoholUnits;
+    private int maxAlcoholUnits;
+    private double maxPerMill;
     private LocalDateTime drivableAt;
 
     public SessionLimit(int maxPerMill, int maxAlcoholUnits, LocalDateTime drivableAt) {
@@ -12,11 +13,11 @@ public class SessionLimit {
         this.drivableAt = drivableAt;
     }
 
-    public int getMaxPerMill() {
+    public double getMaxPerMill() {
         return maxPerMill;
     }
 
-    public void setMaxPerMill(int maxPerMill) {
+    public void setMaxPerMill(double maxPerMill) {
         this.maxPerMill = maxPerMill;
     }
 

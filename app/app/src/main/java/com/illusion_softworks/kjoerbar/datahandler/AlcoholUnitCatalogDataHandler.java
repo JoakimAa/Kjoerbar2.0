@@ -10,7 +10,6 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.referencehandler.AlcoholUnitCatalogCollectionReferenceHandler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,15 +19,15 @@ public class AlcoholUnitCatalogDataHandler {
 
     public static void getAlcoholUnitCatalog() {
         alcoholUnitCatalogReference.get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Map<String, Object> mapAlcoholUnit = document.getData();
-                            addAlcoholUnitToArray(mapAlcoholUnit);
-                        }
-                    } else {
-                        Log.w("DATAHANDLER", "Error getting document", task.getException());
-                    }
-                });
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> mapAlcoholUnit = document.getData();
+                    addAlcoholUnitToArray(mapAlcoholUnit);
+                }
+            } else {
+                Log.w("DATAHANDLER", "Error getting document", task.getException());
+            }
+        });
     }
 
     private static void addAlcoholUnitToArray(Map<String, Object> mapAlcoholUnit) {
@@ -37,23 +36,21 @@ public class AlcoholUnitCatalogDataHandler {
                 Objects.requireNonNull(mapAlcoholUnit.get("producer")).toString(),
                 Objects.requireNonNull(mapAlcoholUnit.get("category")).toString(),
                 Objects.requireNonNull(mapAlcoholUnit.get("amountType")).toString(),
-                Double.parseDouble(Objects.requireNonNull(mapAlcoholUnit.get("amount")).toString()),
-                Double.parseDouble(Objects.requireNonNull(mapAlcoholUnit.get("percent")).toString()),
-                Double.parseDouble(Objects.requireNonNull(mapAlcoholUnit.get("gramAlcoholPerUnit")).toString())
-        );
-        Log.d("DATAHANDLER_ALCO", alcoholUnit.getName().toString());
+                Float.parseFloat(Objects.requireNonNull(mapAlcoholUnit.get("amount")).toString()),
+                Double.parseDouble(Objects.requireNonNull(mapAlcoholUnit.get("percent")).toString()));
+        Log.d("DATAHANDLER_ALCO", alcoholUnit.getName());
         alcoholUnits.add(alcoholUnit);
         Log.d("DATAHANDLER_RETURN_LOOP", alcoholUnits.toString());
     }
 
     public static void addAlcoholUnitsToCatalog(@NonNull ArrayList<AlcoholUnit> alcoholUnits) {
         for (AlcoholUnit alcoholUnit : alcoholUnits) {
-                addAlcoholUnitToCatalog(alcoholUnit);
+            addAlcoholUnitToCatalog(alcoholUnit);
         }
     }
 
     public static void addAlcoholUnitToCatalog(@NonNull AlcoholUnit alcoholUnit) {
-            alcoholUnitCatalogReference.document(alcoholUnit.getName())
+        alcoholUnitCatalogReference.document(alcoholUnit.getName())
                 .set(alcoholUnit)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));

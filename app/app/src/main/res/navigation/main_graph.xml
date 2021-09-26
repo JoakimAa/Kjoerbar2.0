@@ -38,7 +38,7 @@
         android:id="@+id/addDrinkFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.AddDrinkFragment"
         android:label="fragment_add_drink"
-        tools:layout="@layout/fragment_add_drink"></fragment>
+        tools:layout="@layout/fragment_add_drink" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.HistoryFragment"
@@ -60,7 +60,7 @@
         android:id="@+id/unitWorkshopFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.UnitWorkshopFragment"
         android:label="fragment_unit_workshop"
-        tools:layout="@layout/fragment_unit_workshop"></fragment>
+        tools:layout="@layout/fragment_unit_workshop" />
     <!--<fragment
     android:id="@+id/settingsFragment"
     android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"

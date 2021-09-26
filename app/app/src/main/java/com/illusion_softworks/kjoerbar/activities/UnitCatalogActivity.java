@@ -12,9 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.AlcoholUnitCatalogDataHandler;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 
 public class UnitCatalogActivity extends AppCompatActivity {
     private Button btnAddAlcoholUnit;
@@ -29,8 +26,8 @@ public class UnitCatalogActivity extends AppCompatActivity {
     }
 
     private void addAlcoholUnitToCatalog(View view) {
-        AlcoholUnit greyGoose = new AlcoholUnit("Grey Goose","Grey Goose", "Vodka", "cl", 4,40.0, 12.6);
-        UserDataHandler.addAlcoholUnitToCatalog(greyGoose);
+        /*AlcoholUnit greyGoose = new AlcoholUnit("Grey Goose","Grey Goose", "Vodka", "cl", 4,40.0, 12.6);
+        UserDataHandler.addAlcoholUnitToCatalog(greyGoose);*/
     }
 
     @Override

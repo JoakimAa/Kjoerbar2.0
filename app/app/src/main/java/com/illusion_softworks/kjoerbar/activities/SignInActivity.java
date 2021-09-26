@@ -37,7 +37,6 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         createSignInIntent();
         AlcoholUnitCatalogDataHandler.getAlcoholUnitCatalog();
-        //DummyData.addDataToFirestore();
         Log.d("SIGNIN", "Signin");
     }
 
