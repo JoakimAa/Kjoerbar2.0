@@ -1,14 +1,17 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +29,8 @@ public class SessionFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button navigationButton;
+    private BottomNavigationView bottomnavigation;
+    private MaterialButton addDrinkButton;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -64,16 +68,10 @@ public class SessionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
 
-        /*navigationButton = view.findViewById(R.id.navigate_to_friends_button);
+        addDrinkButton = view.findViewById(R.id.add_drinks_button);
+        addDrinkButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
 
-        navigationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("BRUH", "Navigation Button Clicked");
-                Navigation.findNavController(view).navigate(R.id.action_sessionFragment_to_friendsFragment);
-                Toast.makeText(getActivity(), "Bruh", Toast.LENGTH_LONG);
-            }
-        });*/
+        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
 
         return view;
     }

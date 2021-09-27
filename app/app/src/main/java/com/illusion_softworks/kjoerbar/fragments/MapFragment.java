@@ -6,31 +6,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
-public class FriendsFragment extends Fragment {
+public class MapFragment extends Fragment {
     private BottomNavigationView bottomnavigation;
 
-    public FriendsFragment() {
+    public MapFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_friends, container, false);
-        Log.d("BottomNavigation friends", String.valueOf(this.getId()));
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_friends_button);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        Log.d("BottomNavigation map", String.valueOf(this.getId()));
+        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_map_button);
+
         return view;
     }
 }

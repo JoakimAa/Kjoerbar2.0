@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +17,7 @@ import com.illusion_softworks.kjoerbar.R;
  * create an instance of this fragment.
  */
 public class UnitCatalogFragment extends Fragment {
+    private BottomNavigationView bottomnavigation;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +63,10 @@ public class UnitCatalogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_unit_catalog, container, false);
+        View view = inflater.inflate(R.layout.fragment_unit_catalog, container, false);
+
+        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
+
+        return view;
     }
 }

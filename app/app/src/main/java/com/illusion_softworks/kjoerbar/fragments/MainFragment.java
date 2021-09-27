@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.activities.SignInActivity;
+import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +34,8 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button bntNavToFriends, bntNavToHistory, bntNavToSession, bntNavToUnitCatalog, btnLogOut;
+    private Button bntNavToHistory, bntNavToUnitCatalog, btnLogOut;
+    private BottomNavigationView bottomnavigation;
 
     public MainFragment() {
         // Required empty public constructor
@@ -72,20 +75,19 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        bntNavToFriends = view.findViewById(R.id.navigate_to_friends_button);
         bntNavToHistory = view.findViewById(R.id.navigate_to_history_button);
-        bntNavToSession = view.findViewById(R.id.navigate_to_session_button);
         bntNavToUnitCatalog = view.findViewById(R.id.navigate_to_unit_catalog_button);
         btnLogOut = view.findViewById(R.id.btnLogOut);
 
-        bntNavToFriends.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_friendsFragment));
-        bntNavToHistory.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_historyFragment));
-        bntNavToSession.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_sessionFragment));
         bntNavToUnitCatalog.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_unitCatalogFragment));
+        bntNavToHistory.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_historyFragment));
         btnLogOut.setOnClickListener(this::signOut);
+
+        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
 
         return view;
     }
+
 
     public void signOut(View view) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
