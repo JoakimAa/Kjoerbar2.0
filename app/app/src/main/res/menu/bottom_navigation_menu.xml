@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:accessibilityPaneTitle="@string/navigate_to_session"
-        android:icon="@drawable/ic_round_local_bar_24"
+        android:icon="@drawable/ic_baseline_glass_mug_variant"
         android:title="@string/session" />
 
     <item

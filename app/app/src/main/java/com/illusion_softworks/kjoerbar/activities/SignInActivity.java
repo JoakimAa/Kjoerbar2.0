@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
-    FirebaseUser user;
+    private static FirebaseUser user;
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
@@ -111,6 +111,10 @@ public class SignInActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    public static FirebaseUser getUser() {
+        return user;
     }
 
     public void delete() {
