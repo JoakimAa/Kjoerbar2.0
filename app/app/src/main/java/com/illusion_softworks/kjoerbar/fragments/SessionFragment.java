@@ -68,7 +68,7 @@ public class SessionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
 
-        addDrinkButton = view.findViewById(R.id.add_drinks_button);
+        addDrinkButton = view.findViewById(R.id.add_beverage_button);
         addDrinkButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
 
         SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);

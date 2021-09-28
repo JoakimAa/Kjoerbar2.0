@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/username"
+        android:title="@string/username"
+        android:enabled="false"/>
 
     <item
         android:id="@+id/nav_home"
@@ -10,19 +14,10 @@
         android:title="@string/alcohol_unit_catalog" />
 
     <item
-        android:id="@+id/nav_sessions"
-        android:title="@string/sessions" />
+        android:id="@+id/nav_history"
+        android:title="@string/history" />
 
     <item
-        android:id="@+id/nav_map"
-        android:title="@string/map" />
-
-    <item
-        android:id="@+id/nav_friends"
-        android:title="@string/friends" />
-
-    <item
-        android:id="@+id/nav_settings"
-        android:title="@string/settings" />
-
+        android:id="@+id/log_out"
+        android:title="@string/log_out" />
 </menu>
