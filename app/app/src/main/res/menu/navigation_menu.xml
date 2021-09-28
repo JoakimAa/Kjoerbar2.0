@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group android:id="@+id/menu_top">
-        <item
-            android:id="@+id/username"
-            android:title="@string/username" />
-
-    </group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group
         android:id="@+id/menu_bottom"
-        android:checkableBehavior="none">
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:title="@string/home" />
@@ -24,10 +19,7 @@
             android:title="@string/history" />
     </group>
 
-    <group
-        android:id="@+id/logout">
-        <item
-            android:id="@+id/log_out"
-            android:title="@string/log_out" />
-    </group>
+    <item
+        android:id="@+id/log_out"
+        android:title="@string/log_out" />
 </menu>

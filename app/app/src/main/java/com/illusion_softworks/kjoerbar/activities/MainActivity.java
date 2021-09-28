@@ -2,23 +2,29 @@ package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    ActionBarDrawerToggle toggle;
+    private DrawerLayout drawer;
 
     private FragmentManager supportFragmentManager;
     private NavHostFragment navHostFragment;
@@ -33,37 +39,55 @@ public class MainActivity extends AppCompatActivity {
         navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment);
         assert navHostFragment != null;
         navController = navHostFragment.getNavController();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        NavigationView navigationView = findViewById(R.id.nav_viewer);
+        View headerView = navigationView.getHeaderView(0);
+        TextView username = headerView.findViewById(R.id.username);
+        username.setText(firebaseUser.getDisplayName());
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            Log.d("ITEM", String.valueOf(id));
+            if (id == R.id.nav_home) {
+                navController.navigate(R.id.action_global_mainFragment);
+            } else if (id == R.id.nav_alcohol_units_catalog) {
+                navController.navigate(R.id.action_global_unitCatalogFragment);
+            } else if (id == R.id.nav_history) {
+                navController.navigate(R.id.action_global_historyFragment);
+            } else if (id == R.id.log_out) {
+                signOut();
+            }
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
+        drawer = findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation_menu, menu);
-        menu.findItem(R.id.username).setTitle(firebaseUser.getDisplayName());
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
+
+   /* @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (toggle.onOptionsItemSelected(item))
+    {
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        //if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-        int id = item.getItemId();
-        if (id == R.id.nav_home) {
-            navController.navigate(R.id.action_global_mainFragment);
-            return true;
-        } else if (id == R.id.nav_alcohol_units_catalog) {
-            navController.navigate(R.id.action_global_unitCatalogFragment);
-            return true;
-        } else if (id == R.id.nav_history) {
-            navController.navigate(R.id.action_global_historyFragment);
-            return true;
-        } else if (id == R.id.log_out) {
-            signOut();
-            return true;
-        }
-            return super.onOptionsItemSelected(item);
-    }
+    return super.onOptionsItemSelected(item);
+    }*/
 
     public void signOut() {
         AuthUI.getInstance()

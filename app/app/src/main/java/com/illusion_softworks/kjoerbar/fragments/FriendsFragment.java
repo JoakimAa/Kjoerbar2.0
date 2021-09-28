@@ -22,7 +22,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        requireActivity().setTitle(getString(R.string.friends));
     }
 
     @Override

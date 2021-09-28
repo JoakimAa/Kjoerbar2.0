@@ -24,19 +24,8 @@ public class MainFragmentTest {
     }
 
     @Test
-    public void navigateToUnitCatalogButton() {
-        onView(withId(R.id.navigate_to_unit_catalog_button)).perform(click());
-        onView(withId(R.id.btnAddAlcoholUnit)).perform(click());
-    }
-
-    @Test
     public void navigateToFriendsButton() {
         onView(withId(R.id.navigate_to_friends_button)).perform(click());
-    }
-
-    @Test
-    public void navigateToHistoryButton() {
-        onView(withId(R.id.navigate_to_history_button)).perform(click());
     }
 
     @Test
