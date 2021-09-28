@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/username"
-        android:title="@string/username"
-        android:enabled="false"/>
 
-    <item
-        android:id="@+id/nav_home"
-        android:title="@string/home" />
+    <group android:id="@+id/menu_top">
+        <item
+            android:id="@+id/username"
+            android:title="@string/username" />
 
-    <item
-        android:id="@+id/nav_alcohol_units_catalog"
-        android:title="@string/alcohol_unit_catalog" />
+    </group>
 
-    <item
-        android:id="@+id/nav_history"
-        android:title="@string/history" />
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home" />
 
-    <item
-        android:id="@+id/log_out"
-        android:title="@string/log_out" />
+        <item
+            android:id="@+id/nav_alcohol_units_catalog"
+            android:title="@string/beverage_catalog" />
+
+        <item
+            android:id="@+id/nav_history"
+            android:title="@string/history" />
+    </group>
+
+    <group
+        android:id="@+id/logout">
+        <item
+            android:id="@+id/log_out"
+            android:title="@string/log_out" />
+    </group>
 </menu>

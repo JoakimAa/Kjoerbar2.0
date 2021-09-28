@@ -21,8 +21,8 @@ public class BeverageCatalogDataHandler {
         beverageCatalogReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Map<String, Object> mapAlcoholUnit = document.getData();
-                    addAlcoholUnitToArray(mapAlcoholUnit);
+                    Map<String, Object> mapBeverage = document.getData();
+                    addBeverageToArray(mapBeverage);
                 }
             } else {
                 Log.w("DATAHANDLER", "Error getting document", task.getException());
@@ -30,26 +30,26 @@ public class BeverageCatalogDataHandler {
         });
     }
 
-    private static void addAlcoholUnitToArray(Map<String, Object> mapAlcoholUnit) {
+    private static void addBeverageToArray(Map<String, Object> mapBeverage) {
         Beverage beverage = new Beverage(
-                Objects.requireNonNull(mapAlcoholUnit.get("name")).toString(),
-                Objects.requireNonNull(mapAlcoholUnit.get("producer")).toString(),
-                Objects.requireNonNull(mapAlcoholUnit.get("category")).toString(),
-                Objects.requireNonNull(mapAlcoholUnit.get("amountType")).toString(),
-                Float.parseFloat(Objects.requireNonNull(mapAlcoholUnit.get("amount")).toString()),
-                Double.parseDouble(Objects.requireNonNull(mapAlcoholUnit.get("percent")).toString()));
+                Objects.requireNonNull(mapBeverage.get("name")).toString(),
+                Objects.requireNonNull(mapBeverage.get("producer")).toString(),
+                Objects.requireNonNull(mapBeverage.get("category")).toString(),
+                Objects.requireNonNull(mapBeverage.get("amountType")).toString(),
+                Float.parseFloat(Objects.requireNonNull(mapBeverage.get("amount")).toString()),
+                Double.parseDouble(Objects.requireNonNull(mapBeverage.get("percent")).toString()));
         Log.d("DATAHANDLER_ALCO", beverage.getName());
         beverages.add(beverage);
         Log.d("DATAHANDLER_RETURN_LOOP", beverages.toString());
     }
 
-    public static void addAlcoholUnitsToCatalog(@NonNull ArrayList<Beverage> beverages) {
+    public static void addBeverageToCatalog(@NonNull ArrayList<Beverage> beverages) {
         for (Beverage beverage : beverages) {
-            addAlcoholUnitToCatalog(beverage);
+            addBeverageToCatalog(beverage);
         }
     }
 
-    public static void addAlcoholUnitToCatalog(@NonNull Beverage beverage) {
+    public static void addBeverageToCatalog(@NonNull Beverage beverage) {
         beverageCatalogReference.document(beverage.getName())
                 .set(beverage)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))

@@ -49,6 +49,7 @@
     <string name="add_drinks">Add drinks</string>
     <string name="username">Username</string>
     <string name="history">History</string>
+    <string name="beverage_catalog">Beverage Catalog</string>
 
 
 </resources>

@@ -30,7 +30,7 @@ public class SessionFragment extends Fragment {
     private String mParam2;
 
     private BottomNavigationView bottomnavigation;
-    private MaterialButton addDrinkButton;
+    private MaterialButton addAlcoholUnitButton;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -68,8 +68,8 @@ public class SessionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
 
-        addDrinkButton = view.findViewById(R.id.add_beverage_button);
-        addDrinkButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
+        addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
+        addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
 
         SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
 
