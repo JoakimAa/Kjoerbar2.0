@@ -6,7 +6,47 @@
     <string name="sign_in_failed">Sign in failed</string>
     <string name="no_network">No network</string>
     <string name="logged_out">has been logged out</string>
-    <string name="logged_in_as">logged in as: </string>
+    <string name="logged_in_as">Logged in as:&#160;</string>
     <string name="log_out">Log out</string>
+    <string name="add_alcohol_unit">Add alcohol unit</string>
+
+    <!-- Nav -->
+    <string name="settings">Settings</string>
+    <string name="friends">Friends</string>
+    <string name="map">Map</string>
+    <string name="sessions">Sessions</string>
+    <string name="alcohol_unit_catalog">Alcohol Catalog</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="home">Home</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigate_to_friends">Navigate To Friends</string>
+    <string name="you_are_in_the_session_fragment">You are in the session fragment</string>
+    <string name="you_are_in_the_friends_fragment">You are in the friends fragment</string>
+    <string name="you_are_in_the_main_fragment">You are in the main fragment</string>
+    <string name="navigate_to_history">Navigate to history</string>
+    <string name="navigate_to_session">Navigate to session</string>
+    <string name="navigate_to_unit_catalog">Navigate to Alcohol catalog</string>
+    <string name="navigate_to_map">Navigate to map</string>
+    <string name="session">Session</string>
+    <string name="you_are_in_the_map_fragment">You are in the map fragment</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="hello_unit_catalog_fragment">Hello unit catalog fragment</string>
+    <string name="add_drinks">Add drinks</string>
+
 
 </resources>
