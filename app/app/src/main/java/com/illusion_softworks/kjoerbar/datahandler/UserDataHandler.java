@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class UserDataHandler {
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
-    private static User user = new User(0, 0, 0, "", "");
+    private static User user;
 
     public static void updateUserDocumentReference() {
         UserDataHandler.userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
@@ -67,6 +67,7 @@ public class UserDataHandler {
     }
 
     public static void getUserData() {
+        updateUserDocumentReference();
         userDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -80,7 +81,7 @@ public class UserDataHandler {
                                 Integer.parseInt(document.getData().get("age").toString()),
                                 document.getData().get("gender").toString(),
                                 document.getData().get("username").toString());
-                        Log.d("Current user userdatahandler", user.toString());
+                        Log.d("Current user user datahandler", user.toString());
 
                     } else {
                         Log.d("DATAHANDLER", "No such document");

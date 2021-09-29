@@ -67,8 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
-            UserDataHandler.getUserData();
+            UserDataHandler.updateUserDocumentReference();
 
             fullNamePreference = findPreference("full_name");
             usernamePreference = findPreference("username");
@@ -77,30 +76,29 @@ public class SettingsActivity extends AppCompatActivity {
             weightPreference = findPreference("weight");
             genderPreference = findPreference("gender");
 
+            clearFields();
+
             assert agePreference != null;
             agePreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
             assert heightPreference != null;
             heightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
             assert weightPreference != null;
             weightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
-            currentUser = UserDataHandler.getUser();
-            Log.d("Current user", currentUser.toString());
 
             if (SignInActivity.getResponse().isNewUser()) {
-                UserDataHandler.addUserToFirestore(currentUser);
+                fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName() == null ? "" : LocalFirebaseUser.getFirebaseUser().getDisplayName());
+                UserDataHandler.addUserToFirestore(new User());
+                UserDataHandler.updateUserDocumentReference();
+            } else {
+                currentUser = UserDataHandler.getUser();
+                Log.d("Current user", currentUser.toString());
+                setTextFields();
             }
 
-            setTextFields();
 
             Preference.OnPreferenceChangeListener changeListener = (preference, newValue) -> {
-                /*if (SignInActivity.getResponse().isNewUser()) {
-                    createUser();
-                    UserDataHandler.addUserToFirestore(user);
-                }
-                else {*/
                 mapUser.put(preference.getKey(), newValue);
                 UserDataHandler.updateUserOnFireStore(mapUser);
-                //}
                 return true;
             };
 
@@ -122,6 +120,14 @@ public class SettingsActivity extends AppCompatActivity {
             heightPreference.setOnPreferenceChangeListener(changeListener);
             weightPreference.setOnPreferenceChangeListener(changeListener);
             genderPreference.setOnPreferenceChangeListener(changeListener);
+        }
+
+        private void clearFields() {
+            usernamePreference.setText("");
+            agePreference.setText("");
+            heightPreference.setText("");
+            weightPreference.setText("");
+            genderPreference.setValue("");
         }
 
         private void setTextFields() {

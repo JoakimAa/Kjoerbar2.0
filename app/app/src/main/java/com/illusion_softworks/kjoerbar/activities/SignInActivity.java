@@ -71,7 +71,6 @@ public class SignInActivity extends AppCompatActivity {
             // Successfully signed in
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             LocalFirebaseUser.setFirebaseUser(firebaseUser);
-            UserDataHandler.updateUserDocumentReference();
             Log.d("New user signin", String.valueOf(firebaseUser));
             assert firebaseUser != null;
             Log.d("USER", firebaseUser.toString());
@@ -79,9 +78,12 @@ public class SignInActivity extends AppCompatActivity {
             Log.d("New user signin", String.valueOf(response));
             if (response.isNewUser()) {
                 UserDataHandler.addAlcoholUnitsToCatalog(BeverageCatalogDataHandler.getAlcoholUnits());
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                Intent intent2 = new Intent(this, SettingsActivity.class);
+                startActivity(intent2);
             } else {
+                UserDataHandler.getUserData();
                 Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
