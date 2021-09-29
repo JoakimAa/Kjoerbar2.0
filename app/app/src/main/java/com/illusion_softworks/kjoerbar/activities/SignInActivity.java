@@ -59,8 +59,8 @@ public class SignInActivity extends AppCompatActivity {
                 .setTosAndPrivacyPolicyUrls(
                         "https://example.com/terms.html",
                         "https://example.com/privacy.html")
-                //.setLogo(R.drawable.my_great_logo)      // Set logo drawable
-                //.setTheme(R.style.MySuperAppTheme)      // Set theme
+                .setLogo(R.drawable.ic_baseline_glass_mug_variant)      // Set logo drawable
+                .setTheme(R.style.Theme_Kjoerbar_Login)      // Set theme
                 .build();
         signInLauncher.launch(signInIntent);
     }

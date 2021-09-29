@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/highlight_color.xml" value="0.43802083333333336" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.4375" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/ic_baseline_add_circle_50.xml" value="0.4375" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/ic_baseline_add_circle_80.xml" value="0.4375" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/ic_baseline_add_circle_white_50.xml" value="0.4375" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/ic_baseline_place_24.xml" value="0.4375" />
+        <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/nav_item_drawable.xml" value="0.43802083333333336" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/drawable/roundedbutton.xml" value="0.5703125" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/layout/activity_add_drink.xml" value="0.18703703703703703" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar/app/app/src/main/res/layout/activity_history.xml" value="0.18703703703703703" />
