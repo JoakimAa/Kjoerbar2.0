@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.DocumentReference;
-import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
@@ -44,16 +44,16 @@ public class UserDataHandler {
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
-    public static void addAlcoholUnitToCatalog(@NonNull AlcoholUnit alcoholUnit) {
-        userDocumentReference.collection("alcoholUnitCatalog").document(alcoholUnit.getName())
-                .set(alcoholUnit)
+    public static void addAlcoholUnitToCatalog(@NonNull Beverage beverage) {
+        userDocumentReference.collection("alcoholUnitCatalog").document(beverage.getName())
+                .set(beverage)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
-    public static void addAlcoholUnitsToCatalog(@NonNull ArrayList<AlcoholUnit> alcoholUnits) {
-        for (AlcoholUnit alcoholUnit : alcoholUnits) {
-                addAlcoholUnitToCatalog(alcoholUnit);
+    public static void addAlcoholUnitsToCatalog(@NonNull ArrayList<Beverage> beverages) {
+        for (Beverage beverage : beverages) {
+                addAlcoholUnitToCatalog(beverage);
         }
     }
 }

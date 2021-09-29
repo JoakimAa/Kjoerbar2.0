@@ -10,32 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kjoerbar">
         <activity
-            android:name=".activities.AddDrinkActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.HistoryActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.UnitWorkshopActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.UnitCatalogActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.SessionActivity"
-            android:exported="true" />
-        <activity
             android:name=".activities.MainActivity"
-            android:exported="true" />
-        <!-- Main Activity set for launcher while making the GUI
-        Changed it back, change activity in run configuration-->
-        <!--<intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>-->
+            android:exported="true"
+            android:theme="@style/Theme.Kjoerbar.NoActionBar" />
         <activity
             android:name=".activities.SignInActivity"
             android:exported="true">

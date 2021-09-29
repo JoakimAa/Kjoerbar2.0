@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 class AlcoholUnitTest {
 
-    private AlcoholUnit alcoholUnitUnderTest;
+    private Beverage beverageUnderTest;
 
     @BeforeEach
     void setUp() {
-        alcoholUnitUnderTest = new AlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0);
+        beverageUnderTest = new Beverage("name", "producer", "category", "amountType", 0.0, 0.0);
     }
 
     @Test
     void testGetName() {
-        assertEquals(alcoholUnitUnderTest.getName(), "name");
+        assertEquals(beverageUnderTest.getName(), "name");
     }
 }

@@ -17,7 +17,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.AlcoholUnitCatalogDataHandler;
+import com.illusion_softworks.kjoerbar.datahandler.BeverageCatalogDataHandler;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 
 import java.util.Arrays;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
-    FirebaseUser user;
+    private static FirebaseUser user;
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
-        AlcoholUnitCatalogDataHandler.getAlcoholUnitCatalog();
+        BeverageCatalogDataHandler.getAlcoholUnitCatalog();
         Log.d("SIGNIN", "Signin");
     }
 
@@ -93,7 +93,7 @@ public class SignInActivity extends AppCompatActivity {
             if (auth.getCurrentUser() != null) {
                 Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + user.getDisplayName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
-                UserDataHandler.addAlcoholUnitsToCatalog(AlcoholUnitCatalogDataHandler.getAlcoholUnits());
+                UserDataHandler.addAlcoholUnitsToCatalog(BeverageCatalogDataHandler.getAlcoholUnits());
                 startActivity(intent);
             }
         }
@@ -111,6 +111,10 @@ public class SignInActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    public static FirebaseUser getUser() {
+        return user;
     }
 
     public void delete() {

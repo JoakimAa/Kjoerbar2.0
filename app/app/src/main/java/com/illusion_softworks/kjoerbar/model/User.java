@@ -1,7 +1,6 @@
 package com.illusion_softworks.kjoerbar.model;
 
 import com.google.firebase.firestore.Exclude;
-import com.illusion_softworks.kjoerbar.datahandler.AlcoholUnitCatalogDataHandler;
 
 public class User {
     @Exclude
