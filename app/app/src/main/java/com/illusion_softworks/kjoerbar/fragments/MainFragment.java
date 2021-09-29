@@ -68,7 +68,7 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
+//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
 
         return view;
     }

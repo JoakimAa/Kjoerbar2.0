@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/sessionFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -67,36 +67,36 @@
         android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
-    <action
-        android:id="@+id/action_global_friendsFragment"
-        app:destination="@id/friendsFragment"
-        app:launchSingleTop="true"
-        app:popUpTo="@id/friendsFragment" />
-    <action
-        android:id="@+id/action_global_sessionFragment"
-        app:destination="@id/sessionFragment"
-        app:launchSingleTop="true"
-        app:popUpTo="@id/sessionFragment" />
-    <action
-        android:id="@+id/action_global_mapFragment"
-        app:destination="@id/mapFragment"
-        app:launchSingleTop="true"
-        app:popUpTo="@id/mapFragment" />
-    <action
-        android:id="@+id/action_global_unitCatalogFragment"
-        app:destination="@id/unitCatalogFragment"
-        app:popUpTo="@id/unitCatalogFragment"
-        app:launchSingleTop="true" />
-    <action
-        android:id="@+id/action_global_mainFragment"
-        app:destination="@id/mainFragment"
-        app:popUpTo="@id/mainFragment"
-        app:launchSingleTop="true" />
-    <action
-        android:id="@+id/action_global_historyFragment"
-        app:destination="@id/historyFragment"
-        app:popUpTo="@id/historyFragment"
-        app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_global_friendsFragment"
+            app:destination="@id/friendsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/friendsFragment" />
+        <action
+            android:id="@+id/action_global_sessionFragment"
+            app:destination="@id/sessionFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sessionFragment" />
+        <action
+            android:id="@+id/action_global_mapFragment"
+            app:destination="@id/mapFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mapFragment" />
+        <action
+            android:id="@+id/action_global_unitCatalogFragment"
+            app:destination="@id/unitCatalogFragment"
+            app:popUpTo="@id/unitCatalogFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_global_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_global_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/historyFragment"
+            app:launchSingleTop="true" />
     <!--<fragment
     android:id="@+id/settingsFragment"
     android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"

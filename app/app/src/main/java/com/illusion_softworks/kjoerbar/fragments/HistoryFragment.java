@@ -66,7 +66,7 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
+//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
 
         return view;
     }

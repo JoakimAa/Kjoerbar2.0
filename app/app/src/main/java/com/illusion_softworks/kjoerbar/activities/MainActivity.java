@@ -13,9 +13,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,13 +35,22 @@ public class MainActivity extends AppCompatActivity {
     private NavHostFragment navHostFragment;
     private NavController navController;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setFragmentNavigation();
-        setNavigationView();
+//        setNavigationView();
+        setNavigation();
         toolBarAndDrawer();
+    }
+
+    private void setNavigation() {
+//        NavController controller = Navigation.findNavController(this, R.id.main_nav_host_fragment);
+
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        NavigationUI.setupWithNavController(bottomNavigation, navController);
     }
 
     private void toolBarAndDrawer() {

@@ -72,7 +72,7 @@ public class SessionFragment extends Fragment {
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
 
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
+//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
 
         return view;
     }
