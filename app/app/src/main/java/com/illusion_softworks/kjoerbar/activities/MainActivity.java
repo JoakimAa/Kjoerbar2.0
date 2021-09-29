@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -38,16 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setFragmentNavigation();
         setNavigationView();
-        toolBarAndDrawer();
-    }
-
-    private void toolBarAndDrawer() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        setToolBarAndDrawer();
     }
 
     private void setFragmentNavigation() {
@@ -56,12 +48,11 @@ public class MainActivity extends AppCompatActivity {
         assert navHostFragment != null;
         navController = navHostFragment.getNavController();
     }
-
     private void setNavigationView() {
         NavigationView navigationView = findViewById(R.id.nav_viewer);
         View headerView = navigationView.getHeaderView(0);
         username = headerView.findViewById(R.id.username);
-        username.setText(SignInActivity.getUser().getDisplayName());
+        username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -72,12 +63,24 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_global_unitCatalogFragment);
             } else if (id == R.id.nav_history) {
                 navController.navigate(R.id.action_global_historyFragment);
+            } else if (id == R.id.nav_settings) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
             } else if (id == R.id.log_out) {
                 signOut();
             }
             drawer.closeDrawer(GravityCompat.START);
             return true;
         });
+    }
+
+    private void setToolBarAndDrawer() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
     @Override
