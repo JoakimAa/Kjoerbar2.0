@@ -3,22 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
-
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_unitCatalogFragment"
-            app:destination="@id/unitCatalogFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left" />
-        <action
-            android:id="@+id/action_mainFragment_to_historyFragment"
-            app:destination="@id/historyFragment" />
-    </fragment>
+    app:startDestination="@id/sessionFragment">
 
     <fragment
         android:id="@+id/friendsFragment"
@@ -30,73 +15,21 @@
         android:id="@+id/sessionFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
         android:label="fragment_session"
-        tools:layout="@layout/fragment_session" />
-
-    <fragment
-        android:id="@+id/addDrinkFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
-        android:label="fragment_add_drink"
-        tools:layout="@layout/fragment_add_drink" />
-    <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.HistoryFragment"
-        android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
-
-    <fragment
-        android:id="@+id/unitCatalogFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.UnitCatalogFragment"
-        android:label="fragment_unit_catalog"
-        tools:layout="@layout/fragment_unit_catalog">
+        tools:layout="@layout/fragment_session" >
         <action
-            android:id="@+id/action_unitCatalogFragment_to_addDrinkFragment"
-            app:destination="@id/addDrinkFragment" />
-        <action
-            android:id="@+id/action_unitCatalogFragment_to_unitWorkshopFragment"
-            app:destination="@id/unitWorkshopFragment" />
+            android:id="@+id/action_sessionFragment_to_mapFragment2"
+            app:destination="@id/mapFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/unitWorkshopFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.UnitWorkshopFragment"
-        android:label="fragment_unit_workshop"
-        tools:layout="@layout/fragment_unit_workshop" />
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
         <action
-            android:id="@+id/action_global_friendsFragment"
-            app:destination="@id/friendsFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/friendsFragment" />
-        <action
-            android:id="@+id/action_global_sessionFragment"
-            app:destination="@id/sessionFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/sessionFragment" />
-        <action
-            android:id="@+id/action_global_mapFragment"
-            app:destination="@id/mapFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/mapFragment" />
-        <action
-            android:id="@+id/action_global_unitCatalogFragment"
-            app:destination="@id/unitCatalogFragment"
-            app:popUpTo="@id/unitCatalogFragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_global_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/mainFragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_global_historyFragment"
-            app:destination="@id/historyFragment"
-            app:popUpTo="@id/historyFragment"
-            app:launchSingleTop="true" />
+            android:id="@+id/action_mapFragment_to_friendsFragment2"
+            app:destination="@id/friendsFragment" />
+    </fragment>
     <!--<fragment
     android:id="@+id/settingsFragment"
     android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"

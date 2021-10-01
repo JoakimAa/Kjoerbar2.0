@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigate_to_map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:showAsAction="always"
+        android:orderInCategory="1"
         android:accessibilityPaneTitle="@string/navigate_to_map"
         android:icon="@drawable/ic_baseline_place_24"
         android:title="@string/map" />
@@ -12,6 +16,8 @@
         android:id="@+id/navigate_to_session_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:showAsAction="always"
+        android:orderInCategory="2"
         android:accessibilityPaneTitle="@string/navigate_to_session"
         android:icon="@drawable/ic_baseline_glass_mug_variant"
         android:title="@string/session" />
@@ -20,11 +26,10 @@
         android:id="@+id/navigate_to_friends_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:showAsAction="always"
+        android:orderInCategory="3"
         android:accessibilityPaneTitle="@string/navigate_to_friends"
         android:icon="@drawable/ic_sharp_people_alt_24"
         android:title="@string/friends" />
 
-    <item
-        android:id="@+id/invisible"
-        android:visible="false" />
 </menu>

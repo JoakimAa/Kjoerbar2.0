@@ -6,23 +6,24 @@ public class User {
     @Exclude
     private String uid;
     private int weight, height, age;
-    private String gender, name;
+    private String gender, username;
     private Preferences preferences;
     private boolean isToSAccepted = false;
     private Session currentSession;
 
-    public User() { }
+    public User() {
+    }
 
-    public User(int weight, int height, int age, String gender, String name) {
+    public User(int weight, int height, int age, String gender, String username) {
         this.weight = weight;
         this.height = height;
         this.age = age;
         this.gender = gender;
-        this.name = name;
+        this.username = username;
     }
 
-    public User(String uid, int weight, int height, int age, String gender, String name) {
-        this(weight, height, age, gender, name);
+    public User(String uid, int weight, int height, int age, String gender, String username) {
+        this(weight, height, age, gender, username);
         this.uid = uid;
     }
 
@@ -63,12 +64,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Preferences getPreferences() {
