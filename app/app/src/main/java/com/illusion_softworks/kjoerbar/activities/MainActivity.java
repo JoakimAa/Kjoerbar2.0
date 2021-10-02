@@ -31,32 +31,33 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView username;
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setNavigation();
-        toolBarAndDrawer();
+        //toolBarAndDrawer();
     }
 
     public void setNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
-
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
-        NavigationUI.setupWithNavController(bottomNavigation, controller);
+        NavigationUI.setupWithNavController(bottomNav, controller);
     }
 
-    private void toolBarAndDrawer() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        //setNavigationView();
-        setToolBarAndDrawer();
-    }
+//    private void toolBarAndDrawer() {
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        drawer = findViewById(R.id.drawer_layout);
+//        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//        //setNavigationView();
+//        setToolBarAndDrawer();
+//    }
 
 //    private void setFragmentNavigation() {
 //        FragmentManager supportFragmentManager;
@@ -94,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-    private void setToolBarAndDrawer() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-    }
+//    private void setToolBarAndDrawer() {
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        drawer = findViewById(R.id.drawer_layout);
+//        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//    }
 
     @Override
     public void onBackPressed() {

@@ -6,34 +6,26 @@
     app:startDestination="@id/sessionFragment">
 
     <fragment
-        android:id="@+id/friendsFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
-        android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
-
-    <fragment
         android:id="@+id/sessionFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
         android:label="fragment_session"
         tools:layout="@layout/fragment_session" >
         <action
-            android:id="@+id/action_sessionFragment_to_mapFragment2"
+            android:id="@+id/action_sessionFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
-            android:id="@+id/action_mapFragment_to_friendsFragment2"
+            android:id="@+id/action_mapFragment_to_friendsFragment"
             app:destination="@id/friendsFragment" />
     </fragment>
-    <!--<fragment
-    android:id="@+id/settingsFragment"
-    android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"
-    android:label="fragment_settings"
-    tools:layout="@layout/fragment_unit_workshop" >
-    </fragment>-->
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
 </navigation>

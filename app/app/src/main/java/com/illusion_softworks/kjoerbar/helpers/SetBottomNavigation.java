@@ -10,9 +10,9 @@ import com.illusion_softworks.kjoerbar.R;
 
 public class SetBottomNavigation {
     public static void setBottomNavigation(View view, Fragment fragment, BottomNavigationView bottomnavigation, int itemId) {
-        bottomnavigation = view.findViewById(R.id.bottom_navigation);
-        bottomnavigation.setSelectedItemId(itemId == -1 ? R.id.invisible : itemId);
-        bottomnavigation.setOnItemSelectedListener(item -> {
+//        bottomnavigation = view.findViewById(R.id.bottom_navigation);
+//        bottomnavigation.setSelectedItemId(itemId == -1 ? R.id.invisible : itemId);
+//        bottomnavigation.setOnItemSelectedListener(item -> {
 //            int id = item.getItemId();
 //            if (id == R.id.navigate_to_session_button) {
 //                item.setChecked(true);
@@ -26,8 +26,8 @@ public class SetBottomNavigation {
 //                item.setChecked(true);
 //                NavHostFragment.findNavController(fragment).navigate(R.id.action_global_mapFragment);
 //            }
-
-            return true;
-        });
+//
+//            return true;
+//        });
     }
 }
