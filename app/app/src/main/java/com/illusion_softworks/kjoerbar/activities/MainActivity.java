@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,9 +23,10 @@ import com.illusion_softworks.kjoerbar.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private ActionBarDrawerToggle toggle;
-    private DrawerLayout drawer;
-    private Toolbar toolbar;
+//    private ActionBarDrawerToggle toggle;
+//    private DrawerLayout drawer;
+//    private Toolbar toolbar;
+    private AppBarConfiguration appBarConfiguration;
     private TextView username;
 
     @Override
@@ -45,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNavigationDrawer() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.fragment_friends)
+                .setOpenableLayout(drawerLayout)
+                .build();
+
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
 
         NavigationView navView = findViewById(R.id.nav_view);
@@ -107,12 +118,19 @@ public class MainActivity extends AppCompatActivity {
 //        toggle.syncState();
 //    }
 
+
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START))
-            drawer.closeDrawer(GravityCompat.START);
-        else super.onBackPressed();
+    public boolean onSupportNavigateUp() {
+        NavController controller = Navigation.findNavController(this, R.id.nav_host);
+        return NavigationUI.navigateUp(controller, appBarConfiguration) || super.onSupportNavigateUp();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (drawer.isDrawerOpen(GravityCompat.START))
+//            drawer.closeDrawer(GravityCompat.START);
+//        else super.onBackPressed();
+//    }
 
     public void signOut() {
         AuthUI.getInstance()

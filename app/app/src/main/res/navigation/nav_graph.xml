@@ -28,4 +28,9 @@
         android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/unitCatalogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.UnitCatalogFragment"
+        android:label="fragment_unit_catalog"
+        tools:layout="@layout/fragment_unit_catalog" />
 </navigation>
