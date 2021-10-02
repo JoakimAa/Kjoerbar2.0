@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 public class MapFragment extends Fragment {
     private BottomNavigationView bottomnavigation;

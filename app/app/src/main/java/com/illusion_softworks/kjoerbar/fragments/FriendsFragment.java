@@ -1,7 +1,6 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 public class FriendsFragment extends Fragment {
     private BottomNavigationView bottomnavigation;

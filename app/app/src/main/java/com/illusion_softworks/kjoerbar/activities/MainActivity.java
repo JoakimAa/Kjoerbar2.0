@@ -2,7 +2,6 @@ package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,7 +19,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -31,21 +27,28 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView username;
 
-    BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setNavigation();
+        setBottomNavigation();
+        setNavigationDrawer();
         //toolBarAndDrawer();
     }
 
-    public void setNavigation() {
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+    public void setBottomNavigation() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNav, controller);
+    }
+
+    private void setNavigationDrawer() {
+        NavController controller = Navigation.findNavController(this, R.id.nav_host);
+
+        NavigationView navView = findViewById(R.id.nav_view);
+        NavigationUI.setupWithNavController(navView, controller);
     }
 
 //    private void toolBarAndDrawer() {

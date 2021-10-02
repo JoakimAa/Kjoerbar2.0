@@ -52,13 +52,14 @@
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
 
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -70,16 +71,13 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
 
-    <!--
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_viewer"
+        android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:visibility="gone"
         app:theme="@style/ThemeOverlay.AppCompat.navTheme"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/navigation_menu" />
-        -->
+        app:menu="@menu/menu_drawer_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
