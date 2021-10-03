@@ -2,6 +2,7 @@ package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,7 +61,15 @@ public class MainActivity extends AppCompatActivity {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
 
         NavigationView navView = findViewById(R.id.nav_view);
+        setDrawerInfo(navView);
+
         NavigationUI.setupWithNavController(navView, controller);
+    }
+
+    private void setDrawerInfo(NavigationView navView) {
+        View headerView = navView.getHeaderView(0);
+        username = headerView.findViewById(R.id.username);
+        username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
     }
 
 //    private void toolBarAndDrawer() {
