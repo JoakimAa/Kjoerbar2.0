@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
 
         NavigationView navView = findViewById(R.id.nav_view);
-        setDrawerInfo(navView);
+        //setDrawerInfo(navView);
 
         NavigationUI.setupWithNavController(navView, controller);
     }
