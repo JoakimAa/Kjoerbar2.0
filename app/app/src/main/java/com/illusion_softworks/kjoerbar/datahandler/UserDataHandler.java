@@ -15,6 +15,7 @@ import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHan
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserDataHandler {
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
@@ -76,11 +77,12 @@ public class UserDataHandler {
                     if (document.exists()) {
                         Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
                         user = new User(
-                                Integer.parseInt(document.getData().get("weight").toString()),
-                                Integer.parseInt(document.getData().get("height").toString()),
-                                Integer.parseInt(document.getData().get("age").toString()),
-                                document.getData().get("gender").toString(),
-                                document.getData().get("username").toString());
+                                Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("weight")).toString()),
+                                Integer.parseInt(Objects.requireNonNull(document.getData().get("height")).toString()),
+                                Integer.parseInt(Objects.requireNonNull(document.getData().get("age")).toString()),
+                                Objects.requireNonNull(document.getData().get("gender")).toString(),
+                                Objects.requireNonNull(document.getData().get("username")).toString());
+
                         Log.d("Current user user datahandler", user.toString());
 
                     } else {
@@ -94,6 +96,7 @@ public class UserDataHandler {
     }
 
     public static User getUser() {
+        if (user != null)
         Log.d("Current user get", user.toString());
         return user;
     }
