@@ -93,10 +93,11 @@ public class SettingsActivity extends AppCompatActivity {
                 fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
                 if (UserDataHandler.getUser() == null) {
                     Log.d("USERISNULL", "User is null");
-                    UserDataHandler.addUserToFirestore(new User());
+                    UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
                 } else {
                     Log.d("USERISNULL", "User is not null");
                     currentUser = UserDataHandler.getUser();
+                    Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
                     setTextFields();
                 }
             } else {
@@ -144,10 +145,10 @@ public class SettingsActivity extends AppCompatActivity {
 
             fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
             usernamePreference.setText(currentUser.getUsername());
-            agePreference.setText(String.valueOf(currentUser.getAge()));
-            heightPreference.setText(String.valueOf(currentUser.getHeight()));
-            weightPreference.setText(String.valueOf(currentUser.getWeight()));
             genderPreference.setValue(currentUser.getGender());
+            agePreference.setText(String.valueOf(currentUser.getAge() != 0 ? currentUser.getAge() : ""));
+            heightPreference.setText(String.valueOf(currentUser.getHeight() != 0 ? currentUser.getHeight() : ""));
+            weightPreference.setText(String.valueOf(currentUser.getWeight() != 0 ? currentUser.getWeight() : ""));
         }
 
         private boolean isRequiredFieldsValid() {

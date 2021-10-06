@@ -43,7 +43,7 @@ public class UserDataHandler {
         for (Map.Entry<String, Object> entry : user.entrySet())
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
-                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully updated!"))
+                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey().toString(), entry.getValue().toString())))
                     .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
@@ -76,12 +76,16 @@ public class UserDataHandler {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
-                        user = new User(
-                                Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("weight")).toString()),
-                                Integer.parseInt(Objects.requireNonNull(document.getData().get("height")).toString()),
-                                Integer.parseInt(Objects.requireNonNull(document.getData().get("age")).toString()),
-                                Objects.requireNonNull(document.getData().get("gender")).toString(),
-                                Objects.requireNonNull(document.getData().get("username")).toString());
+
+                        String username = Objects.requireNonNull(document.getData()).get("username") != null ? Objects.requireNonNull(document.getData().get("username")).toString() : "";
+                        String gender = Objects.requireNonNull(document.getData()).get("gender") != null ? Objects.requireNonNull(document.getData().get("gender")).toString() : "";
+                        int age = !Objects.equals(document.getData().get("age"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("age")).toString()) : 0;
+                        int weight = !Objects.equals(document.getData().get("weight"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("weight")).toString()) : 0;
+                        int height = !Objects.equals(document.getData().get("height"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("height")).toString()) : 0;
+
+
+                        user = new User(weight, height, age, gender, username);
+
 
                         Log.d("Current user user datahandler", user.toString());
 
