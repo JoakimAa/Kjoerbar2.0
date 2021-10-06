@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setBottomNavigation();
+        //setBottomNavigation();
         setNavigationDrawer();
         //toolBarAndDrawer();
     }
@@ -54,15 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.fragment_friends)
+                R.id.sessionFragment, R.id.mapFragment, R.id.friendsFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
+
 
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
 
         NavigationView navView = findViewById(R.id.nav_view);
         //setDrawerInfo(navView);
 
+        NavigationUI.setupActionBarWithNavController(this, controller);
         NavigationUI.setupWithNavController(navView, controller);
     }
 
