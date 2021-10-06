@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/sessionFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/addDrinkFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.AddDrinkFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
         android:label="fragment_add_drink"
         tools:layout="@layout/fragment_add_drink" />
     <fragment
@@ -82,6 +82,21 @@
         app:destination="@id/mapFragment"
         app:launchSingleTop="true"
         app:popUpTo="@id/mapFragment" />
+    <action
+        android:id="@+id/action_global_unitCatalogFragment"
+        app:destination="@id/unitCatalogFragment"
+        app:popUpTo="@id/unitCatalogFragment"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_mainFragment"
+        app:destination="@id/mainFragment"
+        app:popUpTo="@id/mainFragment"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_historyFragment"
+        app:destination="@id/historyFragment"
+        app:popUpTo="@id/historyFragment"
+        app:launchSingleTop="true" />
     <!--<fragment
     android:id="@+id/settingsFragment"
     android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"

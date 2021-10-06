@@ -1,21 +1,14 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.activities.SignInActivity;
 import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
@@ -34,7 +27,6 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button bntNavToHistory, bntNavToUnitCatalog, btnLogOut;
     private BottomNavigationView bottomnavigation;
 
     public MainFragment() {
@@ -66,6 +58,7 @@ public class MainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        requireActivity().setTitle(getString(R.string.home));
     }
 
     @Override
@@ -75,29 +68,8 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        bntNavToHistory = view.findViewById(R.id.navigate_to_history_button);
-        bntNavToUnitCatalog = view.findViewById(R.id.navigate_to_unit_catalog_button);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
-
-        bntNavToUnitCatalog.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_unitCatalogFragment));
-        bntNavToHistory.setOnClickListener(viewer -> Navigation.findNavController(viewer).navigate(R.id.action_mainFragment_to_historyFragment));
-        btnLogOut.setOnClickListener(this::signOut);
-
         SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
 
         return view;
-    }
-
-
-    public void signOut(View view) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthUI.getInstance()
-                .signOut(view.getContext())
-                .addOnCompleteListener(task -> {
-                    assert user != null;
-                    //Toast.makeText(getApplicationContext(), user.getDisplayName() +" "+ R.string.logged_out, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(view.getContext(), SignInActivity.class);
-                    startActivity(intent);
-                });
     }
 }

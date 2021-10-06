@@ -19,7 +19,7 @@ class SessionTest {
     @Mock
     private SessionLimit mockSessionLimit;
     @Mock
-    private ArrayList<SessionAlcoholUnit> mockAlcoholUnits;
+    private ArrayList<AlcoholUnit> mockAlcoholUnits;
 
     private Session sessionUnderTest;
 
@@ -52,13 +52,13 @@ class SessionTest {
     @DisplayName("Add alcohol unit")
     void testAddAlcoholUnit() {
         // Setup
-        final SessionAlcoholUnit alcoholUnit = new SessionAlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0, LocalDateTime.now());
-        when(mockAlcoholUnits.add(any(SessionAlcoholUnit.class))).thenReturn(false);
+        final AlcoholUnit alcoholUnit = new AlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0, LocalDateTime.now());
+        when(mockAlcoholUnits.add(any(AlcoholUnit.class))).thenReturn(false);
 
         // Run the test
         sessionUnderTest.addAlcoholUnit(alcoholUnit);
 
         // Verify the results
-        verify(mockAlcoholUnits).add(any(SessionAlcoholUnit.class));
+        verify(mockAlcoholUnits).add(any(AlcoholUnit.class));
     }
 }
