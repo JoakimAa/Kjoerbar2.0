@@ -1,49 +1,20 @@
 package com.illusion_softworks.kjoerbar.model;
 
-public class AlcoholUnit {
-    private final String name, producer, category, amountType;
-    private final double percent, amount;
-    private double gramAlcoholPerUnit;
+import java.time.LocalDateTime;
 
-    public AlcoholUnit(String name, String producer, String category, String amountType, double amount, double percent) {
-        this.name = name;
-        this.producer = producer;
-        this.category = category;
-        this.amountType = amountType;
-        this.amount = amount;
-        this.percent = percent;
-        calculateGramAlcoholPerUnit();
+public class AlcoholUnit extends Beverage {
+    private final LocalDateTime timeAddedToSession;
+
+    public AlcoholUnit(String name, String producer, String category, String amountType, double amount, double percent, LocalDateTime timeAddedToSession) {
+        super(name, producer, category, amountType, amount, percent);
+        this.timeAddedToSession = timeAddedToSession;
     }
 
-    private void calculateGramAlcoholPerUnit() {
-        this.gramAlcoholPerUnit = amount * (percent / 100) * 789.24;
+    public AlcoholUnit(Beverage beverage, LocalDateTime timeAddedToSession) {
+        this(beverage.getName(), beverage.getProducer(), beverage.getCategory(), beverage.getAmountType(), beverage.getAmount(), beverage.getPercent(), timeAddedToSession);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getAmountType() {
-        return amountType;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public double getPercent() {
-        return percent;
-    }
-
-    public double getGramAlcoholPerUnit() {
-        return gramAlcoholPerUnit;
+    public LocalDateTime getTimeAddedToSession() {
+        return timeAddedToSession;
     }
 }

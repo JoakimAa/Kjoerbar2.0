@@ -7,9 +7,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserDocumentReferenceHandler {
-    private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
     public static DocumentReference getUserDocumentReferenceFromFirestore() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore firestoreDb = FirebaseReferenceHandler.getFirebaseReference();
         CollectionReference usersCollectionReference = firestoreDb.collection("users");
         assert firebaseUser != null;
