@@ -1,0 +1,91 @@
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage[a4paper, top=1cm, bottom=1.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage{changepage}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{changepage}
+\usepackage[parfill]{parskip}
+\usepackage{wrapfig}
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{longtable,booktabs}
+\usepackage{float}
+\usepackage{listings} % For presenting code nicely
+\usepackage{hyperref}
+\usepackage{framed}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% settings %
+\setcounter{secnumdepth}{3} % enumerate
+\setcounter{tocdepth}{3}    % TOC entries
+%\renewcommand{\contentsname}{Innholdsfortegnelse}
+\newcounter{frcounter}
+\newcounter{frsubcounter}[frcounter]
+\newcounter{nfrcounter}
+\newcounter{nfrsubcounter}[nfrcounter]
+\titlespacing*{\paragraph}{\parindent}{1ex}{1em}
+
+% commands %
+    % counters %
+\newcommand*{\FR}{\stepcounter{frcounter}\textbf{[FR-\arabic{frcounter}] \quad}}
+\newcommand*{\FRsub}{\stepcounter{frsubcounter}\textbf{[FR-\arabic{frcounter}.\arabic{frsubcounter}] \quad}}
+\newcommand*{\NFR}{\stepcounter{nfrcounter}\textbf{[NFR-\arabic{nfrcounter}] \quad}}
+\newcommand*{\NFRsub}{\stepcounter{nfrsubcounter}\textbf{[NFR-\arabic{nfrcounter}.\arabic{nfrsubcounter}] \quad}}
+\newcommand{\invis}{\phantom{a}}
+
+    % requirement commands %
+\newcommand*{\freq}[1]{\FR\textbf{#1}\\}
+\newcommand*{\fsubreq}[1]{\FRsub{#1}\\}
+\newcommand*{\nfreq}[1]{\NFR\textbf{#1}\\}
+\newcommand*{\nfsubeq}[1]{\NFRsub{#1}\\}
+
+    % colors %
+\newcommand{\cellr}{\cellcolor{red!25}}
+\newcommand{\cello}{\cellcolor{orange!25}}
+\newcommand{\celly}{\cellcolor{yellow!25}}
+\newcommand{\celll}{\cellcolor{lime!25}}
+\newcommand{\cellg}{\cellcolor{green!25}}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+% \definecolor{clientCode}{HTML}{fff6db}
+\definecolor{ccInner}{HTML}{edf3f5}
+\definecolor{ccFrame}{HTML}{dce1e3}
+
+\definecolor{shadecolor}{named}{ccFrame} 
+
+% environments %
+\newenvironment{subreq}{\begin{adjustwidth}{1cm}{}}{\end{adjustwidth}}
+
+% lstset %
+\lstset{
+    backgroundcolor = \color{ccInner},
+    language=Java,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    commentstyle=\color{pgreen},
+    keywordstyle=\color{pblue},
+    stringstyle=\color{pred},
+    basicstyle=\footnotesize\ttfamily, % font-size
+    moredelim=[is][\textcolor{pgrey}]{\%}{\%}
+}
