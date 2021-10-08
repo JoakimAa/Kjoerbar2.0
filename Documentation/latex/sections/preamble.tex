@@ -9,7 +9,6 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{titlesec}
-\usepackage{hyperref}
 \usepackage{changepage}
 \usepackage[parfill]{parskip}
 \usepackage{wrapfig}
@@ -23,9 +22,17 @@
 \usepackage{hyperref}
 \usepackage{framed}
 
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
 % settings %
-\setcounter{secnumdepth}{2} % enumerate
-\setcounter{tocdepth}{2}    % TOC entries
+\setcounter{secnumdepth}{3} % enumerate
+\setcounter{tocdepth}{3}    % TOC entries
 %\renewcommand{\contentsname}{Innholdsfortegnelse}
 \newcounter{frcounter}
 \newcounter{frsubcounter}[frcounter]

@@ -19,11 +19,35 @@ Bla bla bla
 Blablabla
 
 \subsubsection{Lagring og uthenting av data}
-Blablabla
+For å lagre brukerdata benyttes Firestore. Dette gjøres via Firebase, her lagres brukere i en "user" collection. Hver bruker lagres med en UUID som autogeneres fra Firebase. 
+
+Brukerinformasjonen lagres rett i dokumentet til brukeren, mens enhetskatalogen og økt historikken lagres i collections på brukeren. 
+Disse 
+
+Når en bruker logger inn hentes dataen til brukeren ved å bruke Firebase UUID'en, da oppdateres først dokumentreferansen så brukes denne til å hente riktig data, brukerdaten blir da lagret in UserDatabaseHandler, denne dataen hentes da senere i settingsFragment. 
+
+Når brukeren logger inn gjøres det en sjekk på om det er en ny bruker, hvis det er en ny bruker hentes ikke dataen. 
+Da legges det til en bruker med tomme verdier til database. 
+
+Når brukeren navigerer ut av settingsFragment hentes den oppdaterte dataen fra Firebase.
 
 \subsubsection{Brukerhåndtering}
-I am blue
-Da ba de da ba die
+Håndtering av brukere gjøres gjennom Firebase.
+
+Brukeren får via appen muligheten til å lage en ny bruker, oppdatere og slette brukeren.
+
+En bruker består av feltene:
+\begin{itemize}
+    \item age
+    \item height
+    \item weight
+    \item gender
+    \item username
+    \item currentSession
+    \item weight
+\end{itemize}
+
+En sessionHistory collection og en alcoholUnitCollection.
 
 \subsection{Ressurser}
 \subsubsection{Services}
