@@ -12,8 +12,12 @@
 \BOOKMARK [2][-]{subsection.4.7}{\330kthistorikk og Individuelle \330kter}{section.4}% 12
 \BOOKMARK [1][-]{section.5}{Design}{}% 13
 \BOOKMARK [2][-]{subsection.5.1}{Utseende}{section.5}% 14
-\BOOKMARK [2][-]{subsection.5.2}{Navigasjon}{section.5}% 15
-\BOOKMARK [1][-]{section.6}{Krav}{}% 16
-\BOOKMARK [2][-]{subsection.6.1}{M\345 ha}{section.6}% 17
-\BOOKMARK [2][-]{subsection.6.2}{B\370r ha}{section.6}% 18
-\BOOKMARK [2][-]{subsection.6.3}{Kan ha}{section.6}% 19
+\BOOKMARK [1][-]{section.6}{Navigasjon}{}% 15
+\BOOKMARK [2][-]{subsection.6.1}{Navigation Pattern}{section.6}% 16
+\BOOKMARK [1][-]{section.7}{Teknisk oppbygging}{}% 17
+\BOOKMARK [2][-]{subsection.7.1}{Lagring og uthenting av data}{section.7}% 18
+\BOOKMARK [2][-]{subsection.7.2}{Brukerh\345ndtering}{section.7}% 19
+\BOOKMARK [1][-]{section.8}{Krav}{}% 20
+\BOOKMARK [2][-]{subsection.8.1}{M\345 ha}{section.8}% 21
+\BOOKMARK [2][-]{subsection.8.2}{B\370r ha}{section.8}% 22
+\BOOKMARK [2][-]{subsection.8.3}{Kan ha}{section.8}% 23
