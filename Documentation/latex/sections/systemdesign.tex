@@ -51,9 +51,51 @@ En sessionHistory collection og en alcoholUnitCollection.
 
 \subsection{Ressurser}
 \subsubsection{Services}
+Det kan være behov for services. Blant annet skal vi implementere gps-sporing og push-notifikasjoner, i tillegg til bør nedtellingsklokken i en økt telle ned mens appen ikke er i bruk. Foreløpig tenker vi at mye kan løses via threads og asynce funksjoner, derfor er vi usikre på om det er behov for services i det hele tatt.
 
 \subsubsection{Fragmenter}
-Siden vi bruker Navigation Component biblioteket, er det best praksise å bytte ut sidene via fragmenter. Vi har derfor delt opp appen i tre aktiviteter, hvor vi bytter ut fragmenter i hver av aktivitetene. Dette er både for å gjøre koden mer lesbar ved å abstrahere i logiske inndelinger og for å skille på de forskjellige navigasjonsmetodene, siden bottom-navigation og navigation-drawer kun finnes i hovedaktiviteten.
+I vår app er fragmenter et behov. Siden vi bruker Navigation Component biblioteket, er det best praksise å bytte ut sidene via fragmenter. Vi har derfor delt opp appen i tre aktiviteter, hvor vi bytter ut fragmenter i hver av aktivitetene. Dette er både for å gjøre koden mer lesbar ved å abstrahere i logiske inndelinger og for å skille på de forskjellige navigasjonsmetodene, siden bottom-navigation og navigation-drawer kun finnes i hovedaktiviteten.
+
+\subsubsection{Klasser}
+Ekskluderer klasser relatert til aktiviteter og fragmenter, består appen av modell-klasser og referanse-klasser. Modellen består av følgende klasser:
+
+\begin{tabular}{ | m{4cm} | m{12cm} | } 
+    \hline
+    \textbf{Klassenavn} & \textbf{Beskrivelse} \\
+    \hline
+    AlcoholUnit &
+    Representerer en enhet som blir lagt til i en økt, arver fra beverage \\
+    \hline
+    Beverage &
+    Representerer en drikke \\
+    \hline
+    Settings &
+    Håndterer app-innstillinger \\
+    \hline
+    Session &
+    Representerer en økt, og har relaterte metoder \\
+    \hline
+    SessionLimit &
+    Definerer en grense på hvor mye man ønsker å drikke i en økt (session) \\
+    \hline
+    User &
+    Definerer en bruker og inkluderer relaterte variabler \\
+    \hline
+\end{tabular}
+
+I tillegg har vi klasser for å data fra firestore. Disse ligger i en mappe kalt Datahandler, og inkluderer disse klassene:
+
+\begin{tabular}{ | m{4cm} | m{12cm} | } 
+    \hline
+    \textbf{Klassenavn} & \textbf{Beskrivelse} \\
+    \hline
+    BeverageCatalogHandler &
+    Håndterer data relatert til drikke-katalogen i appen \\
+    \hline
+    Beverage &
+    Hånterer brukerdata \\
+    \hline
+\end{tabular}
 
 \subsubsection{Bilder}
 Bilder i appen vil bestå av ikoner, logoer, emojier og eventuelt profilbilder. Ikonene brukes til å veilede brukeren der det er raskere å oppfatte ikonet enn å det er å lese teksten, for eksempel til navigasjonspunktene i bottom-navigation og navigation-drawer. Ikonene er en blanding av lånte og egenskapte ikoner som følger design prinsippene til Material Design dokumentasjonen(1).
@@ -72,3 +114,4 @@ Firebase/Firestore
 Google ting til firestore
 Navigation Component
 JUnits til testing
+
