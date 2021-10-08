@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session {
-    private final LocalDateTime startDateTime = LocalDateTime.now();
     /*UUID uuid = UUID.randomUUID();
     @Exclude
     private String uid = uuid.toString();*/
@@ -17,6 +16,7 @@ public class Session {
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender;
+    private final LocalDateTime startDateTime = LocalDateTime.now();
     private LocalDateTime endDateTime;
     private double maxPerMill, currentPerMill;
 

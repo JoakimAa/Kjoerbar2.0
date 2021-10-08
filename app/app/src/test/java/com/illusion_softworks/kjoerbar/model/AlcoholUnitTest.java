@@ -12,7 +12,7 @@ class AlcoholUnitTest {
 
     @BeforeEach
     void setUp() {
-        beverageUnderTest = new Beverage("name", "producer", "category", "amountType", 0.0, 0.0);
+        beverageUnderTest = new Beverage("name", "producer", "category", 0.0, 0.0);
     }
 
     @Test

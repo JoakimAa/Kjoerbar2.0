@@ -7,7 +7,7 @@ public class User {
     private String uid;
     private int weight, height, age;
     private String gender, username;
-    private Preferences preferences;
+    private Settings settings;
     private boolean isToSAccepted = false;
     private Session currentSession;
 
@@ -72,12 +72,12 @@ public class User {
         this.username = username;
     }
 
-    public Preferences getPreferences() {
-        return preferences;
+    public Settings getPreferences() {
+        return settings;
     }
 
-    public void setPreferences(Preferences preferences) {
-        this.preferences = preferences;
+    public void setPreferences(Settings settings) {
+        this.settings = settings;
     }
 
     public boolean isToSAccepted() {

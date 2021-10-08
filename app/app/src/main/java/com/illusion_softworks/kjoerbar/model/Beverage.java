@@ -1,15 +1,14 @@
 package com.illusion_softworks.kjoerbar.model;
 
 public class Beverage {
-    private final String name, producer, category, amountType;
+    private final String name, producer, category;
     private final double percent, amount;
     private double gramAlcoholPerUnit;
 
-    public Beverage(String name, String producer, String category, String amountType, double amount, double percent) {
+    public Beverage(String name, String producer, String category, double amount, double percent) {
         this.name = name;
         this.producer = producer;
         this.category = category;
-        this.amountType = amountType;
         this.amount = amount;
         this.percent = percent;
         calculateGramAlcoholPerUnit();
@@ -29,10 +28,6 @@ public class Beverage {
 
     public String getCategory() {
         return category;
-    }
-
-    public String getAmountType() {
-        return amountType;
     }
 
     public double getAmount() {

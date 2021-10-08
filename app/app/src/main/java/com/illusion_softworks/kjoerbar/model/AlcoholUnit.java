@@ -6,7 +6,7 @@ public class AlcoholUnit extends Beverage {
     private final LocalDateTime timeAddedToSession;
 
     public AlcoholUnit(String name, String producer, String category, String amountType, double amount, double percent, LocalDateTime timeAddedToSession) {
-        super(name, producer, category, amountType, amount, percent);
+        super(name, producer, category, amount, percent);
         this.timeAddedToSession = timeAddedToSession;
     }
 

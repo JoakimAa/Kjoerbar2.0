@@ -35,7 +35,6 @@ public class BeverageCatalogDataHandler {
                 Objects.requireNonNull(mapBeverage.get("name")).toString(),
                 Objects.requireNonNull(mapBeverage.get("producer")).toString(),
                 Objects.requireNonNull(mapBeverage.get("category")).toString(),
-                Objects.requireNonNull(mapBeverage.get("amountType")).toString(),
                 Float.parseFloat(Objects.requireNonNull(mapBeverage.get("amount")).toString()),
                 Double.parseDouble(Objects.requireNonNull(mapBeverage.get("percent")).toString()));
         Log.d("DATAHANDLER_ALCO", beverage.getName());
