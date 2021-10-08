@@ -2,22 +2,9 @@
 \BOOKMARK [1][-]{section.2}{Introduksjon}{}% 2
 \BOOKMARK [1][-]{section.3}{Hvordan fungerer appen?}{}% 3
 \BOOKMARK [2][-]{subsection.3.1}{Flyt - et eksempel}{section.3}% 4
-\BOOKMARK [1][-]{section.4}{Sider i Appen}{}% 5
-\BOOKMARK [2][-]{subsection.4.1}{Oversiktsside}{section.4}% 6
-\BOOKMARK [2][-]{subsection.4.2}{Enhetskatalog}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.3}{Innstillinger}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.4}{Venneside}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.5}{Kartside}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.6}{Innloggingsside}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.7}{\330kthistorikk og Individuelle \330kter}{section.4}% 12
-\BOOKMARK [1][-]{section.5}{Design}{}% 13
-\BOOKMARK [2][-]{subsection.5.1}{Utseende}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{Navigasjon}{}% 15
-\BOOKMARK [2][-]{subsection.6.1}{Navigation Pattern}{section.6}% 16
-\BOOKMARK [1][-]{section.7}{Teknisk oppbygging}{}% 17
-\BOOKMARK [2][-]{subsection.7.1}{Lagring og uthenting av data}{section.7}% 18
-\BOOKMARK [2][-]{subsection.7.2}{Brukerh\345ndtering}{section.7}% 19
-\BOOKMARK [1][-]{section.8}{Krav}{}% 20
-\BOOKMARK [2][-]{subsection.8.1}{M\345 ha}{section.8}% 21
-\BOOKMARK [2][-]{subsection.8.2}{B\370r ha}{section.8}% 22
-\BOOKMARK [2][-]{subsection.8.3}{Kan ha}{section.8}% 23
+\BOOKMARK [1][-]{section.4}{Design}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{Sider i Appen}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.2}{Utseende}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.3}{Navigasjon}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.4}{Teknisk oppbygging}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Krav}{}% 10
