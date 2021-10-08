@@ -28,10 +28,23 @@ Da ba de da ba die
 \subsection{Ressurser}
 \subsubsection{Services}
 
-
 \subsubsection{Fragmenter}
+Siden vi bruker Navigation Component biblioteket, er det best praksise å bytte ut sidene via fragmenter. Vi har derfor delt opp appen i tre aktiviteter, hvor vi bytter ut fragmenter i hver av aktivitetene. Dette er både for å gjøre koden mer lesbar ved å abstrahere i logiske inndelinger og for å skille på de forskjellige navigasjonsmetodene, siden bottom-navigation og navigation-drawer kun finnes i hovedaktiviteten.
 
 \subsubsection{Bilder}
-Bilder i appen vil bestå av ikoner, logoer, emojier og eventuelt profilbilder. Ikonene brukes til å veilede brukeren der det er raskere å oppfatte ikonet enn å det er å lese teksten, for eksempel til navigasjonspunktene i bottom-navigation og navigation-drawer. Ikonene er en blanding av lånte og egenskapte ikoner som følger design prinsippene til Material Design dokumentasjonen(1). Logoen lager vi selv, og vi skal ha variasjoner av logoen 
+Bilder i appen vil bestå av ikoner, logoer, emojier og eventuelt profilbilder. Ikonene brukes til å veilede brukeren der det er raskere å oppfatte ikonet enn å det er å lese teksten, for eksempel til navigasjonspunktene i bottom-navigation og navigation-drawer. Ikonene er en blanding av lånte og egenskapte ikoner som følger design prinsippene til Material Design dokumentasjonen(1).
+
+Lille promille logoen har vi designet og laget selv. Det vil også være flere versjoner av logoen til de forskjellige seksjonene i appen der det er passende. For eksempel i sprutskjermen viser den hele logoen, som inkluderer teksten, mens i appikonet bruker den en minimalisert versjon av logoen.
+
+I vennesiden brukes emojier til å visualisere hvilken alkoholstatus vennene har. Vi tror dette er en smart løsning fordi mange brukere er allerede familiære med systemet som Snapchat bruker, hvor de forklarer forholdet man har til en venn. Til denne funksjonen bruker Lille promille standardemojiene til android.
+
+Hvis ønskelig kan brukeren legge til sitt eget profilbilde i innstillingene. Dette profilbilde vises både i navigation-drawer ved brukernavnet og i vennesiden ved siden av navnet sitt. Bildet kan hentes fra kamerarullen eller kan tas direkte fra kameraet.
+
+\subsubsection{Lyd}
+Dette har vi ikke tenkt på hittil.
 
 \subsubsection{Biblioteker}
+Firebase/Firestore
+Google ting til firestore
+Navigation Component
+JUnits til testing
