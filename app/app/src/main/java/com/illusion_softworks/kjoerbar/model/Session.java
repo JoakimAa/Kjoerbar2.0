@@ -14,7 +14,7 @@ public class Session {
     @Exclude
     private String uid = uuid.toString();*/
     private SessionLimit sessionLimit;
-    private ArrayList<SessionAlcoholUnit> alcoholUnits = new ArrayList<>();
+    private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender;
     private LocalDateTime endDateTime;
@@ -28,7 +28,7 @@ public class Session {
         this.userGender = userGender;
     }
 
-    public Session(SessionLimit sessionLimit, ArrayList<SessionAlcoholUnit> alcoholUnits, int userWeight, String userGender) {
+    public Session(SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
         this(userWeight, userGender);
         this.sessionLimit = sessionLimit;
         this.alcoholUnits = alcoholUnits;
@@ -68,11 +68,11 @@ public class Session {
         this.sessionLimit = sessionLimit;
     }
 
-    public ArrayList<AlcoholUnit> getAlcoholUnits() {
-        return new ArrayList<AlcoholUnit>(alcoholUnits);
+    public ArrayList<Beverage> getAlcoholUnits() {
+        return new ArrayList<Beverage>(alcoholUnits);
     }
 
-    public void addAlcoholUnit(SessionAlcoholUnit alcoholUnit) {
+    public void addAlcoholUnit(AlcoholUnit alcoholUnit) {
         alcoholUnits.add(alcoholUnit);
     }
 

@@ -3,19 +3,21 @@ package com.illusion_softworks.kjoerbar.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class AlcoholUnitTest {
 
-    private AlcoholUnit alcoholUnitUnderTest;
+    private Beverage beverageUnderTest;
 
     @BeforeEach
     void setUp() {
-        alcoholUnitUnderTest = new AlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0);
+        beverageUnderTest = new Beverage("name", "producer", "category", "amountType", 0.0, 0.0);
     }
 
     @Test
+    @DisplayName("Get AlcoholUnit test")
     void testGetName() {
-        assertEquals(alcoholUnitUnderTest.getName(), "name");
+        assertEquals(beverageUnderTest.getName(), "name");
     }
 }

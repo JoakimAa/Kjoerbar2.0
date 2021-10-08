@@ -2,7 +2,7 @@ package com.illusion_softworks.kjoerbar.calculation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.illusion_softworks.kjoerbar.model.SessionAlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.User;
 
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +18,7 @@ class CalculatePerMillTest {
 
         // Setup
         final User user = new User("uid", 100, 90, 20, "Male", "Ole");
-        final SessionAlcoholUnit alcoholUnit = new SessionAlcoholUnit("Beer", "producer", "category", "dl", 0.5, 40, LocalDateTime.now());
+        final AlcoholUnit alcoholUnit = new AlcoholUnit("Beer", "producer", "category", "dl", 0.5, 40, LocalDateTime.now());
 
         // Run the test
         final double result = CalculatePerMill.calculatePerMillPerUnit(user, alcoholUnit, 10);
