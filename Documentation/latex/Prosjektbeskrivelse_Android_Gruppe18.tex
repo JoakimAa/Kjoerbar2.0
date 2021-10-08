@@ -41,7 +41,7 @@ Lille Promille er en app som takler dette problemet ved å fokusere på selve dr
 Appen vil ikke kun være for studenter, men alle som ønsker å ha kontroll mens man fester. Visjonen er at man kommer til å bruke Lille Promille appen for å få oversikt over hvor man drikker, samt hvor mye venner drikker. Det vil være en app som gjør festingen bedre men samtidig minsker sjansen for fyllekjøring, siden dette er av erfaring noe mange lurer på mens de er påvirket.
 
 \section{Hvordan fungerer appen?}
-\subsection{Flyt - et eksempel}
+\subsection{Et eksempel}
 Ta utgangspunkt i at det er en fest på en søndagskveld, og dagen etter må man være klar til å kjøre til høgskolen tidlig ettermiddagen. Når man tar sin første drikk, åpner man appen og legger til en enhet som passer drikken, for eksempel en rusbrus. Man velger å legge til disse for hver slurk eller for hver flaske man har drukket. Appen vil med jevne mellomrom beregne promillen, slik at man har full oversikt gjennom hele festen. Appen viser rett før midnatt at det er tolv timer til man er kjørbar, og man velger å stoppe å drikke.
 
 Dagen derpå sjekker man appen og ser at det fremdeles er noen venner som er påvirket, og til og med noen som enda drikker. Men siden man følgte appens anvisninger, er man sikrere på at man har beholdt promillegrensen og er klar til å kjøre bil. I tillegg har man muligheten til å se hvordan økten gikk på festen, som hvor man befant seg til diverse tider, hvor mye man drakk og hvor ofte. Disse dataene kan man igjen bruke til senere fester slik at man blir sikrere på sine egne grenser og hva man tåler av alkohol.
@@ -110,6 +110,14 @@ Appen består av to hovedelementer for navigasjon, et bottom-navigation element,
 
 Grunnen til denne oppdelingen er for å skille mellom sider som blir brukt mye og sider som blir brukt lite. Vi har valgt å bruke bottom-navigation og swipe-funksjonen til forsiden, kartsiden og vennesiden, fordi de er sentrale og brukes nesten hver gang appen er i bruk. Forsiden er det samme som oversiktssiden, så dette vil være landingssiden når brukeren logger inn. I navigation-drawer elementet kan man blant annet navigere seg til innstillinger og enhetskatalogen.
 
+    \subsubsection{Flyt}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{images/lille_promille_float_diagram.drawio.png}
+        \caption{Skisse som viser hvor man kan navigere seg til fra hvilke sider i appen.}
+    \end{figure}
+
     \subsubsection{Navigation Pattern}
     Bla bla bla
 
@@ -121,12 +129,6 @@ Blablabla
 
     \subsubsection{Brukerhåndtering}
     Da ba de da ba die
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{images/lille_promille_float_diagram.drawio.png}
-    \caption{Skisse som viser hvor man kan navigere seg til fra hvilke sider i appen.}
-\end{figure}
 
 \section{Krav}
 \freq{Bruker skal kunne oppgi informasjon om sin vekt, kjønn og høyde} 
