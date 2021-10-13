@@ -3,6 +3,7 @@ package com.illusion_softworks.kjoerbar.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class AlcoholUnitTest {
@@ -15,6 +16,7 @@ class AlcoholUnitTest {
     }
 
     @Test
+    @DisplayName("Get AlcoholUnit test")
     void testGetName() {
         assertEquals(beverageUnderTest.getName(), "name");
     }

@@ -15,6 +15,7 @@ import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHan
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserDataHandler {
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
@@ -42,7 +43,7 @@ public class UserDataHandler {
         for (Map.Entry<String, Object> entry : user.entrySet())
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
-                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully updated!"))
+                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey().toString(), entry.getValue().toString())))
                     .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
@@ -75,12 +76,17 @@ public class UserDataHandler {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
-                        user = new User(
-                                Integer.parseInt(document.getData().get("weight").toString()),
-                                Integer.parseInt(document.getData().get("height").toString()),
-                                Integer.parseInt(document.getData().get("age").toString()),
-                                document.getData().get("gender").toString(),
-                                document.getData().get("username").toString());
+
+                        String username = Objects.requireNonNull(document.getData()).get("username") != null ? Objects.requireNonNull(document.getData().get("username")).toString() : "";
+                        String gender = Objects.requireNonNull(document.getData()).get("gender") != null ? Objects.requireNonNull(document.getData().get("gender")).toString() : "";
+                        int age = !Objects.equals(document.getData().get("age"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("age")).toString()) : 0;
+                        int weight = !Objects.equals(document.getData().get("weight"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("weight")).toString()) : 0;
+                        int height = !Objects.equals(document.getData().get("height"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("height")).toString()) : 0;
+
+
+                        user = new User(weight, height, age, gender, username);
+
+
                         Log.d("Current user user datahandler", user.toString());
 
                     } else {
@@ -94,6 +100,7 @@ public class UserDataHandler {
     }
 
     public static User getUser() {
+        if (user != null)
         Log.d("Current user get", user.toString());
         return user;
     }

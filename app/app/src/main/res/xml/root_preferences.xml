@@ -42,7 +42,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <!--<PreferenceCategory app:title="@string/messages_header">
 
         <EditTextPreference
             app:key="signature"
@@ -72,7 +72,6 @@
 
         </PreferenceCategory>
 
-
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
 </PreferenceScreen>

@@ -32,10 +32,4 @@ public class MainFragmentTest {
     public void navigateToSessionButton() {
         onView(withId(R.id.navigate_to_session_button)).perform(click());
     }
-
-    /*@Test
-    public void logOutButton() {
-        onView(withId(R.id.btnLogOut)).perform(click());
-    }*/
-
 }
