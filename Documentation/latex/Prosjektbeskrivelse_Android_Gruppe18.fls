@@ -1,17 +1,17 @@
-PWD c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex
+PWD c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex
 INPUT c:/texlive/2020/texmf.cnf
 INPUT c:/texlive/2020/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.tex
-OUTPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.log
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.tex
+OUTPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.log
 INPUT c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2020/texmf-dist/tex/latex/base/size12.clo
 INPUT c:/texlive/2020/texmf-dist/tex/latex/base/size12.clo
 INPUT c:/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/preamble.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/preamble.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/preamble.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/preamble.tex
 INPUT c:/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT c:/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT c:/texlive/2020/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
@@ -146,9 +146,9 @@ INPUT c:/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT c:/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 INPUT c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
-OUTPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
+OUTPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
 INPUT c:/texlive/2020/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 INPUT c:/texlive/2020/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
@@ -164,14 +164,14 @@ INPUT c:/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
 INPUT c:/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
 INPUT c:/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 INPUT c:/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-OUTPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.pdf
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-OUTPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+OUTPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.pdf
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+OUTPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -189,9 +189,9 @@ INPUT c:/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_logo.png
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -199,8 +199,8 @@ INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
@@ -219,54 +219,54 @@ INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-OUTPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
+OUTPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.toc
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/glossary.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/glossary.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/intro.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/intro.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/glossary.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/glossary.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/intro.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/intro.tex
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/design.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/design.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/design.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/design.tex
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmri7t.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_frontpage.drawio.png
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/systemdesign.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/systemdesign.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_unitcatalog.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_friends.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_sessions.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/systemdesign.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/systemdesign.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_float_diagram.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/images/lille_promille_user_float.drawio.png
 INPUT c:/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT c:/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/requirements.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/sections/requirements.tex
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
-INPUT c:/Users/lars erik/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/requirements.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/sections/requirements.tex
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.aux
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
+INPUT c:/Users/47917/Documents/Kjoerbar2.0/Documentation/latex/Prosjektbeskrivelse_Android_Gruppe18.out
 INPUT c:/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT c:/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 INPUT c:/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
