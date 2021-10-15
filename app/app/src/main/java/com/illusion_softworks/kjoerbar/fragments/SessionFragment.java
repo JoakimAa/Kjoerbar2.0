@@ -60,8 +60,8 @@ public class SessionFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        requireActivity().setTitle(getString(R.string.session));
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,9 +70,7 @@ public class SessionFragment extends Fragment {
 
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
-
-//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
-
+        requireActivity().setTitle(getString(R.string.session));
         return view;
     }
 }
