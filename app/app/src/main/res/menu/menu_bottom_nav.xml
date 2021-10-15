@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mapFragment"
+        android:title="@string/map"
+        android:icon="@drawable/ic_baseline_place_24" />
+
+    <item
+        android:id="@+id/sessionFragment"
+        android:icon="@drawable/ic_baseline_glass_mug_variant"
+        android:title="@string/session" />
+
+    <item
+        android:id="@+id/friendsFragment"
+        android:title="@string/friends"
+        android:icon="@drawable/ic_sharp_people_alt_24" />
+
+</menu>
