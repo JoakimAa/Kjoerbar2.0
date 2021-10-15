@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +71,7 @@ public class SessionFragment extends Fragment {
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
 
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
+//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_session_button);
 
         return view;
     }

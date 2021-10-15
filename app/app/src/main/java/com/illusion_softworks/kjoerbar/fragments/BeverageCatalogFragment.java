@@ -1,22 +1,21 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.helpers.SetBottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
+ * Use the {@link BeverageCatalogFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class BeverageCatalogFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,9 +26,7 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private BottomNavigationView bottomnavigation;
-
-    public MainFragment() {
+    public BeverageCatalogFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +36,11 @@ public class MainFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
+     * @return A new instance of fragment BeverageCatalogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static BeverageCatalogFragment newInstance(String param1, String param2) {
+        BeverageCatalogFragment fragment = new BeverageCatalogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,18 +55,12 @@ public class MainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        requireActivity().setTitle(getString(R.string.home));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, -1);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_beverage_catalog, container, false);
     }
 }
