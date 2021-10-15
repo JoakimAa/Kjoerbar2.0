@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -24,54 +25,41 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//    private ActionBarDrawerToggle toggle;
-//    private DrawerLayout drawer;
-//    private Toolbar toolbar;
+    //private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    //private TextView username;
     private AppBarConfiguration appBarConfiguration;
-    private TextView username;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //setBottomNavigation();
-        setNavigationDrawer();
-        //toolBarAndDrawer();
-    }
-
-    public void setBottomNavigation() {
-        NavController controller = Navigation.findNavController(this, R.id.nav_host);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        NavigationUI.setupWithNavController(bottomNav, controller);
-    }
-
-    private void setNavigationDrawer() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
+
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.sessionFragment, R.id.mapFragment, R.id.friendsFragment)
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-
-        NavController controller = Navigation.findNavController(this, R.id.nav_host);
-
-        NavigationView navView = findViewById(R.id.nav_view);
-        //setDrawerInfo(navView);
-
-        NavigationUI.setupActionBarWithNavController(this, controller);
-        NavigationUI.setupWithNavController(navView, controller);
+        //NavigationUI.setupActionBarWithNavController(this, controller);
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(bottomNav, navController);
     }
 
     private void setDrawerInfo(NavigationView navView) {
         View headerView = navView.getHeaderView(0);
-        username = headerView.findViewById(R.id.username);
-        username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+        //username = headerView.findViewById(R.id.username);
+        //username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
     }
 
 //    private void toolBarAndDrawer() {
