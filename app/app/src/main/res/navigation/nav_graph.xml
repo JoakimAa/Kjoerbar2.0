@@ -29,17 +29,18 @@
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.illusion_softworks.kjoerbar.activities.SettingsActivity.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:id="@+id/addBeverageFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
+        android:label="fragment_add_beverage"
+        tools:layout="@layout/fragment_add_beverage" />
     <fragment
-        android:id="@+id/beverageFragment"
-        android:name="com.illusion_softworks.kjoerbar.BeverageFragment"
-        android:label="fragment_beverage"
-        tools:layout="@layout/fragment_beverage" />
+        android:id="@+id/sessionHistoryFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
+        android:label="fragment_session_history"
+        tools:layout="@layout/fragment_session_history" />
     <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.illusion_softworks.kjoerbar.historyFragment"
-        android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        android:id="@+id/beverageCatalogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.BeverageCatalogFragment"
+        android:label="fragment_beverage_catalog"
+        tools:layout="@layout/fragment_beverage_catalog" />
 </navigation>

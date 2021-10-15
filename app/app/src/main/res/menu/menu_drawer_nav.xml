@@ -11,12 +11,12 @@
             android:icon="@drawable/ic_baseline_glass_mug_variant" />
 
         <item
-            android:id="@+id/beverageFragment"
+            android:id="@+id/beverageCatalogFragment"
             android:icon="@drawable/ic_baseline_liquor_24"
             android:title="@string/beverage_catalog" />
 
         <item
-            android:id="@+id/historyFragment"
+            android:id="@+id/sessionHistoryFragment"
             android:icon="@drawable/ic_baseline_history_24"
             android:title="@string/history" />
     </group>
@@ -24,7 +24,7 @@
         android:id="@+id/menu_middle"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/settingsFragment"
+            android:id="@+id/settings"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/settings" />
     </group>

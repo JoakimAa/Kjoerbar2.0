@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
-
+        setSettingsIntent(navView);
         setSignOut(navView);
         setDrawerInfo(navView);
     }
@@ -65,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.username);
         username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+    }
+
+    private void setSettingsIntent(NavigationView navView) {
+        navView.getMenu().findItem(R.id.settings).setOnMenuItemClickListener(menuItem -> {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        });
     }
 
     public void setSignOut(NavigationView navView) {
