@@ -2,11 +2,9 @@ package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -20,18 +18,15 @@ import androidx.navigation.ui.NavigationUI;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     //private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private AppBarConfiguration appBarConfiguration;
     private NavHostFragment navHostFragment;
     private NavController navController;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
 
         setSupportActionBar(toolbar);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.sessionFragment, R.id.friendsFragment, R.id.mapFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
+
+        /*appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();*/
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -74,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
+    }
+
+   /* @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host);
+        return NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item);
+    }*/
 
     public void setSignOut(NavigationView navView) {
         navView.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(menuItem -> {

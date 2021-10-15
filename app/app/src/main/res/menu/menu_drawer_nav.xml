@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/sessionFragment"
-            android:title="Session"
-            android:icon="@drawable/ic_baseline_glass_mug_variant" />
+        <!-- <item
+             android:id="@+id/sessionFragment"
+             android:title="Session"
+             android:icon="@drawable/ic_baseline_glass_mug_variant" />-->
 
         <item
             android:id="@+id/beverageCatalogFragment"

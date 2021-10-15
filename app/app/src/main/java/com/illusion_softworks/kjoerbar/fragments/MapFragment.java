@@ -21,9 +21,7 @@ public class MapFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        requireActivity().setTitle(getString(R.string.map));
     }
 
     @Override
@@ -32,8 +30,7 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         Log.d("BottomNavigation map", String.valueOf(this.getId()));
-//        SetBottomNavigation.setBottomNavigation(view, this, bottomnavigation, R.id.navigate_to_map_button);
-
+        requireActivity().setTitle(getString(R.string.map));
         return view;
     }
 }

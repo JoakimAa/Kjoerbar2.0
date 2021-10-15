@@ -1,12 +1,11 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.illusion_softworks.kjoerbar.R;
 
@@ -61,6 +60,7 @@ public class AddBeverageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        requireActivity().setTitle(getString(R.string.add_beverage));
         return inflater.inflate(R.layout.fragment_add_beverage, container, false);
     }
 }

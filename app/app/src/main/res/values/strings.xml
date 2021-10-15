@@ -38,6 +38,8 @@
     <string name="you_are_in_the_map_fragment">You are in the map fragment</string>
     <string name="you_are_in_the_history_fragment">You are in the history fragment</string>
     <string name="hello_unit_catalog_fragment">Hello unit catalog fragment</string>
+    <string name="add_beverage">Add beverage</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -63,6 +65,7 @@
     <string name="user_username">Username</string>
     <string name="user_full_name">Full name</string>
     <string name="user_gender">Gender</string>
+    <string name="session_history">Session History</string>
 
 
 </resources>
