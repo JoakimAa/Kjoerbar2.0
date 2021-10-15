@@ -52,15 +52,12 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-        //NavigationUI.setupActionBarWithNavController(this, controller);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
-        navView.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(menuItem -> {
-            signOut();
-            return true;
-        });
+
+        setSignOut(navView);
         setDrawerInfo(navView);
     }
 
@@ -70,18 +67,21 @@ public class MainActivity extends AppCompatActivity {
         username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
     }
 
+    public void setSignOut(NavigationView navView) {
+        navView.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(menuItem -> {
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(task -> {
+                        startActivity(new Intent(this, SignInActivity.class));
+                        finish();
+                    });
+            return true;
+        });
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
         return NavigationUI.navigateUp(controller, appBarConfiguration) || super.onSupportNavigateUp();
-    }
-
-    public void signOut() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    startActivity(new Intent(this, SignInActivity.class));
-                    finish();
-                });
     }
 }
