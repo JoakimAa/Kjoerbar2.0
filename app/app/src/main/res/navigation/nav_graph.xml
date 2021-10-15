@@ -28,4 +28,18 @@
         android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.illusion_softworks.kjoerbar.activities.SettingsActivity.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/beverageFragment"
+        android:name="com.illusion_softworks.kjoerbar.BeverageFragment"
+        android:label="fragment_beverage"
+        tools:layout="@layout/fragment_beverage" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.illusion_softworks.kjoerbar.historyFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>
