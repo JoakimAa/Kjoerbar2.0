@@ -66,6 +66,7 @@
     <string name="user_full_name">Full name</string>
     <string name="user_gender">Gender</string>
     <string name="session_history">Session History</string>
+    <string name="item_beverage">"Item Beverage "</string>
 
 
 </resources>
