@@ -11,6 +11,15 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.calculation.Calculations;
+import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.Session;
+import com.illusion_softworks.kjoerbar.model.User;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +27,8 @@ import com.illusion_softworks.kjoerbar.R;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment {
+    private final User user = new User(100, 90, 20, "Male", "Geir");
+    Session session;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,9 +79,39 @@ public class SessionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
 
+        //Log.d("USER", user.toString());
+        Map<String, Object> mapUser = new HashMap<>();
+        mapUser.put("weight", user.getWeight());
+        mapUser.put("height", user.getWeight());
+        mapUser.put("gender", user.getGender());
+        mapUser.put("age", user.getAge());
+        mapUser.put("username", user.getUsername());
+
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
-        addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
+        addAlcoholUnitButton.setOnClickListener(view1 -> {
+            if (user.getCurrentSession() == null) {
+                session = new Session(user.getWeight(), user.getGender());
+                user.setCurrentSession(session);
+                mapUser.put("currentSession", session);
+                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit("Grevens Pære","Hansa", "Cider",0.5, 4.7, LocalDateTime.now()));
+            }
+            else {
+                assert user.getCurrentSession() != null;
+
+            }
+            updatePerMill();
+            UserDataHandler.updateUserOnFireStore(mapUser);
+        });
+
+
         requireActivity().setTitle(getString(R.string.session));
         return view;
+    }
+
+    public void updatePerMill() {
+        user.getCurrentSession().setCurrentPerMill(Calculations.calculateCurrentPerMill(user.getCurrentSession().getAlcoholUnits(), user, LocalDateTime.now()));
+        Log.d("currentPerMill", String.valueOf(user.getCurrentSession().getCurrentPerMill()));
+
+        user.getCurrentSession().setMaxPerMill(Calculations.calculateMaxPerMill(user.getCurrentSession().getMaxPerMill(),user.getCurrentSession().getCurrentPerMill()));
     }
 }

@@ -61,53 +61,41 @@ public class SettingsActivity extends AppCompatActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
         EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
         ListPreference genderPreference;
-        User currentUser;
+        User currentUser = UserDataHandler.getUser();
         Map<String, Object> mapUser = new HashMap<>();
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (isRequiredFieldsValid())
-                UserDataHandler.getUserData();
-        }
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             UserDataHandler.updateUserDocumentReference();
 
-            fullNamePreference = findPreference("full_name");
-            usernamePreference = findPreference("username");
-            agePreference = findPreference("age");
-            heightPreference = findPreference("height");
-            weightPreference = findPreference("weight");
-            genderPreference = findPreference("gender");
-
-            clearFields();
-
-            agePreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
-            heightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
-            weightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
-
-            if (SignInActivity.getResponse().isNewUser()) {
-                fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
-                if (UserDataHandler.getUser() == null) {
-                    Log.d("USERISNULL", "User is null");
-                    UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
-                } else {
-                    Log.d("USERISNULL", "User is not null");
-                    currentUser = UserDataHandler.getUser();
-                    Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
-                    setTextFields();
+            Thread getUserThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        UserDataHandler.getUserData();
+                        updateUI();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                currentUser = UserDataHandler.getUser();
-                Log.d("Current user", currentUser.toString());
-                setTextFields();
-            }
+            });
+            getUserThread.start();
+
+            findPreferences();
+            clearFields();
+            setNumberLimiter();
+
+            //updateUser();
 
             Preference.OnPreferenceChangeListener changeListener = (preference, newValue) -> {
                 mapUser.put(preference.getKey(), newValue);
+                UserDataHandler.updateUserOnFireStore(mapUser);
+                return true;
+            };
+
+            Preference.OnPreferenceChangeListener changeListenerNumbers = (preference, newValue) -> {
+                mapUser.put(preference.getKey(), Integer.parseInt(newValue.toString()));
                 UserDataHandler.updateUserOnFireStore(mapUser);
                 return true;
             };
@@ -124,12 +112,61 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             };
 
+            setOnPreferenceChangeListeners(changeListener, changeListenerFullName, changeListenerNumbers);
+
+        }
+
+        private void updateUI() {
+            requireActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    updateUser();
+                }
+            });
+        }
+
+        private void setOnPreferenceChangeListeners(Preference.OnPreferenceChangeListener changeListener, Preference.OnPreferenceChangeListener changeListenerFullName, Preference.OnPreferenceChangeListener changeListenerNumbers) {
             fullNamePreference.setOnPreferenceChangeListener(changeListenerFullName);
             usernamePreference.setOnPreferenceChangeListener(changeListener);
-            agePreference.setOnPreferenceChangeListener(changeListener);
-            heightPreference.setOnPreferenceChangeListener(changeListener);
-            weightPreference.setOnPreferenceChangeListener(changeListener);
             genderPreference.setOnPreferenceChangeListener(changeListener);
+            agePreference.setOnPreferenceChangeListener(changeListenerNumbers);
+            heightPreference.setOnPreferenceChangeListener(changeListenerNumbers);
+            weightPreference.setOnPreferenceChangeListener(changeListenerNumbers);
+        }
+
+        private void updateUser() {
+            currentUser = UserDataHandler.getUser();
+            if (SignInActivity.getResponse().isNewUser()) {
+                fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+                if (currentUser == null) {
+                    Log.d("USERISNULL", "User is null");
+                    UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
+                    UserDataHandler.getUserData();
+                } else {
+                    Log.d("USERISNULL", "User is not null");
+                    //Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
+                    Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
+                    setTextFields();
+                }
+            } else {
+                Log.d("Current user", currentUser.toString());
+                setTextFields();
+            }
+        }
+
+        private void setNumberLimiter() {
+            agePreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
+            heightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
+            weightPreference.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
+        }
+
+        private void findPreferences() {
+            fullNamePreference = findPreference("full_name");
+            usernamePreference = findPreference("username");
+            agePreference = findPreference("age");
+            heightPreference = findPreference("height");
+            weightPreference = findPreference("weight");
+            genderPreference = findPreference("gender");
         }
 
         private void clearFields() {

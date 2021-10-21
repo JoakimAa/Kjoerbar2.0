@@ -7,10 +7,11 @@
     tools:context=".fragments.SessionFragment">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center|top"
         android:layout_marginTop="56dp"
+        android:gravity="center|top"
         android:text="@string/you_are_in_the_session_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +26,12 @@
         android:background="@drawable/ic_baseline_add_circle_80"
         android:contentDescription="@string/add_alcohol_unit"
         app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        app:layout_constraintVertical_bias="0.955" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,7 +52,7 @@ class SessionTest {
     @DisplayName("Add alcohol unit")
     void testAddAlcoholUnit() {
         // Setup
-        final AlcoholUnit alcoholUnit = new AlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0, LocalDateTime.now());
+        final AlcoholUnit alcoholUnit = new AlcoholUnit("name", "producer", "category", 0.0, 0.0, LocalDateTime.now());
         when(mockAlcoholUnits.add(any(AlcoholUnit.class))).thenReturn(false);
 
         // Run the test

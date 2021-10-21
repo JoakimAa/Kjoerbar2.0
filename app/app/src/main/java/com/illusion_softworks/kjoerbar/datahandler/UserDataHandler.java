@@ -15,9 +15,8 @@ import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHan
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
-public class UserDataHandler {
+public class UserDataHandler{
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
     private static User user;
 
@@ -77,16 +76,10 @@ public class UserDataHandler {
                     if (document.exists()) {
                         Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
 
-                        String username = Objects.requireNonNull(document.getData()).get("username") != null ? Objects.requireNonNull(document.getData().get("username")).toString() : "";
-                        String gender = Objects.requireNonNull(document.getData()).get("gender") != null ? Objects.requireNonNull(document.getData().get("gender")).toString() : "";
-                        int age = !Objects.equals(document.getData().get("age"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("age")).toString()) : 0;
-                        int weight = !Objects.equals(document.getData().get("weight"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("weight")).toString()) : 0;
-                        int height = !Objects.equals(document.getData().get("height"), "") ? Integer.parseInt(Objects.requireNonNull(document.getData().get("height")).toString()) : 0;
+                        if (document.getData() != null) user = document.toObject(User.class);
+                        else user = new User();
 
-
-                        user = new User(weight, height, age, gender, username);
-
-
+                        assert user != null;
                         Log.d("Current user user datahandler", user.toString());
 
                     } else {
@@ -103,6 +96,10 @@ public class UserDataHandler {
         if (user != null)
         Log.d("Current user get", user.toString());
         return user;
+    }
+
+    public static void setUser(User user) {
+        UserDataHandler.user = user;
     }
 }
 
