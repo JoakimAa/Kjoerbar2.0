@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.sessionFragment, R.id.friendsFragment, R.id.mapFragment)
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.sessionFragment, R.id.friendsFragment, R.id.mapFragment, R.id.beverageCatalogFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
 

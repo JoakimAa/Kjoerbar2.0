@@ -41,10 +41,14 @@
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar2.0/app/app/src/main/res/menu/menu_bottom_nav.xml" value="0.5541666666666667" />
         <entry key="..\:/HiOf/7.semester.Hoest2022/Kjoerbar2.0/app/app/src/main/res/menu/menu_drawer_nav.xml" value="0.5541666666666667" />
         <entry key="..\:/Hiof/7.Semester.Hoest2021/Kjoerbar2.0/app/app/src/main/res/layout/activity_main.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/47917/Documents/Kjoerbar2.0/app/app/src/main/res/layout/fragment_add_beverage.xml" value="0.275" />
+        <entry key="..\:/Users/47917/Documents/Kjoerbar2.0/app/app/src/main/res/layout/fragment_beverage_catalog.xml" value="0.264" />
+        <entry key="..\:/Users/47917/Documents/Kjoerbar2.0/app/app/src/main/res/layout/fragment_beverage_detail.xml" value="0.275" />
+        <entry key="..\:/Users/47917/Documents/Kjoerbar2.0/app/app/src/main/res/menu/menu_drawer_nav.xml" value="0.275" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
