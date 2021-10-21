@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/sessionFragment">
+
+    <fragment
+        android:id="@+id/sessionFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
+        android:label="fragment_session"
+        tools:layout="@layout/fragment_session" >
+        <action
+            android:id="@+id/action_sessionFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/addBeverageFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
+        android:label="fragment_add_beverage"
+        tools:layout="@layout/fragment_add_beverage" />
+    <fragment
+        android:id="@+id/sessionHistoryFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
+        android:label="fragment_session_history"
+        tools:layout="@layout/fragment_session_history" />
+    <fragment
+        android:id="@+id/beverageCatalogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.BeverageCatalogFragment"
+        android:label="fragment_beverage_catalog"
+        tools:layout="@layout/fragment_beverage_catalog" />
+</navigation>
