@@ -55,7 +55,7 @@ public class UserDataHandler {
     }
 
     public static void addAlcoholUnitToCatalog(@NonNull Beverage beverage) {
-        userDocumentReference.collection("alcoholUnitCatalog").document(beverage.getName())
+        userDocumentReference.collection("beverageCatalog").document(beverage.getName())
                 .set(beverage)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
