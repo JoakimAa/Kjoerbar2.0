@@ -9,7 +9,6 @@ import com.illusion_softworks.kjoerbar.model.User;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class Calculations {
     public static double calculatePerMillPerUnit(User user, Beverage beverage, double time) {
@@ -30,18 +29,17 @@ public class Calculations {
 
         double currentPerMill = 0;
         for (AlcoholUnit alcoholUnit : alcoholUnits) {
-            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit, (double) ChronoUnit.SECONDS.between(alcoholUnit.getTimeAddedToSession(), currentTime) / 3600);
+            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), (double) ChronoUnit.SECONDS.between(alcoholUnit.getTimeAddedToSession(), currentTime) / 3600);
             Log.d("currentTime", String.valueOf((double) ChronoUnit.SECONDS.between(alcoholUnit.getTimeAddedToSession(), currentTime) / 3600));
         }
         return currentPerMill;
     }
 
     public static long calculateTimeUntilSober(Double currentPerMill) {
-        long timeUntilSober = new Double(currentPerMill / 0.15).longValue();
+        long timeUntilSober = (long) ((currentPerMill / 0.15) * 60 * 60 * 1000);
         Log.d("calculateTimeUntilSober", String.valueOf(timeUntilSober));
         Log.d("calculateTimeUntilSober", String.valueOf(currentPerMill));
         Log.d("calculateTimeUntilSober", String.valueOf((currentPerMill / 0.15)));
-        Log.d("calculateTimeUntilSober", String.valueOf(TimeUnit.HOURS.toMillis(timeUntilSober)));
-        return TimeUnit.HOURS.toMillis(timeUntilSober);
+        return timeUntilSober;
     }
 }

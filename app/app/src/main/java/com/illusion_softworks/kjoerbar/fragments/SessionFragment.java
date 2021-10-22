@@ -16,6 +16,7 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.calculation.Calculations;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 
@@ -34,8 +35,9 @@ import java.util.concurrent.TimeUnit;
 public class SessionFragment extends Fragment {
     private final User user = new User(100, 90, 20, "Male", "Geir");
     Session session;
-    private static long HOUR_IN_MS = 1800000;
+    private static final long HOUR_IN_MS = 0; // 1800000
     private CountDownTimer countDownTimer;
+    TextView textTimer, textCurrentPerMill, textCurrentTime;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,7 +49,7 @@ public class SessionFragment extends Fragment {
     private String mParam2;
 
     private BottomNavigationView bottomnavigation;
-    private MaterialButton addAlcoholUnitButton;
+    private MaterialButton addAlcoholUnitButton, removeAlcoholUnitButton;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -86,9 +88,9 @@ public class SessionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
 
-        TextView textTimer = view.findViewById(R.id.textTimer);
-        TextView textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
-        TextView textCurrentTime = view.findViewById(R.id.textCurrentTime);
+        textTimer = view.findViewById(R.id.textTimer);
+        textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
+        textCurrentTime = view.findViewById(R.id.textCurrentTime);
 
         //Log.d("USER", user.toString());
         Map<String, Object> mapUser = new HashMap<>();
@@ -104,43 +106,73 @@ public class SessionFragment extends Fragment {
                 session = new Session(user.getWeight(), user.getGender());
                 user.setCurrentSession(session);
                 mapUser.put("currentSession", session);
-                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit("Grevens Pære", "Hansa", "Cider", 0.5, 4.7, LocalDateTime.now()));
-                updatePerMill();
-                Log.d("calculateTimeUntilSober", String.valueOf(Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill())));
-                long countDownPeriod = Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill()) + HOUR_IN_MS;
-
-                countDownTimer = new CountDownTimer(countDownPeriod, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        textTimer.setText(String.format(Locale.ENGLISH, "%s: %02d:%02d:%02d", getString(R.string.time_left), TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                        textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %s", getString(R.string.current_per_mill), user.getCurrentSession().getCurrentPerMill()));
-                        long millisBetween = ChronoUnit.MILLIS.between(user.getCurrentSession().getStartDateTime(), LocalDateTime.now());
-                        millisUntilFinished -= HOUR_IN_MS;
-                        textCurrentTime.setText(String.format(Locale.ENGLISH, "%s: %02d:%02d:%02d", getString(R.string.time_elapsed), TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                                TimeUnit.MILLISECONDS.toMinutes(millisBetween) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisBetween)),
-                                TimeUnit.MILLISECONDS.toSeconds(millisBetween) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisBetween))));
-                        updatePerMill();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        textTimer.setText("done!");
-                    }
-                }.start();
-
             }
             else {
-                assert user.getCurrentSession() != null;
+                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit(new Beverage("Grevens Pære", "Hansa", "Cider", 0.5, 4.7)));
+                Log.d("calculateTimeUntilSober", String.valueOf(Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill())));
+
+                updateCountDownTimer();
             }
-            //updatePerMill();
             UserDataHandler.updateUserOnFireStore(mapUser);
         });
 
+        removeAlcoholUnitButton = view.findViewById(R.id.remove_beverage_button);
+        removeAlcoholUnitButton.setOnClickListener(view1 -> {
+            if (user.getCurrentSession().getAlcoholUnits().size() > 0) {
+
+                AlcoholUnit alcoholUnit = user.getCurrentSession().getAlcoholUnits().get(user.getCurrentSession().getAlcoholUnits().size()-1);
+                user.getCurrentSession().removeAlcoholUnit(alcoholUnit);
+                user.getCurrentSession().setMaxPerMill(user.getCurrentSession().getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
+
+                updateCountDownTimer();
+            }
+            UserDataHandler.updateUserOnFireStore(mapUser);
+        });
 
         requireActivity().setTitle(getString(R.string.session));
         return view;
+    }
+
+    private void updateCountDownTimer() {
+        updatePerMill();
+        long countDownPeriod = Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill()) + HOUR_IN_MS;
+
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(countDownPeriod, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long millisBetween = ChronoUnit.MILLIS.between(user.getCurrentSession().getStartDateTime(), LocalDateTime.now());
+
+                textTimer.setText(String.format(Locale.ENGLISH,
+                        "%s: %02d:%02d:%02d",
+                        getString(R.string.time_left),
+                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+
+                textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", getString(R.string.current_per_mill), user.getCurrentSession().getCurrentPerMill()));
+
+                // millisUntilFinished -= HOUR_IN_MS;
+                textCurrentTime.setText(String.format(Locale.ENGLISH,
+                        "%s: %02d:%02d:%02d",
+                        getString(R.string.time_elapsed),
+                        TimeUnit.MILLISECONDS.toHours(millisBetween),
+                        TimeUnit.MILLISECONDS.toMinutes(millisBetween) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisBetween)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisBetween) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisBetween))));
+
+                updatePerMill();
+            }
+
+            @Override
+            public void onFinish() {
+                textTimer.setText("done!");
+                user.getCurrentSession().setEndDateTime(LocalDateTime.now());
+                UserDataHandler.addSessionToHistory(session);
+                user.setCurrentSession(null);
+            }
+        }.start();
     }
 
     public void updatePerMill() {

@@ -76,6 +76,10 @@ public class Session {
         alcoholUnits.add(alcoholUnit);
     }
 
+    public void removeAlcoholUnit(AlcoholUnit alcoholUnit) {
+        alcoholUnits.remove(alcoholUnit);
+    }
+
     public int getUserWeight() {
         return userWeight;
     }

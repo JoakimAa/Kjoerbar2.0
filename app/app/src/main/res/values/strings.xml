@@ -73,6 +73,7 @@
     <string name="current_per_mill">Current per mill </string>
     <string name="time_elapsed">Time elapsed </string>
     <string name="time_left">Time left </string>
+    <string name="remove_alcohol_unit">Remove beverage</string>
 
 
 </resources>
