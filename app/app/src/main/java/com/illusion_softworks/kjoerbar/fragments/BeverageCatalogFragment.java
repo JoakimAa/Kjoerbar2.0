@@ -1,6 +1,7 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,9 @@ import com.illusion_softworks.kjoerbar.model.Beverage;
 import java.util.Arrays;
 import java.util.List;
 
-public class BeverageCatalogFragment extends Fragment {
+public class BeverageCatalogFragment extends Fragment implements OnItemClickListener {
 
+    private final String TAG = "Beverage Catalog";
     private RecyclerView recyclerView;
     private List<Beverage> dummyData;
 
@@ -57,8 +59,14 @@ public class BeverageCatalogFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData);
+        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // Maybe handle what part of the beverage entry was clicked here?
+        Log.d(TAG, "onItemClick: ");
     }
 }
