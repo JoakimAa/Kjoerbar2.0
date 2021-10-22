@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 public class BeverageCatalogFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<String> dummyData;
+    private List<Beverage> dummyData;
 
     public BeverageCatalogFragment() {
         // Required empty public constructor
@@ -39,7 +40,12 @@ public class BeverageCatalogFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_beverage_catalog, container, false);
 
-        dummyData = Arrays.asList("Whiskey", "Vodka", "Rum", "Beer");
+        dummyData = Arrays.asList(
+                new Beverage("Whiskey", "Rum", "cl", 200, 40),
+                new Beverage("Wine", "Rum", "cl", 200, 40),
+                new Beverage("Rum", "Rum", "cl", 200, 40),
+                new Beverage("Beer", "Rum", "cl", 200, 40),
+                new Beverage("Bruh", "Rum", "cl", 200, 40));
 
         return view;
     }

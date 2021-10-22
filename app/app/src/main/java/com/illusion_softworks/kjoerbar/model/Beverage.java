@@ -5,6 +5,16 @@ public class Beverage {
     private final double percent, amount;
     private double gramAlcoholPerUnit;
 
+    public Beverage(String name, String category, String amountType, double amount, double percent) {
+        this.name = name;
+        this.producer = "Not Specified";
+        this.category = category;
+        this.amountType = amountType;
+        this.amount = amount;
+        this.percent = percent;
+        calculateGramAlcoholPerUnit();
+    }
+
     public Beverage(String name, String producer, String category, String amountType, double amount, double percent) {
         this.name = name;
         this.producer = producer;

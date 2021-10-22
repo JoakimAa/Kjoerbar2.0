@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 
 import java.util.List;
 
 public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecyclerAdapter.BeverageViewHolder>{
 
     private LayoutInflater mInflater;
-    private List<String> dataSet;
+    private List<Beverage> dataSet;
 
-    public BeverageRecyclerAdapter(Context context, List<String> dataSet) {
+    public BeverageRecyclerAdapter(Context context, List<Beverage> dataSet) {
         this.mInflater = LayoutInflater.from(context);
         this.dataSet = dataSet;
     }
@@ -36,7 +37,7 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
 
     @Override
     public void onBindViewHolder(@NonNull BeverageViewHolder holder, int position) {
-        String currentData = dataSet.get(position);
+        Beverage currentData = dataSet.get(position);
         holder.bind(currentData);
     }
 
@@ -53,8 +54,8 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
             textView = itemView.findViewById(R.id.beverageNameTextView);
         }
 
-        public void bind(String currentData) {
-            textView.setText(currentData);
+        public void bind(Beverage currentData) {
+            textView.setText(currentData.getName());
         }
     }
 }
