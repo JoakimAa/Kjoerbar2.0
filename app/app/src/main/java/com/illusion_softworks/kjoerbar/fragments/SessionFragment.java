@@ -1,10 +1,12 @@
 package com.illusion_softworks.kjoerbar.fragments;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,8 +20,11 @@ import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +34,8 @@ import java.util.Map;
 public class SessionFragment extends Fragment {
     private final User user = new User(100, 90, 20, "Male", "Geir");
     Session session;
+    private static long HOUR_IN_MS = 1800000;
+    private CountDownTimer countDownTimer;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,12 +80,15 @@ public class SessionFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
+
+        TextView textTimer = view.findViewById(R.id.textTimer);
+        TextView textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
+        TextView textCurrentTime = view.findViewById(R.id.textCurrentTime);
 
         //Log.d("USER", user.toString());
         Map<String, Object> mapUser = new HashMap<>();
@@ -94,13 +104,37 @@ public class SessionFragment extends Fragment {
                 session = new Session(user.getWeight(), user.getGender());
                 user.setCurrentSession(session);
                 mapUser.put("currentSession", session);
-                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit("Grevens Pære","Hansa", "Cider",0.5, 4.7, LocalDateTime.now()));
+                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit("Grevens Pære", "Hansa", "Cider", 0.5, 4.7, LocalDateTime.now()));
+                updatePerMill();
+                Log.d("calculateTimeUntilSober", String.valueOf(Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill())));
+                long countDownPeriod = Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill()) + HOUR_IN_MS;
+
+                countDownTimer = new CountDownTimer(countDownPeriod, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        textTimer.setText(String.format(Locale.ENGLISH, "%s: %02d:%02d:%02d", getString(R.string.time_left), TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                        textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %s", getString(R.string.current_per_mill), user.getCurrentSession().getCurrentPerMill()));
+                        long millisBetween = ChronoUnit.MILLIS.between(user.getCurrentSession().getStartDateTime(), LocalDateTime.now());
+                        millisUntilFinished -= HOUR_IN_MS;
+                        textCurrentTime.setText(String.format(Locale.ENGLISH, "%s: %02d:%02d:%02d", getString(R.string.time_elapsed), TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toMinutes(millisBetween) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisBetween)),
+                                TimeUnit.MILLISECONDS.toSeconds(millisBetween) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisBetween))));
+                        updatePerMill();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        textTimer.setText("done!");
+                    }
+                }.start();
+
             }
             else {
                 assert user.getCurrentSession() != null;
-
             }
-            updatePerMill();
+            //updatePerMill();
             UserDataHandler.updateUserOnFireStore(mapUser);
         });
 

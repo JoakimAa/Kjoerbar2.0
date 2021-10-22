@@ -68,4 +68,11 @@
     <string name="session_history">Session History</string>
 
 
+    <string name="timer">Timer</string>
+    <string name="seconds_remaining">Seconds remaining </string>
+    <string name="current_per_mill">Current per mill </string>
+    <string name="time_elapsed">Time elapsed </string>
+    <string name="time_left">Time left </string>
+
+
 </resources>
