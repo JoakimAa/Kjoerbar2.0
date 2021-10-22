@@ -67,6 +67,6 @@ public class BeverageCatalogFragment extends Fragment implements OnItemClickList
     @Override
     public void onItemClick(int position) {
         // Maybe handle what part of the beverage entry was clicked here?
-        Log.d(TAG, "onItemClick: ");
+        Log.d(TAG, "onItemClick: " + dummyData.get(position));
     }
 }
