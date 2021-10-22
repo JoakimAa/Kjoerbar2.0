@@ -38,7 +38,6 @@ public class BeverageCatalogFragment extends Fragment {
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.beverage_catalog));
 
-        Bruh noe random;
         View view = inflater.inflate(R.layout.fragment_beverage_catalog, container, false);
 
         dummyData = Arrays.asList(
