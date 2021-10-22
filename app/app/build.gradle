@@ -81,6 +81,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.2'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
+    // Cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+
 
     // Safe-ARgs
     //classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
