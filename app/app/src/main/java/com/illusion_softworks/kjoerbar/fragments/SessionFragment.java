@@ -62,15 +62,14 @@ public class SessionFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_session, container, false);
+        requireActivity().setTitle(getString(R.string.session));
 
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view1 -> Log.d("Add drink", "Add drink"));
-        requireActivity().setTitle(getString(R.string.session));
         return view;
     }
 }
