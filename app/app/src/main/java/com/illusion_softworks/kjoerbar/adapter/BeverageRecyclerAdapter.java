@@ -47,7 +47,8 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
     }
 
     class BeverageViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        private View.OnClickListener clickListener = new View.MyOnClickListener();
+        private TextView textView;
 
         public BeverageViewHolder(@NonNull View itemView) {
             super(itemView);

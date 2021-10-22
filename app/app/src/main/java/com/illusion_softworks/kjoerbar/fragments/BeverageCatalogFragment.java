@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Beverage;
 
 import java.util.Arrays;
@@ -55,13 +56,6 @@ public class BeverageCatalogFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
-
-//        recyclerView.addOnItemTouchListener(
-//                new RecyclerItemClickListener(view.getContext(), recyclerView,
-//                        new RecyclerItemClickListener.OnItemClickListener() {
-//                            @Override public void onItemClick(View view, int position) {
-//                                // do whatever
-//                            }}));
 
         BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
