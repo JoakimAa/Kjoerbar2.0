@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-class CalculatePerMillTest {
+class CalculationsTest {
 
     @Test
     @DisplayName("Calculate per mill")
@@ -18,10 +18,10 @@ class CalculatePerMillTest {
 
         // Setup
         final User user = new User("uid", 100, 90, 20, "Male", "Ole");
-        final AlcoholUnit alcoholUnit = new AlcoholUnit("Beer", "producer", "category", "dl", 0.5, 40, LocalDateTime.now());
+        final AlcoholUnit alcoholUnit = new AlcoholUnit("Beer", "producer", "category", 0.5, 40, LocalDateTime.now());
 
         // Run the test
-        final double result = CalculatePerMill.calculatePerMillPerUnit(user, alcoholUnit, 10);
+        final double result = Calculations.calculatePerMillPerUnit(user, alcoholUnit, 10);
 
         // Verify the results
         assertEquals(0.7549714285714288, result, 0.0001);

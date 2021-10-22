@@ -83,7 +83,7 @@ public class SignInActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, SettingsActivity.class);
                 startActivity(intent2);
             } else {
-                UserDataHandler.getUserData();
+                //UserDataHandler.getUserData();
                 Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);

@@ -12,13 +12,13 @@ public class Session {
     /*UUID uuid = UUID.randomUUID();
     @Exclude
     private String uid = uuid.toString();*/
-    private SessionLimit sessionLimit;
+    private SessionLimit sessionLimit = null;
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender;
     private final LocalDateTime startDateTime = LocalDateTime.now();
-    private LocalDateTime endDateTime;
-    private double maxPerMill, currentPerMill;
+    private LocalDateTime endDateTime = null;
+    private double maxPerMill, currentPerMill = 0;
 
     public Session() {
     }
@@ -68,8 +68,8 @@ public class Session {
         this.sessionLimit = sessionLimit;
     }
 
-    public ArrayList<Beverage> getAlcoholUnits() {
-        return new ArrayList<Beverage>(alcoholUnits);
+    public ArrayList<AlcoholUnit> getAlcoholUnits() {
+        return new ArrayList<AlcoholUnit>(alcoholUnits);
     }
 
     public void addAlcoholUnit(AlcoholUnit alcoholUnit) {
