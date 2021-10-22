@@ -38,6 +38,7 @@ public class BeverageCatalogFragment extends Fragment {
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.beverage_catalog));
 
+        Bruh noe random;
         View view = inflater.inflate(R.layout.fragment_beverage_catalog, container, false);
 
         dummyData = Arrays.asList(
@@ -55,6 +56,13 @@ public class BeverageCatalogFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
+
+//        recyclerView.addOnItemTouchListener(
+//                new RecyclerItemClickListener(view.getContext(), recyclerView,
+//                        new RecyclerItemClickListener.OnItemClickListener() {
+//                            @Override public void onItemClick(View view, int position) {
+//                                // do whatever
+//                            }}));
 
         BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
