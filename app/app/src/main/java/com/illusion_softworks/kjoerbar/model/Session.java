@@ -6,16 +6,17 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session {
     /*UUID uuid = UUID.randomUUID();
-    @Exclude
-    private String uid = uuid.toString();*/
+        @Exclude
+        private String uid = uuid.toString();*/
     private SessionLimit sessionLimit = null;
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
-    private String userGender;
+    private String userGender, name;
     private final LocalDateTime startDateTime = LocalDateTime.now();
     private LocalDateTime endDateTime = null;
     private double maxPerMill, currentPerMill = 0;
@@ -43,6 +44,15 @@ public class Session {
     public String getUid() {
         return uid;
     }*/
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     public double getMaxPerMill() {
         return maxPerMill;
@@ -106,6 +116,14 @@ public class Session {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public List<Beverage> getBeverages() {
+        List<Beverage> beverages = new ArrayList<>();
+        for (AlcoholUnit alcoholUnit : getAlcoholUnits()) {
+            beverages.add(alcoholUnit.getBeverage());
+        }
+        return beverages;
     }
 }
 

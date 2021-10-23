@@ -40,6 +40,15 @@
     <string name="hello_unit_catalog_fragment">Hello unit catalog fragment</string>
     <string name="add_beverage">Add beverage</string>
 
+    <!-- Session -->
+    <string name="timer">Time left: 00:00:00</string>
+    <string name="seconds_remaining">Seconds remaining </string>
+    <string name="current_per_mill">Current per mill </string>
+    <string name="current_per_mill_format">Current per mill: 0.000</string>
+    <string name="time_elapsed">Time elapsed </string>
+    <string name="time_elapsed_format">Time elapsed: 00:00:00 </string>
+    <string name="time_left">Time left </string>
+    <string name="remove_alcohol_unit">Remove beverage</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -71,14 +80,6 @@
     <string name="placeholder_beverage_name">"Bacardi"</string>
     <string name="placeholder_beverage_alcohol">40%</string>
     <string name="placeholder_beverage_volume">30ml</string>
-
-
-    <string name="timer">Timer</string>
-    <string name="seconds_remaining">Seconds remaining </string>
-    <string name="current_per_mill">Current per mill </string>
-    <string name="time_elapsed">Time elapsed </string>
-    <string name="time_left">Time left </string>
-    <string name="remove_alcohol_unit">Remove beverage</string>
-
+    <string name="you_are_sober">You are sober :)</string>
 
 </resources>

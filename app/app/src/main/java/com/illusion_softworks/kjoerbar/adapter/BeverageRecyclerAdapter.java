@@ -15,11 +15,11 @@ import com.illusion_softworks.kjoerbar.model.Beverage;
 
 import java.util.List;
 
-public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecyclerAdapter.BeverageViewHolder>{
+public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecyclerAdapter.BeverageViewHolder> {
 
-    private LayoutInflater mInflater;
-    private List<Beverage> dataSet;
-    private OnItemClickListener onItemClickListener;
+    private final LayoutInflater mInflater;
+    private final List<Beverage> dataSet;
+    private final OnItemClickListener onItemClickListener;
 
     public BeverageRecyclerAdapter(Context context, List<Beverage> dataSet, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
@@ -45,19 +45,23 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
         return dataSet.size();
     }
 
-    class BeverageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView textView;
-        private OnItemClickListener onItemClickListener;
+    static class BeverageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView textViewName, textViewPercent, textViewVolume;
+        private final OnItemClickListener onItemClickListener;
 
         public BeverageViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            textView = itemView.findViewById(R.id.beverageNameTextView);
+            textViewName = itemView.findViewById(R.id.beverageNameTextView);
+            textViewPercent = itemView.findViewById(R.id.beverageAlcoholPercentageTextView);
+            textViewVolume = itemView.findViewById(R.id.beverageVolumeTextView);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Beverage currentData) {
-            textView.setText(currentData.getName());
+            textViewName.setText(currentData.getName());
+            textViewPercent.setText(String.valueOf(currentData.getPercent()));
+            textViewVolume.setText(String.valueOf(currentData.getVolume()));
         }
 
         @Override

@@ -9,10 +9,13 @@
         android:id="@+id/sessionFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
         android:label="fragment_session"
-        tools:layout="@layout/fragment_session" >
+        tools:layout="@layout/fragment_session">
         <action
             android:id="@+id/action_sessionFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_sessionFragment_to_addBeverageFragment"
+            app:destination="@id/addBeverageFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
