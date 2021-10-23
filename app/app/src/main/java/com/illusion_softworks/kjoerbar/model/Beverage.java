@@ -13,6 +13,11 @@ public class Beverage {
         this.percent = percent;
         calculateGramAlcoholPerUnit();
     }
+    public Beverage(String name, String category, double amount, double percent) {
+        this(name, "Not Specified", category, amount, percent);
+        //calculateGramAlcoholPerUnit();
+    }
+
 
     private void calculateGramAlcoholPerUnit() {
         this.gramAlcoholPerUnit = amount * (percent / 100) * 789.24;

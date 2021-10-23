@@ -67,6 +67,11 @@
     <string name="user_gender">Gender</string>
     <string name="session_history">Session History</string>
 
+    <!-- Placeholders -->
+    <string name="placeholder_beverage_name">"Bacardi"</string>
+    <string name="placeholder_beverage_alcohol">40%</string>
+    <string name="placeholder_beverage_volume">30ml</string>
+
 
     <string name="timer">Timer</string>
     <string name="seconds_remaining">Seconds remaining </string>
