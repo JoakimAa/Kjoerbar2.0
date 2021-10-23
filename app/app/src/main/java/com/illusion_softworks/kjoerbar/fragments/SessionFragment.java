@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment {
-    private final User user = new User(100, 90, 20, "Male", "Geir");
+    private static final User user = new User(100, 90, 20, "Male", "Geir");
     Session session;
     private static final long HOUR_IN_MS = 0; // 1800000
     private CountDownTimer countDownTimer;
@@ -94,11 +94,14 @@ public class SessionFragment extends Fragment {
 
         //Log.d("USER", user.toString());
         Map<String, Object> mapUser = new HashMap<>();
-        mapUser.put("weight", user.getWeight());
+        /*mapUser.put("weight", user.getWeight());
         mapUser.put("height", user.getWeight());
         mapUser.put("gender", user.getGender());
         mapUser.put("age", user.getAge());
-        mapUser.put("username", user.getUsername());
+        mapUser.put("username", user.getUsername());*/
+
+        if (user.getCurrentSession() != null)
+            updateCountDownTimer(view);
 
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view1 -> {
@@ -106,25 +109,23 @@ public class SessionFragment extends Fragment {
                 session = new Session(user.getWeight(), user.getGender());
                 user.setCurrentSession(session);
                 mapUser.put("currentSession", session);
-            }
-            else {
+                user.getCurrentSession().addAlcoholUnit(new AlcoholUnit(new Beverage("Grevens Pære", "Hansa", "Cider", 0.5, 4.7)));
+            } else {
                 user.getCurrentSession().addAlcoholUnit(new AlcoholUnit(new Beverage("Grevens Pære", "Hansa", "Cider", 0.5, 4.7)));
                 Log.d("calculateTimeUntilSober", String.valueOf(Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill())));
 
-                updateCountDownTimer();
             }
+            updateCountDownTimer(view);
             UserDataHandler.updateUserOnFireStore(mapUser);
         });
 
         removeAlcoholUnitButton = view.findViewById(R.id.remove_beverage_button);
         removeAlcoholUnitButton.setOnClickListener(view1 -> {
             if (user.getCurrentSession().getAlcoholUnits().size() > 0) {
-
                 AlcoholUnit alcoholUnit = user.getCurrentSession().getAlcoholUnits().get(user.getCurrentSession().getAlcoholUnits().size()-1);
                 user.getCurrentSession().removeAlcoholUnit(alcoholUnit);
                 user.getCurrentSession().setMaxPerMill(user.getCurrentSession().getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
-
-                updateCountDownTimer();
+                updateCountDownTimer(view);
             }
             UserDataHandler.updateUserOnFireStore(mapUser);
         });
@@ -133,7 +134,7 @@ public class SessionFragment extends Fragment {
         return view;
     }
 
-    private void updateCountDownTimer() {
+    private void updateCountDownTimer(View view) {
         updatePerMill();
         long countDownPeriod = Calculations.calculateTimeUntilSober(user.getCurrentSession().getCurrentPerMill()) + HOUR_IN_MS;
 
@@ -147,17 +148,17 @@ public class SessionFragment extends Fragment {
 
                 textTimer.setText(String.format(Locale.ENGLISH,
                         "%s: %02d:%02d:%02d",
-                        getString(R.string.time_left),
+                        view.getContext().getString(R.string.time_left),
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
 
-                textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", getString(R.string.current_per_mill), user.getCurrentSession().getCurrentPerMill()));
+                textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", view.getContext().getString(R.string.current_per_mill), user.getCurrentSession().getCurrentPerMill()));
 
                 // millisUntilFinished -= HOUR_IN_MS;
                 textCurrentTime.setText(String.format(Locale.ENGLISH,
                         "%s: %02d:%02d:%02d",
-                        getString(R.string.time_elapsed),
+                        view.getContext().getString(R.string.time_elapsed),
                         TimeUnit.MILLISECONDS.toHours(millisBetween),
                         TimeUnit.MILLISECONDS.toMinutes(millisBetween) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisBetween)),
                         TimeUnit.MILLISECONDS.toSeconds(millisBetween) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisBetween))));
