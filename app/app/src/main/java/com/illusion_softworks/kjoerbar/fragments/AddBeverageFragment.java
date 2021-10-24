@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Beverage;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class AddBeverageFragment extends Fragment implements OnItemClickListener {
     private RecyclerView recyclerView;
-    private List<Beverage> dummyData;
+    private static List<Beverage> dummyData = UserDataHandler.getBeverages();
 
     public AddBeverageFragment() {
         // Required empty public constructor
@@ -46,15 +46,6 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
 
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        dummyData = Arrays.asList(
-                new Beverage("Whiskey", "Rum", "cl", 0.05, 40),
-                new Beverage("Wine", "Rum", "cl", 0.5, 14.0),
-                new Beverage("Rum", "Rum", "cl", 0.03, 40),
-                new Beverage("Beer", "Rum", "cl", 0.5, 6.7),
-                new Beverage("Beer", "Rum", "cl", 0.01, 1),
-                new Beverage("Øl", "Rum", "Øl", 0.6, 5.0));
-
-
         BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
@@ -65,6 +56,7 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
     @Override
     public void onItemClick(int position) {
         // Maybe handle what part of the beverage entry was clicked here?
+        SessionFragment.startNewSession();
         SessionFragment.getUser().getCurrentSession().addAlcoholUnit(new AlcoholUnit(dummyData.get(position)));
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
         Log.d("TAG", "onItemClick: " + dummyData.get(position));

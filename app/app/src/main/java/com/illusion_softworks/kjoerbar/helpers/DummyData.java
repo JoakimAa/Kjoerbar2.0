@@ -3,19 +3,20 @@ package com.illusion_softworks.kjoerbar.helpers;
 
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.illusion_softworks.kjoerbar.datahandler.BeverageCatalogDataHandler;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.model.Session;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class DummyData {
     private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
-
 
     public static void populateData() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -25,46 +26,22 @@ public class DummyData {
         UserDataHandler.addUserToFirestore(user);
     }
 
-    public static void addSessionToHistory() {
-        userDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User newUser = documentSnapshot.toObject(User.class);
-                Log.d("USER", newUser.toString());
-                Session session = new Session(newUser.getWeight(), newUser.getGender());
-                UserDataHandler.addSessionToHistory(session);
-            }
-        });
-    }
+    public static void addBeverageToCatalog() {
+        ArrayList<Beverage> beverage = new ArrayList<Beverage>(Arrays.asList(
+                new Beverage("Grevens Pære", "Hansa", "Cider", 0.5, 4.7),
+                new Beverage("Grevens Eple", "Hansa", "Cider", 0.5, 4.7),
+                new Beverage("Grevens Iste og Fersken", "Hansa", "Cider", 0.5, 4.7),
+                new Beverage("Tuborg", "Tuborg", "Beer", 0.5, 4.7),
+                new Beverage("Heineken", "Heineken", "Beer", 0.5, 4.7),
+                new Beverage("Absolute", "Absolute", "Vodka", 0.04, 40.0),
+                new Beverage("Red wine", "Red Wine", "Wine", 0.75, 14.0),
+                new Beverage("White wine", "Wine", 0.75, 14.0)));
 
-    public static void addAlcoholUnitToCatalog() {
-        /*AlcoholUnit grevensPaere = new AlcoholUnit("Grevens Pære","Hansa", "Cider", "dl", 5,4.7, 18.0);
-        AlcoholUnit grevensEple = new AlcoholUnit("Grevens Eple","Hansa", "Cider", "dl", 5, 4.7,18.0);
-        AlcoholUnit grevensIsteOgFersken= new AlcoholUnit("Grevens Iste og Fersken","Hansa", "Cider", "dl", 5, 4.7, 18.0);
-        AlcoholUnit tuborg = new AlcoholUnit("Tuborg", "Tuborg", "Beer", "dl", 5, 4.7, 18.0);
-        AlcoholUnit heineken = new AlcoholUnit("Heineken", "Heineken", "Beer", "dl", 5, 4.7, 18.0);
-        AlcoholUnit absolute = new AlcoholUnit("Absolute", "Absolute", "Vodka", "cl", 4, 40.0, 12.6);*/
-
-        /*
-        UserDataHandler.addAlcoholUnitToCatalog(grevensPaere);
-        UserDataHandler.addAlcoholUnitToCatalog(grevensEple);
-        UserDataHandler.addAlcoholUnitToCatalog(grevensIsteOgFersken);
-        UserDataHandler.addAlcoholUnitToCatalog(tuborg);
-        UserDataHandler.addAlcoholUnitToCatalog(heineken);
-        UserDataHandler.addAlcoholUnitToCatalog(absolute);
-        */
-
-      /*  AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensPaere);
-        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensEple);
-        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensIsteOgFersken);
-        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(tuborg);
-        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(heineken);
-        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(absolute);*/
+        BeverageCatalogDataHandler.addBeverageToCatalog(beverage);
     }
 
     public static void addDataToFirestore() {
         populateData();
-        addSessionToHistory();
-        addAlcoholUnitToCatalog();
+        addBeverageToCatalog();
     }
 }

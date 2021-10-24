@@ -18,6 +18,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UserDataHandler.getUserBeverageCatalog();
 
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         assert navHostFragment != null;

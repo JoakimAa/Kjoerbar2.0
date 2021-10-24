@@ -24,7 +24,6 @@ import com.illusion_softworks.kjoerbar.calculation.Calculations;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
-import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 
@@ -40,12 +39,11 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
-    private static final User user = new User(100, 90, 20, "Male", "Geir");
+    private static final User user = new User(115, 188, 20, "Male", "Geir");
 
     private static Session session;
     private static CountDownTimer countDownTimer;
     private static Map<String, Object> mapUser;
-    private final Beverage beverage = new Beverage("Grevens Pære", "Hansa", "Cider", 0.005, 1);
     private BeverageRecyclerAdapter adapter;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
@@ -66,12 +64,23 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         return user;
     }
 
+    public static void startNewSession() {
+        if (user.getCurrentSession() == null) {
+            session = new Session(user.getWeight(), user.getGender());
+            user.setCurrentSession(session);
+            mapUser.put("currentSession", session);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
         mapUser = new HashMap<>();
+
+        mapUser.put("weight", user.getWeight());
+        mapUser.put("height", user.getHeight());
         setUpViews();
         setUpButtons();
         updateCountdown();
@@ -81,11 +90,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private void setUpButtons() {
         addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(view -> {
-            if (user.getCurrentSession() == null) {
-                session = new Session(user.getWeight(), user.getGender());
-                user.setCurrentSession(session);
-                mapUser.put("currentSession", session);
-            }
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addBeverageFragment);
         });
 
@@ -186,8 +190,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 textCurrentPerMill.setText(view.getContext().getString(R.string.current_per_mill_format));
                 confirmFinishDialog();
             }
-        };
-        countDownTimer.start();
+        }.start();
     }
 
     private void confirmFinishDialog() {
@@ -223,7 +226,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     public void updatePerMill() {
         user.getCurrentSession().setCurrentPerMill(Calculations.calculateCurrentPerMill(user.getCurrentSession().getAlcoholUnits(), user, LocalDateTime.now()));
         Log.d("currentPerMill", String.valueOf(user.getCurrentSession().getCurrentPerMill()));
-
         user.getCurrentSession().setMaxPerMill(Calculations.calculateMaxPerMill(user.getCurrentSession().getMaxPerMill(), user.getCurrentSession().getCurrentPerMill()));
     }
 }

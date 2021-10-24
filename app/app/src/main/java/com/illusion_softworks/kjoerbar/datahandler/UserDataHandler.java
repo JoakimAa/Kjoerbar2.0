@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
@@ -16,9 +17,11 @@ import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHan
 import java.util.ArrayList;
 import java.util.Map;
 
-public class UserDataHandler{
+public class UserDataHandler {
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
     private static User user;
+    private static final String BEVERAGE_CATALOG = "beverageCatalog";
+    private static ArrayList<Beverage> beverages = new ArrayList<>();
 
     public static void updateUserDocumentReference() {
         UserDataHandler.userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
@@ -53,17 +56,30 @@ public class UserDataHandler{
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
-    public static void addAlcoholUnitToCatalog(@NonNull Beverage beverage) {
-        userDocumentReference.collection("beverageCatalog").document(beverage.getName())
+    public static void addBeverageToCatalog(@NonNull Beverage beverage) {
+        userDocumentReference.collection(BEVERAGE_CATALOG).document(beverage.getName())
                 .set(beverage)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
-    public static void addAlcoholUnitsToCatalog(@NonNull ArrayList<Beverage> beverages) {
+    public static void addBeverageToCatalog(@NonNull ArrayList<Beverage> beverages) {
         for (Beverage beverage : beverages) {
-            addAlcoholUnitToCatalog(beverage);
+            addBeverageToCatalog(beverage);
         }
+    }
+
+    public static void getUserBeverageCatalog() {
+        userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document.getData()));
+                    beverages.add(document.toObject(Beverage.class));
+                }
+            } else {
+                Log.w("DATAHANDLER", "Error getting document", task.getException());
+            }
+        });
     }
 
     public static void getUserData() {
@@ -94,12 +110,16 @@ public class UserDataHandler{
 
     public static User getUser() {
         if (user != null)
-        Log.d("Current user get", user.toString());
+            Log.d("Current user get", user.toString());
         return user;
     }
 
     public static void setUser(User user) {
         UserDataHandler.user = user;
+    }
+
+    public static ArrayList<Beverage> getBeverages() {
+        return beverages;
     }
 }
 

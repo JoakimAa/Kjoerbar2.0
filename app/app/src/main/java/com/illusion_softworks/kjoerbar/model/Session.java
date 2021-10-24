@@ -10,9 +10,6 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session {
-    /*UUID uuid = UUID.randomUUID();
-        @Exclude
-        private String uid = uuid.toString();*/
     private SessionLimit sessionLimit = null;
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
@@ -34,16 +31,6 @@ public class Session {
         this.sessionLimit = sessionLimit;
         this.alcoholUnits = alcoholUnits;
     }
-
-    /*public Session(String uid, SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
-        this(sessionLimit, alcoholUnits, userWeight, userGender);
-        this.uid = uid;
-    }*/
-
-    /*@Exclude
-    public String getUid() {
-        return uid;
-    }*/
 
     public String getName() {
         return name;
