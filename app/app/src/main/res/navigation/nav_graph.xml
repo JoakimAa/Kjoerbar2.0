@@ -12,10 +12,19 @@
         tools:layout="@layout/fragment_session">
         <action
             android:id="@+id/action_sessionFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
         <action
             android:id="@+id/action_sessionFragment_to_addBeverageFragment"
-            app:destination="@id/addBeverageFragment" />
+            app:destination="@id/addBeverageFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
+        <action
+            android:id="@+id/action_sessionFragment_to_beverageDetailFragment"
+            app:destination="@id/beverageDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -35,7 +44,14 @@
         android:id="@+id/addBeverageFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
         android:label="fragment_add_beverage"
-        tools:layout="@layout/fragment_add_beverage" />
+        tools:layout="@layout/fragment_add_beverage">
+        <action
+            android:id="@+id/action_addBeverageFragment_to_beverageDetailFragment"
+            app:destination="@id/beverageDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popUpTo="@id/beverageDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sessionHistoryFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
@@ -46,4 +62,9 @@
         android:name="com.illusion_softworks.kjoerbar.fragments.BeverageCatalogFragment"
         android:label="fragment_beverage_catalog"
         tools:layout="@layout/fragment_beverage_catalog" />
+    <fragment
+        android:id="@+id/beverageDetailFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.BeverageDetailFragment"
+        android:label="fragment_beverage_detail"
+        tools:layout="@layout/fragment_beverage_detail" />
 </navigation>

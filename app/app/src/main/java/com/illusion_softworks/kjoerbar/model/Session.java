@@ -73,6 +73,10 @@ public class Session {
         alcoholUnits.add(alcoholUnit);
     }
 
+    public void addAlcoholUnits(ArrayList<AlcoholUnit> alcoholUnit) {
+        alcoholUnits.addAll(alcoholUnit);
+    }
+
     public void removeAlcoholUnit(AlcoholUnit alcoholUnit) {
         alcoholUnits.remove(alcoholUnit);
     }

@@ -15,7 +15,6 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
-import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Beverage;
 
 import java.util.List;
@@ -55,10 +54,15 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
 
     @Override
     public void onItemClick(int position) {
-        // Maybe handle what part of the beverage entry was clicked here?
         SessionFragment.startNewSession();
-        SessionFragment.getUser().getCurrentSession().addAlcoholUnit(new AlcoholUnit(dummyData.get(position)));
+        SessionFragment.addBeverage(dummyData.get(position));
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
         Log.d("TAG", "onItemClick: " + dummyData.get(position));
+    }
+
+    @Override
+    public void onItemClick(String view) {
+        if (view.equals("beverageDetailFragment"))
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addBeverageFragment_to_beverageDetailFragment);
     }
 }

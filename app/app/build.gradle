@@ -44,6 +44,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -76,14 +80,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.firebase:firebase-firestore:23.0.3'
-    implementation 'com.google.firebase:firebase-core:19.0.1'
+    implementation 'com.google.firebase:firebase-firestore:23.0.4'
+    implementation 'com.google.firebase:firebase-core:19.0.2'
     implementation 'com.google.firebase:firebase-database:20.0.2'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
     // Cardview
     implementation "androidx.cardview:cardview:1.0.0"
 
+    implementation 'com.apachat:swipereveallayout-android:1.1.2'
 
     // Safe-ARgs
     //classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

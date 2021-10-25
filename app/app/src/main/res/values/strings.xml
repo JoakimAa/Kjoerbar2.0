@@ -45,6 +45,7 @@
     <string name="placeholder_beverage_name">"Bacardi"</string>
     <string name="placeholder_beverage_alcohol">40%</string>
     <string name="placeholder_beverage_volume">30ml</string>
+    <string name="info">info</string>
 
 
 </resources>

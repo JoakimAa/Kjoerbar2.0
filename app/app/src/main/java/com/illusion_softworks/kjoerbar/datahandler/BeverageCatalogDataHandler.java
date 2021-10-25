@@ -37,7 +37,7 @@ public class BeverageCatalogDataHandler {
     public static void addBeverageToCatalog(@NonNull Beverage beverage) {
         beverageCatalogReference.document(beverage.getName())
                 .set(beverage)
-                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
+                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Beverage successfully added to the catalog!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 

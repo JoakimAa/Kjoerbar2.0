@@ -31,14 +31,14 @@ public class UserDataHandler {
         userDocumentReference
                 .set(user)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully written!"))
-                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error writing document", e));
+                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error writing user", e));
     }
 
     public static void removeUserFromFirebase() {
         userDocumentReference
                 .delete()
-                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully removed!"))
-                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
+                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully removed!"))
+                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing user", e));
     }
 
     public static void updateUserOnFireStore(Map<String, Object> user) {
@@ -46,21 +46,21 @@ public class UserDataHandler {
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
                     .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey().toString(), entry.getValue().toString())))
-                    .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
+                    .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing user", e));
     }
 
     public static void addSessionToHistory(@NonNull Session session) {
         userDocumentReference.collection("sessionHistory").document(session.getStartDateTime().toString())
                 .set(session)
-                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
-                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
+                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Session successfully added to history!"))
+                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing session from history", e));
     }
 
     public static void addBeverageToCatalog(@NonNull Beverage beverage) {
         userDocumentReference.collection(BEVERAGE_CATALOG).document(beverage.getName())
                 .set(beverage)
-                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
-                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
+                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Beverage successfully added to user catalog!"))
+                .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error adding beverage", e));
     }
 
     public static void addBeverageToCatalog(@NonNull ArrayList<Beverage> beverages) {
@@ -77,7 +77,7 @@ public class UserDataHandler {
                     beverages.add(document.toObject(Beverage.class));
                 }
             } else {
-                Log.w("DATAHANDLER", "Error getting document", task.getException());
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
             }
         });
     }

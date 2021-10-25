@@ -35,6 +35,7 @@ public class DummyData {
                 new Beverage("Heineken", "Heineken", "Beer", 0.5, 4.7),
                 new Beverage("Absolute", "Absolute", "Vodka", 0.04, 40.0),
                 new Beverage("Red wine", "Red Wine", "Wine", 0.75, 14.0),
+                new Beverage("Low per mill", "Low per mill", "Low per mill", 0.01, 1),
                 new Beverage("White wine", "Wine", 0.75, 14.0)));
 
         BeverageCatalogDataHandler.addBeverageToCatalog(beverage);

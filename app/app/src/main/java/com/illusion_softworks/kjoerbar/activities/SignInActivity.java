@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.datahandler.BeverageCatalogDataHandler;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.helpers.DummyData;
 import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
 
 import java.util.Arrays;
@@ -42,7 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
-        DummyData.addBeverageToCatalog();
+        //DummyData.addBeverageToCatalog();
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
         Log.d("SIGNIN", "Signin");
     }

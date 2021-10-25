@@ -10,35 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apachat.swipereveallayout.core.SwipeLayout;
+import com.apachat.swipereveallayout.core.ViewBinder;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
-import com.illusion_softworks.kjoerbar.model.Beverage;
+import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecyclerAdapter.BeverageViewHolder> {
+public class BeverageInListRecyclerAdapter extends RecyclerView.Adapter<BeverageInListRecyclerAdapter.BeverageViewHolder> {
 
+    private final ViewBinder viewBinder = new ViewBinder();
     private final LayoutInflater mInflater;
-    private final List<Beverage> dataSet;
+    private final ArrayList<AlcoholUnit> dataSet;
     private final OnItemClickListener onItemClickListener;
 
-    public BeverageRecyclerAdapter(Context context, List<Beverage> dataSet, OnItemClickListener onItemClickListener) {
+    public BeverageInListRecyclerAdapter(Context context, ArrayList<AlcoholUnit> dataSet, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
         this.dataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
+        viewBinder.setOpenOnlyOne(true);
     }
 
     @NonNull
     @Override
     public BeverageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.fragment_beverage_detail, viewGroup, false);
+        View view = mInflater.inflate(R.layout.swipe_reveal_layout, viewGroup, false);
         return new BeverageViewHolder(view, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BeverageViewHolder holder, int position) {
-        Beverage currentData = dataSet.get(position);
+        AlcoholUnit currentData = dataSet.get(position);
         holder.bind(currentData);
+        viewBinder.bind(holder.swipelayout, currentData.getBeverage().getName());
+        viewBinder.setOpenOnlyOne(true);
     }
 
     @Override
@@ -48,7 +54,8 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
 
     static class BeverageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewName, textViewPercent, textViewVolume;
-        private final ImageView imageView;
+        private final ImageView imageViewInfo, imageViewDelete;
+        private final SwipeLayout swipelayout;
         private final OnItemClickListener onItemClickListener;
 
         public BeverageViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
@@ -56,23 +63,25 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
             textViewName = itemView.findViewById(R.id.beverageNameTextView);
             textViewPercent = itemView.findViewById(R.id.beverageAlcoholPercentageTextView);
             textViewVolume = itemView.findViewById(R.id.beverageVolumeTextView);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
+            imageViewInfo = itemView.findViewById(R.id.imageViewInfo);
+            swipelayout = itemView.findViewById(R.id.swipeLayout);
             this.onItemClickListener = onItemClickListener;
-            itemView.setOnClickListener(this);
-            imageView.setOnClickListener(this);
+            imageViewInfo.setOnClickListener(this);
+            imageViewDelete.setOnClickListener(this);
         }
 
-        public void bind(Beverage currentData) {
-            textViewName.setText(currentData.getName());
-            textViewPercent.setText(String.valueOf(currentData.getPercent()));
-            textViewVolume.setText(String.valueOf(currentData.getVolume()));
+        public void bind(AlcoholUnit currentData) {
+            textViewName.setText(currentData.getBeverage().getName());
+            textViewPercent.setText(String.valueOf(currentData.getBeverage().getPercent()));
+            textViewVolume.setText(String.valueOf(currentData.getBeverage().getVolume()));
         }
 
         @Override
         public void onClick(View view) {
-            if (view == itemView)
+            if (view == imageViewDelete)
                 onItemClickListener.onItemClick(getAdapterPosition());
-            else if (view == imageView) {
+            else if (view == imageViewInfo) {
                 String beverageDetailFragment = "beverageDetailFragment";
                 onItemClickListener.onItemClick(beverageDetailFragment);
             }

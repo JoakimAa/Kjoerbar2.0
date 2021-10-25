@@ -19,16 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.adapter.BeverageInListRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.calculation.Calculations;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -44,12 +46,14 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private static Session session;
     private static CountDownTimer countDownTimer;
     private static Map<String, Object> mapUser;
-    private BeverageRecyclerAdapter adapter;
+    private static ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
+    private static RecyclerView recyclerView;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
-    private RecyclerView recyclerView;
+    private static boolean isBeverageAdded = false;
     private BottomNavigationView bottomnavigation;
     private MaterialButton addAlcoholUnitButton, removeAlcoholUnitButton;
+    private BeverageInListRecyclerAdapter adapter;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -60,31 +64,56 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         super.onCreate(savedInstanceState);
     }
 
-    public static User getUser() {
-        return user;
-    }
-
     public static void startNewSession() {
         if (user.getCurrentSession() == null) {
             session = new Session(user.getWeight(), user.getGender());
             user.setCurrentSession(session);
             mapUser.put("currentSession", session);
+            /*UserDataHandler.updateUserOnFireStore(mapUser);*/
         }
     }
 
+    public static void addBeverage(Beverage beverage) {
+        alcoholUnits.add(new AlcoholUnit(beverage));
+        isBeverageAdded = true;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    private void setUpViews() {
+        textTimer = view.findViewById(R.id.textTimer);
+        textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
+        textCurrentTime = view.findViewById(R.id.textCurrentTime);
+        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
         mapUser = new HashMap<>();
 
         mapUser.put("weight", user.getWeight());
         mapUser.put("height", user.getHeight());
+        mapUser.put("gender", user.getGender());
+        mapUser.put("username", user.getUsername());
+        mapUser.put("age", user.getAge());
+
         setUpViews();
         setUpButtons();
         updateCountdown();
+        setupRecyclerView();
+        notifyAdapterAfterAddedBeverage();
         return view;
+    }
+
+    private void notifyAdapterAfterAddedBeverage() {
+        if (isBeverageAdded) {
+            adapter.notifyItemInserted(alcoholUnits.size() - 1);
+            isBeverageAdded = false;
+        }
     }
 
     private void setUpButtons() {
@@ -95,47 +124,23 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         removeAlcoholUnitButton = view.findViewById(R.id.remove_beverage_button);
         removeAlcoholUnitButton.setOnClickListener(view1 -> {
-            if (user.getCurrentSession().getAlcoholUnits() != null) {
-                if (user.getCurrentSession().getAlcoholUnits().size() > 0) {
-                    AlcoholUnit alcoholUnit = user.getCurrentSession().getAlcoholUnits().get(user.getCurrentSession().getAlcoholUnits().size() - 1);
-                    user.getCurrentSession().removeAlcoholUnit(alcoholUnit);
+            if (alcoholUnits != null) {
+                if (alcoholUnits.size() > 0) {
+                    AlcoholUnit alcoholUnit = alcoholUnits.get(alcoholUnits.size() - 1);
+                    alcoholUnits.remove(alcoholUnit);
                     user.getCurrentSession().setMaxPerMill(user.getCurrentSession().getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
                     updateCountDownTimer();
                     UserDataHandler.updateUserOnFireStore(mapUser);
-                    setupRecyclerView();
+                    adapter.notifyItemRemoved(alcoholUnits.size());
                 }
             }
         });
     }
 
-    private void setUpViews() {
-        textTimer = view.findViewById(R.id.textTimer);
-        textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
-        textCurrentTime = view.findViewById(R.id.textCurrentTime);
-        recyclerView = view.findViewById(R.id.beverageRecyclerView);
-    }
-
-    private void setupRecyclerView() {
-        adapter = new BeverageRecyclerAdapter(view.getContext(), user.getCurrentSession().getBeverages(), this);
+    public void setupRecyclerView() {
+        adapter = new BeverageInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        // Maybe handle what part of the beverage entry was clicked here?
-        Log.d("TAG", "onItemClick: " + user.getCurrentSession().getBeverages().get(position));
-    }
-
-    private void updateCountdown() {
-        if (user.getCurrentSession() != null) {
-            if (user.getCurrentSession().getAlcoholUnits().size() > 0) {
-                mapUser.put("currentSession", session);
-                UserDataHandler.updateUserOnFireStore(mapUser);
-                updateCountDownTimer();
-                setupRecyclerView();
-            }
-        }
     }
 
     private void updateCountDownTimer() {
@@ -193,39 +198,68 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }.start();
     }
 
+    private void updateCountdown() {
+        if (user.getCurrentSession() != null) {
+            if (alcoholUnits.size() > 0) {
+                /*mapUser.put("currentSession", session);
+                UserDataHandler.updateUserOnFireStore(mapUser);*/
+                updateCountDownTimer();
+            }
+        }
+    }
+
     private void confirmFinishDialog() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-        builder1.setMessage("You are sober. \nDo you want to end and save the session?");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        user.getCurrentSession().setEndDateTime(LocalDateTime.now());
-                        UserDataHandler.addSessionToHistory(session);
-                        user.setCurrentSession(null);
-                        Toast.makeText(getContext(),
-                                "The session was saved", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "Continue drinking",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+        builder1.setMessage("You are sober. \nDo you want to end and save the session?")
+                .setCancelable(true)
+                .setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
+                                int size = alcoholUnits.size();
+                                user.getCurrentSession().addAlcoholUnits(alcoholUnits);
+                                user.getCurrentSession().setEndDateTime(LocalDateTime.now());
+                                UserDataHandler.addSessionToHistory(session);
+                                user.setCurrentSession(null);
+                                alcoholUnits.clear();
+                                adapter.notifyItemRangeRemoved(0, size);
+                                Toast.makeText(getContext(),
+                                        "The session was saved", Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        })
+                .setNegativeButton(
+                        "Continue drinking",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
 
     public void updatePerMill() {
-        user.getCurrentSession().setCurrentPerMill(Calculations.calculateCurrentPerMill(user.getCurrentSession().getAlcoholUnits(), user, LocalDateTime.now()));
+        user.getCurrentSession().setCurrentPerMill(Calculations.calculateCurrentPerMill(alcoholUnits, user, LocalDateTime.now()));
         Log.d("currentPerMill", String.valueOf(user.getCurrentSession().getCurrentPerMill()));
         user.getCurrentSession().setMaxPerMill(Calculations.calculateMaxPerMill(user.getCurrentSession().getMaxPerMill(), user.getCurrentSession().getCurrentPerMill()));
     }
+
+    @Override
+    public void onItemClick(int position) {
+        AlcoholUnit alcoholUnit = alcoholUnits.remove(position);
+        adapter.notifyItemRemoved(position);
+        updateCountdown();
+        Log.d("onItemClickSession", "onItemClick: " + alcoholUnit.getBeverage().getName() + " pos:" + position);
+    }
+
+    @Override
+    public void onItemClick(String view) {
+        // Maybe handle what part of the beverage entry was clicked here?
+        if (view.equals("beverageDetailFragment"))
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_beverageDetailFragment);
+    }
+
 }
