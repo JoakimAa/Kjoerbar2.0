@@ -48,20 +48,15 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private static Map<String, Object> mapUser;
     private static ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private static RecyclerView recyclerView;
+    private static boolean isBeverageAdded = false;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
-    private static boolean isBeverageAdded = false;
     private BottomNavigationView bottomnavigation;
     private MaterialButton addAlcoholUnitButton, removeAlcoholUnitButton;
     private BeverageInListRecyclerAdapter adapter;
 
     public SessionFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     public static void startNewSession() {
@@ -80,6 +75,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     public static User getUser() {
         return user;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void setUpViews() {

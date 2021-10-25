@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class UserDataHandler {
+    private static final String BEVERAGE_CATALOG = "beverageCatalog";
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
     private static User user;
-    private static final String BEVERAGE_CATALOG = "beverageCatalog";
     private static ArrayList<Beverage> beverages = new ArrayList<>();
 
     public static void updateUserDocumentReference() {

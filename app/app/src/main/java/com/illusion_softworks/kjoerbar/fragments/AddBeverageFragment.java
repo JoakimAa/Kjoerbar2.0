@@ -24,8 +24,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AddBeverageFragment extends Fragment implements OnItemClickListener {
-    private RecyclerView recyclerView;
-    private static List<Beverage> dummyData = UserDataHandler.getBeverages();
+    private static final List<Beverage> dummyData = UserDataHandler.getBeverages();
 
     public AddBeverageFragment() {
         // Required empty public constructor
@@ -43,7 +42,7 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
         requireActivity().setTitle(getString(R.string.add_beverage));
         View view = inflater.inflate(R.layout.fragment_add_beverage, container, false);
 
-        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
         BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
