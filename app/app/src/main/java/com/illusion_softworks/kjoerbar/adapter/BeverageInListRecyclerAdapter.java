@@ -15,6 +15,7 @@ import com.apachat.swipereveallayout.core.ViewBinder;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
+import com.illusion_softworks.kjoerbar.model.Drink;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class BeverageInListRecyclerAdapter extends RecyclerView.Adapter<Beverage
     public void onBindViewHolder(@NonNull BeverageViewHolder holder, int position) {
         AlcoholUnit currentData = dataSet.get(position);
         holder.bind(currentData);
-        viewBinder.bind(holder.swipelayout, currentData.getBeverage().getName());
+        viewBinder.bind(holder.swipelayout, currentData.getDrink().getName());
         viewBinder.setOpenOnlyOne(true);
     }
 
@@ -72,9 +73,11 @@ public class BeverageInListRecyclerAdapter extends RecyclerView.Adapter<Beverage
         }
 
         public void bind(AlcoholUnit currentData) {
-            textViewName.setText(currentData.getBeverage().getName());
-            textViewPercent.setText(String.valueOf(currentData.getBeverage().getPercent()));
-            textViewVolume.setText(String.valueOf(currentData.getBeverage().getVolume()));
+            Drink currentDrink = currentData.getDrink();
+
+            textViewName.setText(currentDrink.getName());
+            textViewPercent.setText(String.valueOf(currentDrink.getPercent()));
+            textViewVolume.setText(String.valueOf(currentDrink.getVolume()));
         }
 
         @Override

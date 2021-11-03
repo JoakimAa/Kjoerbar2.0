@@ -2,7 +2,7 @@ package com.illusion_softworks.kjoerbar.helpers;
 
 
 import android.util.Log;
-
+/*
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -11,12 +11,12 @@ import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.model.Beverage;
 import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
-
+*/
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DummyData {
-    private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+    /*private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
 
     public static void populateData() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -44,5 +44,5 @@ public class DummyData {
     public static void addDataToFirestore() {
         populateData();
         addBeverageToCatalog();
-    }
+    }*/
 }

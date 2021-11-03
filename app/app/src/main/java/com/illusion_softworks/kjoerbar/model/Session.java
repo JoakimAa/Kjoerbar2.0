@@ -108,12 +108,12 @@ public class Session {
         this.endDateTime = endDateTime;
     }
 
-    public List<Beverage> getBeverages() {
-        List<Beverage> beverages = new ArrayList<>();
+    public List<Drink> getBeverages() {
+        List<Drink> drinks = new ArrayList<>();
         for (AlcoholUnit alcoholUnit : getAlcoholUnits()) {
-            beverages.add(alcoholUnit.getBeverage());
+            drinks.add(alcoholUnit.getDrink());
         }
-        return beverages;
+        return drinks;
     }
 }
 

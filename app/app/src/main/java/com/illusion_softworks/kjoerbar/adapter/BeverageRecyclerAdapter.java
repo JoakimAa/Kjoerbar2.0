@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
-import com.illusion_softworks.kjoerbar.model.Beverage;
+import com.illusion_softworks.kjoerbar.model.Drink;
 
 import java.util.List;
 
 public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecyclerAdapter.BeverageViewHolder> {
 
     private final LayoutInflater mInflater;
-    private final List<Beverage> dataSet;
+    private final List<Drink> dataSet;
     private final OnItemClickListener onItemClickListener;
 
-    public BeverageRecyclerAdapter(Context context, List<Beverage> dataSet, OnItemClickListener onItemClickListener) {
+    public BeverageRecyclerAdapter(Context context, List<Drink> dataSet, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
         this.dataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
@@ -37,7 +37,7 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
 
     @Override
     public void onBindViewHolder(@NonNull BeverageViewHolder holder, int position) {
-        Beverage currentData = dataSet.get(position);
+        Drink currentData = dataSet.get(position);
         holder.bind(currentData);
     }
 
@@ -62,10 +62,10 @@ public class BeverageRecyclerAdapter extends RecyclerView.Adapter<BeverageRecycl
             imageView.setOnClickListener(this);
         }
 
-        public void bind(Beverage currentData) {
-            textViewName.setText(currentData.getName());
-            textViewPercent.setText(String.valueOf(currentData.getPercent()));
-            textViewVolume.setText(String.valueOf(currentData.getVolume()));
+        public void bind(Drink currentDrink) {
+            textViewName.setText(currentDrink.getName());
+            textViewPercent.setText(String.valueOf(currentDrink.getPercent()));
+            textViewVolume.setText(String.valueOf(currentDrink.getVolume()));
         }
 
         @Override

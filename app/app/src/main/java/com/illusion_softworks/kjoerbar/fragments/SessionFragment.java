@@ -23,7 +23,7 @@ import com.illusion_softworks.kjoerbar.calculation.Calculations;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
-import com.illusion_softworks.kjoerbar.model.Beverage;
+import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 
@@ -62,8 +62,8 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }
     }
 
-    public static void addBeverage(Beverage beverage) {
-        alcoholUnits.add(new AlcoholUnit(beverage));
+    public static void addDrink(Drink drink) {
+        alcoholUnits.add(new AlcoholUnit(drink));
         isBeverageAdded = true;
     }
 
@@ -119,7 +119,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
             if (alcoholUnits.size() > 0) {
                 AlcoholUnit alcoholUnit = alcoholUnits.get(alcoholUnits.size() - 1);
                 alcoholUnits.remove(alcoholUnit);
-                session.setMaxPerMill(session.getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
+                session.setMaxPerMill(session.getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getDrink(), 0));
                 updateCountDownTimer();
                 UserDataHandler.updateUserOnFireStore(mapUser);
                 adapter.notifyItemRemoved(alcoholUnits.size());
@@ -218,7 +218,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         AlcoholUnit alcoholUnit = alcoholUnits.remove(position);
         adapter.notifyItemRemoved(position);
         updateCountdown();
-        Log.d("onItemClickSession", "onItemClick: " + alcoholUnit.getBeverage().getName() + " pos:" + position);
+        Log.d("onItemClickSession", "onItemClick: " + alcoholUnit.getDrink().getName() + " pos:" + position);
     }
 
     @Override
