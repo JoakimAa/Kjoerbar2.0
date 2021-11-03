@@ -11,7 +11,7 @@
     card_view:cardElevation="4dp"
     card_view:cardCornerRadius="4dp"
     card_view:cardBackgroundColor="@color/beverageRecycleViewBackground"
-    tools:context=".fragments.BeverageDetailFragment">
+    tools:context=".fragments.DrinkDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

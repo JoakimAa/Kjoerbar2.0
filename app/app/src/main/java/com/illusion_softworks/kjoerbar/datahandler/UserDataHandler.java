@@ -1,5 +1,7 @@
 package com.illusion_softworks.kjoerbar.datahandler;
 
+// @TODO: REMOVE THIS CLASS
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;

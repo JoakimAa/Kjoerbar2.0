@@ -1,5 +1,6 @@
 package com.illusion_softworks.kjoerbar.helpers;
 
+// @TODO: REMOVE THIS CLASS
 
 import android.util.Log;
 /*

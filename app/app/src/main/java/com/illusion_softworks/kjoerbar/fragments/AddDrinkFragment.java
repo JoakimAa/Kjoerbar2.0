@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
@@ -23,10 +23,10 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class AddBeverageFragment extends Fragment implements OnItemClickListener {
+public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     private static final List<Drink> data = UserDataHandler.getBeverages();
 
-    public AddBeverageFragment() {
+    public AddDrinkFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.add_beverage));
-        View view = inflater.inflate(R.layout.fragment_add_beverage, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_drink, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), data, this);
+        DrinkRecyclerAdapter adapter = new DrinkRecyclerAdapter(view.getContext(), data, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -62,6 +62,6 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
     @Override
     public void onItemClick(String view) {
         if (view.equals("beverageDetailFragment"))
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addBeverageFragment_to_beverageDetailFragment);
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addDrinkFragment_to_drinkDetailFragment);
     }
 }

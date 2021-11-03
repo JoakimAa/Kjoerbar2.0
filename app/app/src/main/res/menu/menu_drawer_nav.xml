@@ -3,13 +3,9 @@
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="single">
-        <!-- <item
-             android:id="@+id/sessionFragment"
-             android:title="Session"
-             android:icon="@drawable/ic_baseline_glass_mug_variant" />-->
 
         <item
-            android:id="@+id/beverageCatalogFragment"
+            android:id="@+id/drinkCatalogFragment"
             android:icon="@drawable/ic_baseline_liquor_24"
             android:title="@string/beverage_catalog" />
 

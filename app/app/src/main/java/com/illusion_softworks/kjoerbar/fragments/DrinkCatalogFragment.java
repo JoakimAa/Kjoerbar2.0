@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.adapter.BeverageRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class BeverageCatalogFragment extends Fragment implements OnItemClickListener {
+public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
 
     private final String TAG = "Beverage Catalog";
     private RecyclerView recyclerView;
     private List<Drink> dummyData;
 
-    public BeverageCatalogFragment() {
+    public DrinkCatalogFragment() {
         // Required empty public constructor
     }
 
@@ -41,7 +41,7 @@ public class BeverageCatalogFragment extends Fragment implements OnItemClickList
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.beverage_catalog));
 
-        View view = inflater.inflate(R.layout.fragment_beverage_catalog, container, false);
+        View view = inflater.inflate(R.layout.fragment_drink_catalog, container, false);
 
         dummyData = Arrays.asList(
                 new Drink("Whiskey", "Rum", "cl", 200, 40),
@@ -59,7 +59,7 @@ public class BeverageCatalogFragment extends Fragment implements OnItemClickList
 
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData, this);
+        DrinkRecyclerAdapter adapter = new DrinkRecyclerAdapter(view.getContext(), dummyData, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
     }

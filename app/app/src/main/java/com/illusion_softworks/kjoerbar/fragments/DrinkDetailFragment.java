@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.illusion_softworks.kjoerbar.R;
 
-public class BeverageDetailFragment extends Fragment {
+public class DrinkDetailFragment extends Fragment {
 
 
-    public BeverageDetailFragment() {
+    public DrinkDetailFragment() {
         // Required empty public constructor
     }
 
@@ -27,6 +27,6 @@ public class BeverageDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_beverage_detail, container, false);
+        return inflater.inflate(R.layout.fragment_drink_detail, container, false);
     }
 }

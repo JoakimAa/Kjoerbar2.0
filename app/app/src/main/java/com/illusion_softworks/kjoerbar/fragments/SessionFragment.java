@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.adapter.BeverageInListRecyclerAdapter;
+import com.illusion_softworks.kjoerbar.adapter.DrinkInListRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.calculation.Calculations;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
@@ -50,7 +50,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private static boolean isBeverageAdded = false;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
-    private BeverageInListRecyclerAdapter adapter;
+    private DrinkInListRecyclerAdapter adapter;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -128,7 +128,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     public void setupRecyclerView() {
-        adapter = new BeverageInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
+        adapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
     }
@@ -225,11 +225,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     public void onItemClick(String view) {
         // Maybe handle what part of the beverage entry was clicked here?
         if (view.equals("beverageDetailFragment"))
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_beverageDetailFragment);
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment);
     }
 
     private void navigateToAddBeverageFragment(View view) {
-        Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addBeverageFragment);
+        Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addDrinkFragment);
     }
 
     private void createPositivButton(DialogInterface dialog, int id) {
