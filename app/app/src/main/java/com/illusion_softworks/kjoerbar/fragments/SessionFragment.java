@@ -16,7 +16,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.BeverageInListRecyclerAdapter;
@@ -51,7 +50,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private static boolean isBeverageAdded = false;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
-    private BottomNavigationView bottomnavigation;
     private BeverageInListRecyclerAdapter adapter;
 
     public SessionFragment() {
@@ -67,10 +65,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     public static void addBeverage(Beverage beverage) {
         alcoholUnits.add(new AlcoholUnit(beverage));
         isBeverageAdded = true;
-    }
-
-    public static User getUser() {
-        return user;
     }
 
     @Override
@@ -118,21 +112,17 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     private void setUpButtons() {
         MaterialButton addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
-        addAlcoholUnitButton.setOnClickListener(view -> {
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addBeverageFragment);
-        });
+        addAlcoholUnitButton.setOnClickListener(this::navigateToAddBeverageFragment);
 
         MaterialButton removeAlcoholUnitButton = view.findViewById(R.id.remove_beverage_button);
         removeAlcoholUnitButton.setOnClickListener(view1 -> {
-            if (alcoholUnits != null) {
-                if (alcoholUnits.size() > 0) {
-                    AlcoholUnit alcoholUnit = alcoholUnits.get(alcoholUnits.size() - 1);
-                    alcoholUnits.remove(alcoholUnit);
-                    session.setMaxPerMill(session.getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
-                    updateCountDownTimer();
-                    UserDataHandler.updateUserOnFireStore(mapUser);
-                    adapter.notifyItemRemoved(alcoholUnits.size());
-                }
+            if (alcoholUnits.size() > 0) {
+                AlcoholUnit alcoholUnit = alcoholUnits.get(alcoholUnits.size() - 1);
+                alcoholUnits.remove(alcoholUnit);
+                session.setMaxPerMill(session.getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getBeverage(), 0));
+                updateCountDownTimer();
+                UserDataHandler.updateUserOnFireStore(mapUser);
+                adapter.notifyItemRemoved(alcoholUnits.size());
             }
         });
     }
@@ -161,6 +151,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 long millisBetween = ChronoUnit.MILLIS.between(session.getStartDateTime(), LocalDateTime.now());
+
+                formatToHours(millisUntilFinished, textTimer, R.string.time_left);
+                textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", view.getContext().getString(R.string.current_per_mill), session.getCurrentPerMill()));
+                formatToHours(millisBetween, textCurrentTime, R.string.time_elapsed);
+
                 Log.d("UserTick", session.toString());
 
                 Log.d("millisUntilFinished", String.format(Locale.ENGLISH,
@@ -169,22 +164,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-
-                textTimer.setText(String.format(Locale.ENGLISH,
-                        "%s: %02d:%02d:%02d",
-                        view.getContext().getString(R.string.time_left),
-                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-
-                textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", view.getContext().getString(R.string.current_per_mill), session.getCurrentPerMill()));
-
-                textCurrentTime.setText(String.format(Locale.ENGLISH,
-                        "%s: %02d:%02d:%02d",
-                        view.getContext().getString(R.string.time_elapsed),
-                        TimeUnit.MILLISECONDS.toHours(millisBetween),
-                        TimeUnit.MILLISECONDS.toMinutes(millisBetween) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisBetween)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisBetween) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisBetween))));
 
                 updatePerMill();
             }
@@ -198,13 +177,18 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }.start();
     }
 
+    private void formatToHours(long millisUntilFinished, TextView textTimer, int p) {
+        textTimer.setText(String.format(Locale.ENGLISH,
+                "%s: %02d:%02d:%02d",
+                view.getContext().getString(p),
+                TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+    }
+
     private void updateCountdown() {
         if (session != null) {
-            if (alcoholUnits.size() > 0) {
-                /*mapUser.put("currentSession", session);
-                UserDataHandler.updateUserOnFireStore(mapUser);*/
-                updateCountDownTimer();
-            }
+            updateCountDownTimer();
         }
     }
 
@@ -214,28 +198,10 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 .setCancelable(true)
                 .setPositiveButton(
                         "Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                session.setName(session.getStartDateTime().toString());
-                                textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
-                                int size = alcoholUnits.size();
-                                session.addAlcoholUnits(alcoholUnits);
-                                session.setEndDateTime(LocalDateTime.now());
-                                UserDataHandler.addSessionToHistory(session);
-                                alcoholUnits.clear();
-                                adapter.notifyItemRangeRemoved(0, size);
-                                Toast.makeText(getContext(),
-                                        "The session was saved", Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        })
+                        this::createPositivButton)
                 .setNegativeButton(
                         "Continue drinking",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        (dialog, id) -> dialog.cancel());
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
@@ -262,4 +228,21 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_beverageDetailFragment);
     }
 
+    private void navigateToAddBeverageFragment(View view) {
+        Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addBeverageFragment);
+    }
+
+    private void createPositivButton(DialogInterface dialog, int id) {
+        session.setName(session.getStartDateTime().toString());
+        textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
+        int size = alcoholUnits.size();
+        session.addAlcoholUnits(alcoholUnits);
+        session.setEndDateTime(LocalDateTime.now());
+        UserDataHandler.addSessionToHistory(session);
+        alcoholUnits.clear();
+        adapter.notifyItemRangeRemoved(0, size);
+        Toast.makeText(SessionFragment.this.getContext(),
+                "The session was saved", Toast.LENGTH_SHORT)
+                .show();
+    }
 }
