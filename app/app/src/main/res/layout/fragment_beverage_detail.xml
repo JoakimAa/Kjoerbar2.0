@@ -10,12 +10,13 @@
     android:layout_marginBottom="16dp"
     card_view:cardElevation="4dp"
     card_view:cardCornerRadius="4dp"
-    card_view:cardBackgroundColor="@color/white"
+    card_view:cardBackgroundColor="@color/beverageRecycleViewBackground"
     tools:context=".fragments.BeverageDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/beverageRecycleViewBackground"
         android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -24,7 +24,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AddBeverageFragment extends Fragment implements OnItemClickListener {
-    private static final List<Beverage> dummyData = UserDataHandler.getBeverages();
+    private static final List<Beverage> data = UserDataHandler.getBeverages();
 
     public AddBeverageFragment() {
         // Required empty public constructor
@@ -44,7 +44,7 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
 
         RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), dummyData, this);
+        BeverageRecyclerAdapter adapter = new BeverageRecyclerAdapter(view.getContext(), data, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -54,9 +54,9 @@ public class AddBeverageFragment extends Fragment implements OnItemClickListener
     @Override
     public void onItemClick(int position) {
         SessionFragment.startNewSession();
-        SessionFragment.addBeverage(dummyData.get(position));
+        SessionFragment.addBeverage(data.get(position));
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
-        Log.d("TAG", "onItemClick: " + dummyData.get(position));
+        Log.d("TAG", "onItemClick: " + data.get(position));
     }
 
     @Override

@@ -1,6 +1,5 @@
 <resources>
     <!-- Reply Preference -->
-
     <string-array name="gender_entries">
         <item>Male</item>
         <item>Female</item>
@@ -10,5 +9,4 @@
         <item>male</item>
         <item>female</item>
     </string-array>
-
 </resources>

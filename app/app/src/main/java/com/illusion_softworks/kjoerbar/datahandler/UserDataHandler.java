@@ -19,10 +19,11 @@ import java.util.Map;
 
 public class UserDataHandler {
     private static final String BEVERAGE_CATALOG = "beverageCatalog";
+    private static final String SESSION_HISTORY = "sessionHistory";
     private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
     private static User user;
     private static ArrayList<Beverage> beverages = new ArrayList<>();
-
+    private static ArrayList<Session> sessions = new ArrayList<>();
     public static void updateUserDocumentReference() {
         UserDataHandler.userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
     }
@@ -73,7 +74,8 @@ public class UserDataHandler {
         userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document.getData()));
+                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
+
                     beverages.add(document.toObject(Beverage.class));
                 }
             } else {
@@ -108,6 +110,23 @@ public class UserDataHandler {
         });
     }
 
+    public static void getSessionHistory() {
+        userDocumentReference.collection(SESSION_HISTORY).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getSessionHistory", String.valueOf(document.getData()));
+                    sessions.add(document.toObject(Session.class));
+                }
+            } else {
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
+            }
+        });
+    }
+
+    public static ArrayList<Session> getSessions() {
+        return new ArrayList<>(sessions);
+    }
+
     public static User getUser() {
         if (user != null)
             Log.d("Current user get", user.toString());
@@ -119,7 +138,7 @@ public class UserDataHandler {
     }
 
     public static ArrayList<Beverage> getBeverages() {
-        return beverages;
+        return new ArrayList<>(beverages);
     }
 }
 

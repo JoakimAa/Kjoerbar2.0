@@ -29,7 +29,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        setPreferencesFromResource(R.xml.root_user_preferences, rootKey);
         UserDataHandler.updateUserDocumentReference();
 
         Thread getUserThread = new Thread(new Runnable() {

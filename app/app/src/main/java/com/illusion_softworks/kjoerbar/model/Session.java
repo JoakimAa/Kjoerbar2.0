@@ -10,13 +10,12 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session {
-    private SessionLimit sessionLimit = null;
+    private SessionLimit sessionLimit;
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender, name;
-    private final LocalDateTime startDateTime = LocalDateTime.now();
-    private LocalDateTime endDateTime = null;
-    private double maxPerMill, currentPerMill = 0;
+    private LocalDateTime startDateTime, endDateTime = null;
+    private double maxPerMill, currentPerMill;
 
     public Session() {
     }
@@ -24,9 +23,10 @@ public class Session {
     public Session(int userWeight, String userGender) {
         this.userWeight = userWeight;
         this.userGender = userGender;
+        this.startDateTime = LocalDateTime.now();
     }
 
-    public Session(SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits, int userWeight, String userGender) {
+    public Session(int userWeight, String userGender, SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits) {
         this(userWeight, userGender);
         this.sessionLimit = sessionLimit;
         this.alcoholUnits = alcoholUnits;
@@ -39,7 +39,6 @@ public class Session {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public double getMaxPerMill() {
         return maxPerMill;
