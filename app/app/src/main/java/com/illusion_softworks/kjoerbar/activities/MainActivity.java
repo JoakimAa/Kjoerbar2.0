@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -20,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 public class MainActivity extends AppCompatActivity {
     //private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
