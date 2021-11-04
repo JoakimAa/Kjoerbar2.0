@@ -1,8 +1,13 @@
 package com.illusion_softworks.kjoerbar.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
+import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,11 @@ public class DrinkCatalogRepository {
     private static DrinkCatalogRepository sInstance;
     private ArrayList<Drink> mDataSet = new ArrayList<>();
 
+    private static final String BEVERAGE_CATALOG = "beverageCatalog";
+    private static final String SESSION_HISTORY = "sessionHistory";
+    private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+
+
     public static DrinkCatalogRepository getInstance() {
         if (sInstance == null) {
             sInstance = new DrinkCatalogRepository();
@@ -26,11 +36,25 @@ public class DrinkCatalogRepository {
     public MutableLiveData<List<Drink>> getDrinks() {
         // Database queries
 
-        setDrinksWithDummyData();
+        getUserDrinks();
         MutableLiveData<List<Drink>> data = new MutableLiveData<>();
         data.setValue(mDataSet);
 
         return data;
+    }
+
+    private void getUserDrinks() {
+        userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
+
+                    mDataSet.add(document.toObject(Drink.class));
+                }
+            } else {
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
+            }
+        });
     }
 
     private void setDrinksWithDummyData() {
