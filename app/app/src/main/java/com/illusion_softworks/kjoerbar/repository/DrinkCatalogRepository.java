@@ -22,8 +22,7 @@ public class DrinkCatalogRepository {
     private ArrayList<Drink> mDataSet = new ArrayList<>();
 
     private static final String BEVERAGE_CATALOG = "beverageCatalog";
-    private static final String SESSION_HISTORY = "sessionHistory";
-    private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+    private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
 
 
     public static DrinkCatalogRepository getInstance() {
@@ -33,14 +32,14 @@ public class DrinkCatalogRepository {
         return sInstance;
     }
 
-    public MutableLiveData<List<Drink>> getDrinks() {
+    public List<Drink> getDrinks() {
         // Database queries
 
         getUserDrinks();
-        MutableLiveData<List<Drink>> data = new MutableLiveData<>();
-        data.setValue(mDataSet);
+//        MutableLiveData<List<Drink>> data = new MutableLiveData<>();
+//        data.setValue();
 
-        return data;
+        return mDataSet;
     }
 
     private void getUserDrinks() {
