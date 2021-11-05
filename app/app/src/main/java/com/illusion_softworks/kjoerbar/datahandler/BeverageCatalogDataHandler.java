@@ -1,28 +1,28 @@
 package com.illusion_softworks.kjoerbar.datahandler;
 
+// @TODO: REMOVE THIS CLASS
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.illusion_softworks.kjoerbar.model.Beverage;
+import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.referencehandler.BeverageCatalogCollectionReferenceHandler;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 public class BeverageCatalogDataHandler {
     private static final CollectionReference beverageCatalogReference = BeverageCatalogCollectionReferenceHandler.getUserDocumentReferenceFromFirestore();
-    private static ArrayList<Beverage> beverages = new ArrayList<>();
+    private static final ArrayList<Drink> drinks = new ArrayList<>();
 
     public static void getAlcoholUnitCatalog() {
         beverageCatalogReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Map<String, Object> mapBeverage = document.getData();
-                    addBeverageToArray(mapBeverage);
+                    Log.d("DATAHANDLER_getalcounitcatalog", String.valueOf(document.getData()));
+                    drinks.add(document.toObject(Drink.class));
                 }
             } else {
                 Log.w("DATAHANDLER", "Error getting document", task.getException());
@@ -30,33 +30,20 @@ public class BeverageCatalogDataHandler {
         });
     }
 
-    private static void addBeverageToArray(Map<String, Object> mapBeverage) {
-        Beverage beverage = new Beverage(
-                Objects.requireNonNull(mapBeverage.get("name")).toString(),
-                Objects.requireNonNull(mapBeverage.get("producer")).toString(),
-                Objects.requireNonNull(mapBeverage.get("category")).toString(),
-                Objects.requireNonNull(mapBeverage.get("amountType")).toString(),
-                Float.parseFloat(Objects.requireNonNull(mapBeverage.get("amount")).toString()),
-                Double.parseDouble(Objects.requireNonNull(mapBeverage.get("percent")).toString()));
-        Log.d("DATAHANDLER_ALCO", beverage.getName());
-        beverages.add(beverage);
-        Log.d("DATAHANDLER_RETURN_LOOP", beverages.toString());
-    }
-
-    public static void addBeverageToCatalog(@NonNull ArrayList<Beverage> beverages) {
-        for (Beverage beverage : beverages) {
-            addBeverageToCatalog(beverage);
+    public static void addBeverageToCatalog(@NonNull ArrayList<Drink> drinks) {
+        for (Drink drink : drinks) {
+            addBeverageToCatalog(drink);
         }
     }
 
-    public static void addBeverageToCatalog(@NonNull Beverage beverage) {
-        beverageCatalogReference.document(beverage.getName())
-                .set(beverage)
-                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "DocumentSnapshot successfully added!"))
+    public static void addBeverageToCatalog(@NonNull Drink drink) {
+        beverageCatalogReference.document(drink.getName())
+                .set(drink)
+                .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Beverage successfully added to the catalog!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing document", e));
     }
 
-    public static ArrayList<Beverage> getAlcoholUnits() {
-        return beverages;
+    public static ArrayList<Drink> getBeverages() {
+        return drinks;
     }
 }

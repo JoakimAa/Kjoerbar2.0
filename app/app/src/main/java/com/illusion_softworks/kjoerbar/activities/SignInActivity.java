@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
+        //DummyData.addBeverageToCatalog();
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
         Log.d("SIGNIN", "Signin");
     }
@@ -77,13 +78,14 @@ public class SignInActivity extends AppCompatActivity {
             assert response != null;
             Log.d("New user signin", String.valueOf(response));
             if (response.isNewUser()) {
-                UserDataHandler.addAlcoholUnitsToCatalog(BeverageCatalogDataHandler.getAlcoholUnits());
+                UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 Intent intent2 = new Intent(this, SettingsActivity.class);
                 startActivity(intent2);
             } else {
-                UserDataHandler.getUserData();
+                //UserDataHandler.getUserData();
+                UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
                 Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);

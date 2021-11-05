@@ -7,6 +7,6 @@ public class BeverageCatalogCollectionReferenceHandler {
 
     public static CollectionReference getUserDocumentReferenceFromFirestore() {
         FirebaseFirestore firestoreDb = FirebaseReferenceHandler.getFirebaseReference();
-        return firestoreDb.collection("alcoholUnitCatalog");
+        return firestoreDb.collection("beverageCatalog");
     }
 }

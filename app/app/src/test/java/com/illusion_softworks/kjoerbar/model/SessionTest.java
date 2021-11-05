@@ -28,7 +28,7 @@ class SessionTest {
     @BeforeEach
     void setUp() {
         mockitoCloseable = openMocks(this);
-        sessionUnderTest = new Session(mockSessionLimit, mockAlcoholUnits, 0, "userGender");
+        sessionUnderTest = new Session(0, "userGender", mockSessionLimit, mockAlcoholUnits);
     }
 
     @AfterEach
@@ -52,7 +52,7 @@ class SessionTest {
     @DisplayName("Add alcohol unit")
     void testAddAlcoholUnit() {
         // Setup
-        final AlcoholUnit alcoholUnit = new AlcoholUnit("name", "producer", "category", "amountType", 0.0, 0.0, LocalDateTime.now());
+        final AlcoholUnit alcoholUnit = new AlcoholUnit(new Beverage("name", "producer", "category", 0.0, 0.0));
         when(mockAlcoholUnits.add(any(AlcoholUnit.class))).thenReturn(false);
 
         // Run the test
