@@ -62,7 +62,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), mViewModel.getDrinks().getValue(), this);
 
-        mViewModel.getDrinks().observe(requireActivity(), drinks -> mAdapter.notifyDataSetChanged());
+        mViewModel.getDrinks().observe(requireActivity(), drinks -> mAdapter.notifyItemInserted(dummyData.size()-1));
 
         initRecyclerView(view);
     }
