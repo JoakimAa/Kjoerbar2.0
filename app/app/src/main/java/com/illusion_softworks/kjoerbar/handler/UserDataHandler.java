@@ -1,4 +1,4 @@
-package com.illusion_softworks.kjoerbar.datahandler;
+package com.illusion_softworks.kjoerbar.handler;
 
 // @TODO: REMOVE THIS CLASS
 
@@ -14,7 +14,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
-import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,12 +21,13 @@ import java.util.Map;
 public class UserDataHandler {
     private static final String BEVERAGE_CATALOG = "beverageCatalog";
     private static final String SESSION_HISTORY = "sessionHistory";
-    private static DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+    private static DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
     private static User user;
-    private static ArrayList<Drink> drinks = new ArrayList<>();
-    private static ArrayList<Session> sessions = new ArrayList<>();
+    private static ArrayList<Drink> mDrinks = new ArrayList<>();
+    private static ArrayList<Session> mSessions = new ArrayList<>();
+
     public static void updateUserDocumentReference() {
-        UserDataHandler.userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+        UserDataHandler.userDocumentReference = FirestoreHandler.getUserDocumentReference();
     }
 
     public static void addUserToFirestore(User user) {
@@ -78,7 +78,7 @@ public class UserDataHandler {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
 
-                    drinks.add(document.toObject(Drink.class));
+                    mDrinks.add(document.toObject(Drink.class));
                 }
             } else {
                 Log.w("DATAHANDLER", "Error getting user", task.getException());
@@ -117,7 +117,7 @@ public class UserDataHandler {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Log.d("DATAHANDLER_getSessionHistory", String.valueOf(document.getData()));
-                    sessions.add(document.toObject(Session.class));
+                    mSessions.add(document.toObject(Session.class));
                 }
             } else {
                 Log.w("DATAHANDLER", "Error getting user", task.getException());
@@ -125,22 +125,21 @@ public class UserDataHandler {
         });
     }
 
-    public static ArrayList<Session> getSessions() {
-        return new ArrayList<>(sessions);
-    }
-
     public static User getUser() {
-        if (user != null)
+        if (user == null) {
+            user = new User();
+        } else {
             Log.d("Current user get", user.toString());
+        }
         return user;
     }
 
-    public static void setUser(User user) {
-        UserDataHandler.user = user;
+    public static ArrayList<Drink> getDrinks() {
+        return new ArrayList<>(mDrinks);
     }
 
-    public static ArrayList<Drink> getBeverages() {
-        return new ArrayList<>(drinks);
+    public static ArrayList<Session> getSessions() {
+        return new ArrayList<>(mSessions);
     }
 }
 

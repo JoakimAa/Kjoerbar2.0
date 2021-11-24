@@ -2,12 +2,10 @@ package com.illusion_softworks.kjoerbar.repository;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +17,10 @@ import java.util.List;
  */
 public class DrinkCatalogRepository {
     private static DrinkCatalogRepository sInstance;
-    private ArrayList<Drink> mDataSet = new ArrayList<>();
+    private final ArrayList<Drink> mDataSet = new ArrayList<>();
 
     private static final String BEVERAGE_CATALOG = "beverageCatalog";
-    private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
+    private static final DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
 
 
     public static DrinkCatalogRepository getInstance() {
@@ -34,11 +32,8 @@ public class DrinkCatalogRepository {
 
     public List<Drink> getDrinks() {
         // Database queries
-
         getUserDrinks();
-//        MutableLiveData<List<Drink>> data = new MutableLiveData<>();
-//        data.setValue();
-
+//        setDrinksWithDummyData();
         return mDataSet;
     }
 

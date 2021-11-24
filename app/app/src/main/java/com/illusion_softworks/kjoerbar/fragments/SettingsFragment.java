@@ -13,9 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.activities.SignInActivity;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.model.User;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                     .setDisplayName((newValue.toString()))
                     .build();
-            LocalFirebaseUser.getFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
+            FirestoreHandler.getFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d("Display name: ", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                 }
@@ -100,7 +100,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void updateUser() {
         currentUser = UserDataHandler.getUser();
         if (SignInActivity.getResponse().isNewUser()) {
-            fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+            fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
             if (currentUser == null) {
                 Log.d("USERISNULL", "User is null");
                 UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
@@ -143,7 +143,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void setTextFields() {
 //        Log.d("CurrentUserSetTextFields", currentUser.getUsername());
 
-        fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+        fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
         usernamePreference.setText(currentUser.getUsername());
         genderPreference.setValue(currentUser.getGender());
         agePreference.setText(String.valueOf(currentUser.getAge() != 0 ? currentUser.getAge() : ""));

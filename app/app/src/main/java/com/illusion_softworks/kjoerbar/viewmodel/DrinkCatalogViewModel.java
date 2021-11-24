@@ -18,9 +18,6 @@ public class DrinkCatalogViewModel extends ViewModel {
     private DrinkCatalogRepository mRepository;
 
     public void init() {
-//        if (mDrinks != null) {
-//            return;
-//        }
         mRepository = DrinkCatalogRepository.getInstance();
         mDrinks.setValue(mRepository.getDrinks());
     }

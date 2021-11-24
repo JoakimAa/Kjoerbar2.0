@@ -17,9 +17,9 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.BeverageCatalogDataHandler;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.handler.BeverageCatalogDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +71,7 @@ public class SignInActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            LocalFirebaseUser.setFirebaseUser(firebaseUser);
+            FirestoreHandler.setFirebaseUser(firebaseUser);
             Log.d("New user signin", String.valueOf(firebaseUser));
             assert firebaseUser != null;
             Log.d("USER", firebaseUser.toString());

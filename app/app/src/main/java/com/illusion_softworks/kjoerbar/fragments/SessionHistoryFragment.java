@@ -11,17 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.SessionsRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Session;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SessionHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SessionHistoryFragment extends Fragment implements OnItemClickListener {
     private static final List<Session> data = UserDataHandler.getSessions();
 

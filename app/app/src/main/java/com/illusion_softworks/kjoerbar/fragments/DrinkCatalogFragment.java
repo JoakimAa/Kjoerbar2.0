@@ -10,9 +10,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +21,6 @@ import com.illusion_softworks.kjoerbar.databinding.FragmentDrinkCatalogBinding;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
 
@@ -51,7 +46,6 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.beverage_catalog));
         binding = FragmentDrinkCatalogBinding.inflate(inflater, container, false);
-//        View view = inflater.inflate(R.layout.fragment_drink_catalog, container, false);
         View view = binding.getRoot();
 
         return view;
@@ -66,15 +60,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), mViewModel.getDrinks().getValue(), this);
-
         mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.notifyDataSetChanged());
-//        mViewModel.getDrinks().observe(requireActivity(), new Observer<List<Drink>>() {
-//            @Override
-//            public void onChanged(List<Drink> drinks) {
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        });
-
         mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 showProgressBar();

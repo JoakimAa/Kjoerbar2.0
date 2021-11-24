@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AddDrinkFragment extends Fragment implements OnItemClickListener {
-    private static final List<Drink> data = UserDataHandler.getBeverages();
+    private static final List<Drink> data = UserDataHandler.getDrinks();
 
     public AddDrinkFragment() {
         // Required empty public constructor

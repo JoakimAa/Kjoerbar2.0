@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -19,9 +18,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
-import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 public class MainActivity extends AppCompatActivity {
     //private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDrawerInfo(NavigationView navView) {
         View headerView = navView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.username);
-        username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+        username.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
     }
 
     private void setSettingsIntent(NavigationView navView) {
