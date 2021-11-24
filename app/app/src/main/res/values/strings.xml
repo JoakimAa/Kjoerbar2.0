@@ -61,6 +61,7 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="you_have_no_friends">You have no friends :(</string>
+    <string name="add_drink">Add Drink</string>
 
 
 </resources>
