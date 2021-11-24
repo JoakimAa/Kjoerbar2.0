@@ -9,16 +9,28 @@
         android:id="@+id/sessionFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
         android:label="fragment_session"
-        tools:layout="@layout/fragment_session" >
+        tools:layout="@layout/fragment_session">
         <action
             android:id="@+id/action_sessionFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
+        <action
+            android:id="@+id/action_sessionFragment_to_addDrinkFragment"
+            app:destination="@id/addDrinkFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
+        <action
+            android:id="@+id/action_sessionFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_friendsFragment"
             app:destination="@id/friendsFragment" />
@@ -29,18 +41,30 @@
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
     <fragment
-        android:id="@+id/addBeverageFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.AddBeverageFragment"
-        android:label="fragment_add_beverage"
-        tools:layout="@layout/fragment_add_beverage" />
+        android:id="@+id/addDrinkFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.AddDrinkFragment"
+        android:label="fragment_add_drink"
+        tools:layout="@layout/fragment_add_drink">
+        <action
+            android:id="@+id/action_addDrinkFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popUpTo="@id/drinkDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sessionHistoryFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
         android:label="fragment_session_history"
         tools:layout="@layout/fragment_session_history" />
     <fragment
-        android:id="@+id/beverageCatalogFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.BeverageCatalogFragment"
-        android:label="fragment_beverage_catalog"
-        tools:layout="@layout/fragment_beverage_catalog" />
+        android:id="@+id/drinkCatalogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.DrinkCatalogFragment"
+        android:label="fragment_drink_catalog"
+        tools:layout="@layout/fragment_drink_catalog" />
+    <fragment
+        android:id="@+id/drinkDetailFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.DrinkDetailFragment"
+        android:label="fragment_drink_detail"
+        tools:layout="@layout/fragment_drink_detail" />
 </navigation>
