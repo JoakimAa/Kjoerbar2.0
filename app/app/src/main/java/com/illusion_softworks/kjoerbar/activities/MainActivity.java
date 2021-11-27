@@ -46,19 +46,19 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.sessionFragment, R.id.friendsFragment, R.id.mapFragment, R.id.drinkCatalogFragment)
+                R.id.sessionFragment,
+                R.id.friendsFragment,
+                R.id.settingsFragment,
+                R.id.mapFragment,
+                R.id.drinkCatalogFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
-
-        /*appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
-                .setOpenableLayout(drawerLayout)
-                .build();*/
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
-        setSettingsIntent(navView);
+        // setSettingsIntent(navView);
         setSignOut(navView);
         setDrawerInfo(navView);
     }
@@ -68,28 +68,6 @@ public class MainActivity extends AppCompatActivity {
         TextView username = headerView.findViewById(R.id.username);
         username.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
     }
-
-    private void setSettingsIntent(NavigationView navView) {
-        navView.getMenu().findItem(R.id.settings).setOnMenuItemClickListener(menuItem -> {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        });
-    }
-
-   /* @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        else super.onBackPressed();
-    }*/
-
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }*/
 
     public void setSignOut(NavigationView navView) {
         navView.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(menuItem -> {

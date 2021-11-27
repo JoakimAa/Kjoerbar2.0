@@ -81,10 +81,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        /*TODO: REMOVE THIS*//*
-        UserDataHandler.getSessionHistory();*/
-
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
         mapUser = new HashMap<>();

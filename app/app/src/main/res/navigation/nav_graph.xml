@@ -67,4 +67,8 @@
         android:name="com.illusion_softworks.kjoerbar.fragments.DrinkDetailFragment"
         android:label="fragment_drink_detail"
         tools:layout="@layout/fragment_drink_detail" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
