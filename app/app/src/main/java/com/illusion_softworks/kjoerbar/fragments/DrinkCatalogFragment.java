@@ -35,10 +35,23 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         // Required empty public constructor
     }
 
+    private void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void initRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(mAdapter);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -78,20 +91,6 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         });
 
         initRecyclerView(view);
-    }
-
-    private void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-
-    private void initRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.beverageRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

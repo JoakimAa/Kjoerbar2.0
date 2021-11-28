@@ -46,23 +46,33 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
 
     static class SessionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final OnItemClickListener onItemClickListener;
-        private final TextView textViewName;
+        private final TextView date;
+        private final TextView userWeight;
+        private final TextView sex;
+
 
         public SessionsViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.beverageNameTextView);
+
+            date = itemView.findViewById(R.id.date);
+            userWeight = itemView.findViewById(R.id.userWeight);
+            sex = itemView.findViewById(R.id.sex);
+
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Session currentData) {
-            textViewName.setText(currentData.getName());
+            date.setText("29.11.2021");
+            userWeight.setText("bruh");
+            sex.setText("Female");
         }
 
         @Override
         public void onClick(View view) {
-            if (view == itemView)
+            if (view == itemView) {
                 onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 

@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.repository.DrinkCatalogRepository;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class DrinkCatalogViewModel extends ViewModel {
