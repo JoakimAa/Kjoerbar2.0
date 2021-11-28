@@ -61,7 +61,8 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(String view) {
-        if (view.equals("beverageDetailFragment"))
+        if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addDrinkFragment_to_drinkDetailFragment);
+        }
     }
 }

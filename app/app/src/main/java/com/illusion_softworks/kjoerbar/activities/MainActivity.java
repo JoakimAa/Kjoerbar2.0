@@ -22,11 +22,7 @@ import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 public class MainActivity extends AppCompatActivity {
-    //private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private AppBarConfiguration appBarConfiguration;
-    private NavHostFragment navHostFragment;
-    private NavController navController;
-    private DrawerLayout drawerLayout;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +30,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         UserDataHandler.getUserBeverageCatalog();
 
-        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
-        assert navHostFragment != null;
-        navController = navHostFragment.getNavController();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        NavController navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
 
         setSupportActionBar(toolbar);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                // All fragments where hamburger is visible
                 R.id.sessionFragment,
-                R.id.friendsFragment,
-                R.id.settingsFragment,
                 R.id.mapFragment,
-                R.id.drinkCatalogFragment)
+                R.id.friendsFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
-        // setSettingsIntent(navView);
         setSignOut(navView);
         setDrawerInfo(navView);
     }
@@ -84,6 +77,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
-        return NavigationUI.navigateUp(controller, appBarConfiguration) || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(controller, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 }

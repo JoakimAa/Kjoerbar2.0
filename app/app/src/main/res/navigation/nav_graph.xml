@@ -16,25 +16,20 @@
             app:enterAnim="@anim/fui_slide_in_right"
             app:exitAnim="@anim/fui_slide_out_left" />
         <action
-            android:id="@+id/action_sessionFragment_to_addDrinkFragment"
-            app:destination="@id/addDrinkFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left" />
+            android:id="@+id/action_sessionFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment" />
         <action
             android:id="@+id/action_sessionFragment_to_drinkDetailFragment"
-            app:destination="@id/drinkDetailFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left" />
+            app:destination="@id/drinkDetailFragment" />
+        <action
+            android:id="@+id/action_sessionFragment_to_addDrinkFragment"
+            app:destination="@id/addDrinkFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map">
-        <action
-            android:id="@+id/action_mapFragment_to_friendsFragment"
-            app:destination="@id/friendsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_map"/>
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
@@ -47,10 +42,7 @@
         tools:layout="@layout/fragment_add_drink">
         <action
             android:id="@+id/action_addDrinkFragment_to_drinkDetailFragment"
-            app:destination="@id/drinkDetailFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left"
-            app:popUpTo="@id/drinkDetailFragment" />
+            app:destination="@id/drinkDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/sessionHistoryFragment"

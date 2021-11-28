@@ -29,7 +29,7 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
     @NonNull
     @Override
     public SessionsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.session_in_history, viewGroup, false);
+        View view = mInflater.inflate(R.layout.session_card_layout, viewGroup, false);
         return new SessionsRecyclerAdapter.SessionsViewHolder(view, onItemClickListener);
     }
 
