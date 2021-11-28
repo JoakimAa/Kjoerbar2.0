@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class FirestoreHandler {
     private static FirebaseUser firebaseUser;
 
-    public static CollectionReference getUserDocumentReferenceFromFirestore() {
+    public static CollectionReference getDrinkCollectionReference() {
         FirebaseFirestore firestoreDb = FirestoreHandler.getFirebaseReference();
         return firestoreDb.collection("beverageCatalog");
     }

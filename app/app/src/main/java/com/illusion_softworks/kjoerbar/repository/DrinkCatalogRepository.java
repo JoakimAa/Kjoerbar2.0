@@ -2,7 +2,9 @@ package com.illusion_softworks.kjoerbar.repository;
 
 import android.util.Log;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
@@ -18,10 +20,8 @@ import java.util.List;
 public class DrinkCatalogRepository {
     private static DrinkCatalogRepository sInstance;
     private final ArrayList<Drink> mDataSet = new ArrayList<>();
-
-    private static final String BEVERAGE_CATALOG = "beverageCatalog";
-    private static final DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
-
+    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final CollectionReference drinkCollection = firestore.collection("beverageCatalog");
 
     public static DrinkCatalogRepository getInstance() {
         if (sInstance == null) {
@@ -38,7 +38,7 @@ public class DrinkCatalogRepository {
     }
 
     private void getUserDrinks() {
-        userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
+        drinkCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));

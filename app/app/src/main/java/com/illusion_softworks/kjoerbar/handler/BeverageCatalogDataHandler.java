@@ -13,7 +13,7 @@ import com.illusion_softworks.kjoerbar.model.Drink;
 import java.util.ArrayList;
 
 public class BeverageCatalogDataHandler {
-    private static final CollectionReference beverageCatalogReference = FirestoreHandler.getUserDocumentReferenceFromFirestore();
+    private static final CollectionReference beverageCatalogReference = FirestoreHandler.getDrinkCollectionReference();
     private static final ArrayList<Drink> drinks = new ArrayList<>();
 
     public static void getAlcoholUnitCatalog() {
