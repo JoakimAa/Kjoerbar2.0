@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
-import com.illusion_softworks.kjoerbar.repository.DrinkCatalogRepository;
-import com.illusion_softworks.kjoerbar.repository.SessionRepository;
+import com.illusion_softworks.kjoerbar.repository.SessionHistoryRepository;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class SessionHistoryViewModel extends ViewModel {
     private final MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
 
     public void init() {
-        SessionRepository mRepository = SessionRepository.getInstance();
+        SessionHistoryRepository mRepository = SessionHistoryRepository.getInstance();
         mSessions.setValue(mRepository.getSessions());
     }
 

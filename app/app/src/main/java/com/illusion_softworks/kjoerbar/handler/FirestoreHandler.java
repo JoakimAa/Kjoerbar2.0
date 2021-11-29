@@ -27,7 +27,7 @@ public class FirestoreHandler {
     }
 
     public static DocumentReference getUserDocumentReference() {
-        CollectionReference usersCollectionReference = getFirebaseReference().collection("users");
-        return usersCollectionReference.document(getFirebaseUser().getUid());
+        CollectionReference usersCollection = getFirebaseReference().collection("users");
+        return usersCollection.document(getFirebaseUser().getUid());
     }
 }
