@@ -12,13 +12,16 @@ import com.illusion_softworks.kjoerbar.repository.DrinkCatalogRepository;
 import java.util.List;
 
 public class DrinkCatalogViewModel extends ViewModel {
-    private MutableLiveData<List<Drink>> mDrinks = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
+    private MutableLiveData<List<Drink>> mDrinks;
     private DrinkCatalogRepository mRepository;
 
     public void init() {
+        if (mDrinks != null) {
+            return;
+        }
         mRepository = DrinkCatalogRepository.getInstance();
-        mDrinks.setValue(mRepository.getDrinks());
+        mDrinks = mRepository.getDrinks();
     }
 
     public LiveData<List<Drink>> getDrinks() {
