@@ -75,8 +75,13 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
-        mAdapter = new DrinkRecyclerAdapter(view.getContext(), mViewModel.getDrinks().getValue(), this);
-        mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.notifyDataSetChanged());
+        mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
+        mViewModel.getDrinks().observe(getViewLifecycleOwner(), new Observer<List<Drink>>() {
+            @Override
+            public void onChanged(List<Drink> drinks) {
+                mAdapter.addDataSet(drinks);
+            }
+        });
         mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 showProgressBar();

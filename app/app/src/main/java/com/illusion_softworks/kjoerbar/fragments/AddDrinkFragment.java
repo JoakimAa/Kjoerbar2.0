@@ -44,7 +44,8 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
 
         RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
 
-        DrinkRecyclerAdapter adapter = new DrinkRecyclerAdapter(view.getContext(), data, this);
+        // @TODO Add data to adapter
+        DrinkRecyclerAdapter adapter = new DrinkRecyclerAdapter(view.getContext(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 

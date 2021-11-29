@@ -14,18 +14,23 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdapter.BeverageViewHolder> {
 
     private final LayoutInflater mInflater;
-    private final List<Drink> dataSet;
+    private List<Drink> dataSet = new ArrayList<>();
     private final OnItemClickListener onItemClickListener;
 
-    public DrinkRecyclerAdapter(Context context, List<Drink> dataSet, OnItemClickListener onItemClickListener) {
+    public DrinkRecyclerAdapter(Context context, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
-        this.dataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void addDataSet(List<Drink> drinks) {
+        dataSet = drinks;
+        notifyDataSetChanged();
     }
 
     @NonNull
