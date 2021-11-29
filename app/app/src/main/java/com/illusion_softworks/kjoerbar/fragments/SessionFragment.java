@@ -198,7 +198,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 .setCancelable(true)
                 .setPositiveButton(
                         "Yes",
-                        this::createPositivButton)
+                        this::createPositiveButton)
                 .setNegativeButton(
                         "Continue drinking",
                         (dialog, id) -> dialog.cancel());
@@ -232,7 +232,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addBeverageFragment);
     }
 
-    private void createPositivButton(DialogInterface dialog, int id) {
+    private void createPositiveButton(DialogInterface dialog, int id) {
         session.setName(session.getStartDateTime().toString());
         textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
         int size = alcoholUnits.size();
