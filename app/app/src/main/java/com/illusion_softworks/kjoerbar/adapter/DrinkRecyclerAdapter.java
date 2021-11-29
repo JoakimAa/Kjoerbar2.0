@@ -15,6 +15,7 @@ import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
 import java.util.List;
+import java.util.Locale;
 
 public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdapter.BeverageViewHolder> {
 
@@ -64,8 +65,8 @@ public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdap
 
         public void bind(Drink currentDrink) {
             textViewName.setText(currentDrink.getName());
-            textViewPercent.setText(String.valueOf(currentDrink.getPercent()));
-            textViewVolume.setText(String.valueOf(currentDrink.getVolume()));
+            textViewPercent.setText(String.format(Locale.ENGLISH, "%s %%", String.valueOf(currentDrink.getPercent())));
+            textViewVolume.setText(String.format(Locale.ENGLISH, "%s dl", String.valueOf(currentDrink.getVolume())));
         }
 
         @Override
