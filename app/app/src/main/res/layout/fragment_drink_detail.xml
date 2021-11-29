@@ -31,20 +31,24 @@
 
             <TextView
                 android:id="@+id/beverageNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
                 android:text="@string/placeholder_beverage_name"
                 android:textSize="@dimen/font_size_medium"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/beverageAlcoholPercentageTextView"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/beverageAlcoholPercentageTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:layout_weight="1"
                 android:text="@string/placeholder_beverage_alcohol"
                 android:textSize="@dimen/font_size_medium"
                 card_view:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +59,8 @@
                 android:id="@+id/beverageVolumeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
                 android:text="@string/placeholder_beverage_volume"
                 android:textSize="@dimen/font_size_medium"
                 card_view:layout_constraintBottom_toBottomOf="parent"

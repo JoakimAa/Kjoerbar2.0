@@ -63,7 +63,7 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
         }
 
         public void bind(Session currentData) {
-            date.setText("29.11.2021");
+            date.setText(currentData.getName() != null ? currentData.getName() : String.valueOf(currentData.getStartTime()));
             userWeight.setText("bruh");
             sex.setText("Female");
         }

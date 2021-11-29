@@ -53,7 +53,7 @@ public class UserDataHandler {
     }
 
     public static void addSessionToHistory(@NonNull Session session) {
-        userDocumentReference.collection("sessionHistory").document(session.getStartDateTime().toString())
+        userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getStartTime()))
                 .set(session)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Session successfully added to history!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing session from history", e));

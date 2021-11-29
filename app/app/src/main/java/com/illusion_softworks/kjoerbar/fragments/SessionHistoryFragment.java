@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.SessionsRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.databinding.FragmentDrinkCatalogBinding;
 import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Session;
-import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 import com.illusion_softworks.kjoerbar.viewmodel.SessionHistoryViewModel;
 
 import java.util.List;
