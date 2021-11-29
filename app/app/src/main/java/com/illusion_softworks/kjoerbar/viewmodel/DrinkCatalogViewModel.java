@@ -23,10 +23,7 @@ public class DrinkCatalogViewModel extends ViewModel {
         }
         mIsUpdating.setValue(true);
         mRepository = DrinkCatalogRepository.getInstance();
-        mDrinks = mRepository.getDrinks(() -> {
-            mIsUpdating.setValue(false);
-            Log.d("ViewModel", "CALLBACK HAS BEEN CALLED.... BACK... YAY!");
-        });
+        mDrinks = mRepository.getDrinks(() -> mIsUpdating.setValue(false));
     }
 
     public LiveData<List<Drink>> getDrinks() {

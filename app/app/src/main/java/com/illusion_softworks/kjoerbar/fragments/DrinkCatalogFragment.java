@@ -27,13 +27,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
-
-    private final String TAG = "Beverage Catalog";
+    private static final String TAG = "Beverage Catalog";
     private RecyclerView recyclerView;
     private DrinkCatalogViewModel mViewModel;
-    DrinkRecyclerAdapter mAdapter;
-    private FragmentDrinkCatalogBinding binding;
+    private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
+    private FragmentDrinkCatalogBinding binding;
 
     public DrinkCatalogFragment() {
         // Required empty public constructor
@@ -83,7 +82,6 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(Objects.requireNonNull(mViewModel.getDrinks().getValue()).size() - 1);
             }
         });
 
