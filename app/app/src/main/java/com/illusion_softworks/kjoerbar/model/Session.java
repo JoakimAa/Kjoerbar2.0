@@ -4,7 +4,6 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class Session {
     private ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private int userWeight;
     private String userGender, name;
-    private LocalDateTime startDateTime, endDateTime = null;
+    private long startTime, endTime;
     private double maxPerMill, currentPerMill;
 
     public Session() {
@@ -23,7 +22,7 @@ public class Session {
     public Session(int userWeight, String userGender) {
         this.userWeight = userWeight;
         this.userGender = userGender;
-        this.startDateTime = LocalDateTime.now();
+        this.startTime = System.currentTimeMillis();
     }
 
     public Session(int userWeight, String userGender, SessionLimit sessionLimit, ArrayList<AlcoholUnit> alcoholUnits) {
@@ -96,16 +95,16 @@ public class Session {
         this.userGender = userGender;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public long getStartTime() {
+        return startTime;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public long getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 
     public List<Drink> getBeverages() {

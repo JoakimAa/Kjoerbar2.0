@@ -15,21 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.SessionsRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.databinding.FragmentDrinkCatalogBinding;
-import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
-import com.illusion_softworks.kjoerbar.model.Session;
-import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 import com.illusion_softworks.kjoerbar.viewmodel.SessionHistoryViewModel;
 
-import java.util.List;
-
 public class SessionHistoryFragment extends Fragment implements OnItemClickListener {
-    private static final List<Session> data = UserDataHandler.getSessions();
     private final String TAG = "Session History";
     private RecyclerView recyclerView;
     private SessionHistoryViewModel mViewModel;
-    SessionsRecyclerAdapter mAdapter;
+    private SessionsRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
 
     public SessionHistoryFragment() {
@@ -62,11 +55,6 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
         requireActivity().setTitle(getString(R.string.session_history));
         View view = inflater.inflate(R.layout.fragment_session_history, container, false);
 
-//        RecyclerView recyclerView = view.findViewById(R.id.sessionsRecyclerView);
-//
-//        SessionsRecyclerAdapter sessionsRecyclerAdapter = new SessionsRecyclerAdapter(view.getContext(), data, this);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//        recyclerView.setAdapter(sessionsRecyclerAdapter);
 
         return view;
     }
@@ -76,23 +64,27 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
         super.onViewCreated(view, savedInstanceState);
 
         // NEW STUFF
+
         mProgressBar = view.findViewById(R.id.progress_bar);
 
         mViewModel = new ViewModelProvider(requireActivity()).get(SessionHistoryViewModel.class);
         mViewModel.init();
 
         mAdapter = new SessionsRecyclerAdapter(view.getContext(), mViewModel.getSessions().getValue(), this);
-        mViewModel.getSessions().observe(getViewLifecycleOwner(), sessions -> mAdapter.notifyDataSetChanged());
+
+        initRecyclerView(view);
+
+        mViewModel.getSessions().observe(getViewLifecycleOwner(), sessions ->
+                mAdapter.notifyItemRangeChanged(0, sessions.size() - 1));
         mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(mViewModel.getSessions().getValue().size()-1);
+                recyclerView.smoothScrollToPosition(mViewModel.getSessions().getValue().size() - 1);
             }
         });
 
-        initRecyclerView(view);
     }
 
     @Override

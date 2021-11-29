@@ -87,7 +87,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(mViewModel.getDrinks().getValue().size()-1);
+                recyclerView.smoothScrollToPosition(mViewModel.getDrinks().getValue().size() - 1);
             }
         });
 
@@ -100,6 +100,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
 
         initRecyclerView(view);
     }
+
 
     @Override
     public void onItemClick(int position) {

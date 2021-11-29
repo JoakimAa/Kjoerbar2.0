@@ -11,11 +11,16 @@ import com.illusion_softworks.kjoerbar.repository.SessionHistoryRepository;
 import java.util.List;
 
 public class SessionHistoryViewModel extends ViewModel {
-    private final MutableLiveData<List<Session>> mSessions = new MutableLiveData<>();
+    private MutableLiveData<List<Session>> mSessions;
     private final MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
 
     public void init() {
         SessionHistoryRepository mRepository = SessionHistoryRepository.getInstance();
+
+        // @TODO: THis is note the right place for this, make a new viewmodel
+        // SessionRepository mRepository = SessionRepository.getInstance();
+        // mSessions = new MutableLiveData<List<Session>>();
+
         mSessions.setValue(mRepository.getSessions());
     }
 

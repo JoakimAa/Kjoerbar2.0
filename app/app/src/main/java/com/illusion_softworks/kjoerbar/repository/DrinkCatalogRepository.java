@@ -6,11 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -36,14 +34,13 @@ public class DrinkCatalogRepository {
 
     public MutableLiveData<List<Drink>> getDrinks() {
         // Database queries
-        getUserDrinks();
+        getCatalogDrinks();
 //        setDrinksWithDummyData();
         return mDataSet;
     }
 
-    private void getUserDrinks() {
+    private void getCatalogDrinks() {
         ArrayList<Drink> drinks = new ArrayList<>();
-
         drinkCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
