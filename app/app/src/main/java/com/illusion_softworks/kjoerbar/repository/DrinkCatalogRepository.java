@@ -2,15 +2,14 @@ package com.illusion_softworks.kjoerbar.repository;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.illusion_softworks.kjoerbar.interfaces.ICallBack;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +31,24 @@ public class DrinkCatalogRepository {
         return sInstance;
     }
 
-    public MutableLiveData<List<Drink>> getDrinks() {
+    public MutableLiveData<List<Drink>> getDrinks(ICallBack callback) {
         // Database queries
-        getCatalogDrinks();
+        ArrayList<Drink> drinks = new ArrayList<>();
+        drinkCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
+
+                    drinks.add(document.toObject(Drink.class));
+                }
+
+                mDataSet.setValue(drinks);
+                callback.call();
+            } else {
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
+            }
+        });
+//        getCatalogDrinks();
 //        setDrinksWithDummyData();
         return mDataSet;
     }

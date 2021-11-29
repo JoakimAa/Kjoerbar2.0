@@ -24,6 +24,7 @@ import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
 
@@ -76,18 +77,13 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
-        mViewModel.getDrinks().observe(getViewLifecycleOwner(), new Observer<List<Drink>>() {
-            @Override
-            public void onChanged(List<Drink> drinks) {
-                mAdapter.addDataSet(drinks);
-            }
-        });
-        mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
-            if (aBoolean) {
+        mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.addDataSet(drinks));
+        mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(mViewModel.getDrinks().getValue().size() - 1);
+                recyclerView.smoothScrollToPosition(Objects.requireNonNull(mViewModel.getDrinks().getValue()).size() - 1);
             }
         });
 

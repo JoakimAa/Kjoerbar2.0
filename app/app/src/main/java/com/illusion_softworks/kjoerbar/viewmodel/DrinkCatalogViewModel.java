@@ -1,6 +1,7 @@
 package com.illusion_softworks.kjoerbar.viewmodel;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,8 +21,12 @@ public class DrinkCatalogViewModel extends ViewModel {
         if (mDrinks != null) {
             return;
         }
+        mIsUpdating.setValue(true);
         mRepository = DrinkCatalogRepository.getInstance();
-        mDrinks = mRepository.getDrinks();
+        mDrinks = mRepository.getDrinks(() -> {
+            mIsUpdating.setValue(false);
+            Log.d("ViewModel", "CALLBACK HAS BEEN CALLED.... BACK... YAY!");
+        });
     }
 
     public LiveData<List<Drink>> getDrinks() {
