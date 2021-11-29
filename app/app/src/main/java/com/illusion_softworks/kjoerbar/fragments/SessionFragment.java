@@ -130,6 +130,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void updateCountdown() {
+
         if (session != null) {
             updateCountDownTimer();
         }
@@ -141,6 +142,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         updatePerMill();
         long countDownPeriod = Calculations.calculateTimeUntilSober(session.getCurrentPerMill());
+        Log.d("countDownperiod_currentPerMill", String.valueOf(session.getCurrentPerMill()));
         Log.d("countDownperiod", String.valueOf(countDownPeriod));
 
         Log.d("TAG", String.format(Locale.ENGLISH,
@@ -213,6 +215,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         UserDataHandler.addSessionToHistory(session);
         alcoholUnits.clear();
         adapter.notifyItemRangeRemoved(0, size);
+        session = null;
         Toast.makeText(SessionFragment.this.getContext(),
                 "The session was saved", Toast.LENGTH_SHORT)
                 .show();
@@ -220,7 +223,10 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     public void updatePerMill() {
         session.setCurrentPerMill(Calculations.calculateCurrentPerMill(alcoholUnits, user, System.currentTimeMillis()));
-        Log.d("currentPerMill", String.valueOf(session.getCurrentPerMill()));
+        Log.d("currentPerMill_currentPerMill", String.valueOf(session.getCurrentPerMill()));
+        Log.d("currentPerMill_alcoholunits", String.valueOf(alcoholUnits));
+        Log.d("currentPerMill_user", String.valueOf(user));
+        Log.d("currentPerMill_System.currentTimeMillis()", String.valueOf(System.currentTimeMillis()));
         session.setMaxPerMill(Calculations.calculateMaxPerMill(session.getMaxPerMill(), session.getCurrentPerMill()));
     }
 

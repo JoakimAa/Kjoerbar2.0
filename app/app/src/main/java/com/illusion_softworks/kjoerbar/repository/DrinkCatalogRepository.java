@@ -3,11 +3,9 @@ package com.illusion_softworks.kjoerbar.repository;
 import android.util.Log;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +30,12 @@ public class DrinkCatalogRepository {
 
     public List<Drink> getDrinks() {
         // Database queries
-        getUserDrinks();
+        getCatalogDrinks();
 //        setDrinksWithDummyData();
         return mDataSet;
     }
 
-    private void getUserDrinks() {
+    private void getCatalogDrinks() {
         drinkCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {

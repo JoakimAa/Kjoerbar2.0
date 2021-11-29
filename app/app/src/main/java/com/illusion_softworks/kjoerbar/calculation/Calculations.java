@@ -28,8 +28,8 @@ public class Calculations {
     public static double calculateCurrentPerMill(ArrayList<AlcoholUnit> alcoholUnits, User user, long currentTime) {
         double currentPerMill = 0;
         for (AlcoholUnit alcoholUnit : alcoholUnits) {
-            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit.getDrink(), (double) (currentTime - alcoholUnit.getTimeAddedToSession()) / 3600);
-            Log.d("currentTime", String.valueOf((double) (currentTime - alcoholUnit.getTimeAddedToSession()) / 3600));
+            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit.getDrink(), (double) ((currentTime - alcoholUnit.getTimeAddedToSession()) / 1000) / 3600);
+            Log.d("currentTime", String.valueOf((double) ((currentTime - alcoholUnit.getTimeAddedToSession()) / 1000) / 3600));
         }
         return currentPerMill;
     }

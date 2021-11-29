@@ -73,13 +73,13 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), mViewModel.getDrinks().getValue(), this);
-        mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.notifyDataSetChanged());
+        mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.notifyItemRangeInserted(0, drinks.size() - 1));
         mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(mViewModel.getDrinks().getValue().size()-1);
+                recyclerView.smoothScrollToPosition(mViewModel.getDrinks().getValue().size() - 1);
             }
         });
 
@@ -92,6 +92,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
 
         initRecyclerView(view);
     }
+
 
     @Override
     public void onItemClick(int position) {

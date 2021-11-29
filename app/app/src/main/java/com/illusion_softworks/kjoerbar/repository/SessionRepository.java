@@ -32,11 +32,6 @@ public class SessionRepository {
 
     public List<Session> getSessions() {
         // Database queries
-        getUserSessions();
-        return mDataSet;
-    }
-
-    private void getUserSessions() {
         userDocumentReference.collection(SESSION_HISTORY).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -47,5 +42,20 @@ public class SessionRepository {
                 Log.w("DATAHANDLER", "Error getting user", task.getException());
             }
         });
+        /*getUserSessions();*/
+        return mDataSet;
     }
+
+    /*private void getUserSessions() {
+        userDocumentReference.collection(SESSION_HISTORY).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getSessionHistory", String.valueOf(document.getData()));
+                    mDataSet.add(document.toObject(Session.class));
+                }
+            } else {
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
+            }
+        });
+    }*/
 }
