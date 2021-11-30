@@ -55,7 +55,6 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
         requireActivity().setTitle(getString(R.string.session_history));
         View view = inflater.inflate(R.layout.fragment_session_history, container, false);
 
-
         return view;
     }
 
@@ -70,21 +69,18 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
         mViewModel = new ViewModelProvider(requireActivity()).get(SessionHistoryViewModel.class);
         mViewModel.init();
 
-        mAdapter = new SessionsRecyclerAdapter(view.getContext(), mViewModel.getSessions().getValue(), this);
+        mAdapter = new SessionsRecyclerAdapter(view.getContext(), this);
 
-        initRecyclerView(view);
-
-        mViewModel.getSessions().observe(getViewLifecycleOwner(), sessions ->
-                mAdapter.notifyItemRangeChanged(0, sessions.size() - 1));
-        mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), aBoolean -> {
-            if (aBoolean) {
+        mViewModel.getSessions().observe(getViewLifecycleOwner(), sessions -> mAdapter.addDataSet(sessions));
+        mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
                 showProgressBar();
             } else {
                 hideProgressBar();
-                recyclerView.smoothScrollToPosition(mViewModel.getSessions().getValue().size() - 1);
             }
         });
 
+        initRecyclerView(view);
     }
 
     @Override

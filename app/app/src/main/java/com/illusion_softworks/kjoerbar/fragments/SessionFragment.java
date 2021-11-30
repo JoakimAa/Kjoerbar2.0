@@ -116,7 +116,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void updateCountdown() {
-
         if (session != null) {
             updateCountDownTimer();
         }
