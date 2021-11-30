@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_gravity="center"
+    android:layout_marginBottom="16dp"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@color/beverageRecycleViewBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/beverageRecycleViewBackground">
+
+        <include layout="@layout/space_between"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_session_card_date"
+            android:textSize="@dimen/font_size_medium" />
+
+        <include layout="@layout/space_between"/>
+
+        <TextView
+            android:id="@+id/userWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_session_card_userWeight"
+            android:textSize="@dimen/font_size_medium" />
+
+        <include layout="@layout/space_between"/>
+
+        <TextView
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_session_card_sex"
+            android:textSize="@dimen/font_size_medium" />
+
+        <include layout="@layout/space_between"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -5,29 +5,54 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
+import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
 public class AddDrinkFragment extends Fragment implements OnItemClickListener {
-    private static final List<Drink> data = UserDataHandler.getBeverages();
+    private static final List<Drink> data = UserDataHandler.getDrinks();
+    private static final String TAG = "Add_Drink_Fragment";
+    private RecyclerView recyclerView;
+    private DrinkCatalogViewModel mViewModel;
+    private DrinkRecyclerAdapter mAdapter;
+    private ProgressBar mProgressBar;
 
     public AddDrinkFragment() {
         // Required empty public constructor
+    }
+
+    private void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void initRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -40,15 +65,28 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.add_beverage));
-        View view = inflater.inflate(R.layout.fragment_add_drink, container, false);
+        return inflater.inflate(R.layout.fragment_add_drink, container, false);
+    }
 
-        RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mProgressBar = view.findViewById(R.id.progress_bar);
 
-        DrinkRecyclerAdapter adapter = new DrinkRecyclerAdapter(view.getContext(), data, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        mViewModel.init();
 
-        return view;
+        mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
+        mViewModel.getDrinks().observe(getViewLifecycleOwner(), drinks -> mAdapter.addDataSet(drinks));
+        mViewModel.getIsUpdating().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
+
+        initRecyclerView(view);
     }
 
     @Override
@@ -61,7 +99,8 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(String view) {
-        if (view.equals("beverageDetailFragment"))
+        if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addDrinkFragment_to_drinkDetailFragment);
+        }
     }
 }

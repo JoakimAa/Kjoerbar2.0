@@ -1,17 +1,18 @@
 package com.illusion_softworks.kjoerbar.model;
 
-import java.time.LocalDateTime;
-
 public class AlcoholUnit {
-    private final Drink drink;
-    private final LocalDateTime timeAddedToSession;
+    private Drink drink;
+    private long timeAddedToSession;
+
+    public AlcoholUnit() {
+    }
 
     public AlcoholUnit(Drink drink) {
         this.drink = drink;
-        this.timeAddedToSession = LocalDateTime.now();
+        this.timeAddedToSession = System.currentTimeMillis();
     }
 
-    public LocalDateTime getTimeAddedToSession() {
+    public long getTimeAddedToSession() {
         return timeAddedToSession;
     }
 

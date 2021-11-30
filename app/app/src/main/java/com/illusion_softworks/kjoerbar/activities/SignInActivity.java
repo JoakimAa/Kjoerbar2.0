@@ -17,9 +17,9 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.datahandler.BeverageCatalogDataHandler;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.handler.BeverageCatalogDataHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +54,6 @@ public class SignInActivity extends AppCompatActivity {
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                //.setEmailLink(link)
                 .setAvailableProviders(providers)
                 .setIsSmartLockEnabled(false)
                 .setTosAndPrivacyPolicyUrls(
@@ -68,23 +67,22 @@ public class SignInActivity extends AppCompatActivity {
 
     private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
         response = result.getIdpResponse();
+
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            LocalFirebaseUser.setFirebaseUser(firebaseUser);
+            FirestoreHandler.setFirebaseUser(firebaseUser);
             Log.d("New user signin", String.valueOf(firebaseUser));
             assert firebaseUser != null;
             Log.d("USER", firebaseUser.toString());
             assert response != null;
             Log.d("New user signin", String.valueOf(response));
+
             if (response.isNewUser()) {
                 UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                Intent intent2 = new Intent(this, SettingsActivity.class);
-                startActivity(intent2);
             } else {
-                //UserDataHandler.getUserData();
                 UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
                 Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
@@ -93,7 +91,7 @@ public class SignInActivity extends AppCompatActivity {
         } else {
             // Sign in failed
             if (response == null) {
-                //Toast.makeText(getApplicationContext(), R.string.sign_in_failed, Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), R.string.sign_in_failed, Toast.LENGTH_LONG).show();
                 Log.d("SIGNIN", "Signin failed");
                 return;
             }
@@ -103,15 +101,5 @@ public class SignInActivity extends AppCompatActivity {
                 Log.d("SIGNIN", "No network");
             }
         }
-    }
-
-    public void delete() {
-        UserDataHandler.removeUserFromFirebase();
-        AuthUI.getInstance()
-                .delete(this)
-                .addOnCompleteListener(task -> {
-                    Intent intent = new Intent(this, SignInActivity.class);
-                    startActivity(intent);
-                });
     }
 }

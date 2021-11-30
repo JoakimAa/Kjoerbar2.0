@@ -6,8 +6,6 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.User;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Calculations {
@@ -27,11 +25,11 @@ public class Calculations {
         return maxPerMill;
     }
 
-    public static double calculateCurrentPerMill(ArrayList<AlcoholUnit> alcoholUnits, User user, LocalDateTime currentTime) {
+    public static double calculateCurrentPerMill(ArrayList<AlcoholUnit> alcoholUnits, User user, long currentTime) {
         double currentPerMill = 0;
         for (AlcoholUnit alcoholUnit : alcoholUnits) {
-            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit.getDrink(), (double) ChronoUnit.SECONDS.between(alcoholUnit.getTimeAddedToSession(), currentTime) / 3600);
-            Log.d("currentTime", String.valueOf((double) ChronoUnit.SECONDS.between(alcoholUnit.getTimeAddedToSession(), currentTime) / 3600));
+            currentPerMill += calculatePerMillPerUnit(user, alcoholUnit.getDrink(), (double) ((currentTime - alcoholUnit.getTimeAddedToSession()) / 1000) / 3600);
+            Log.d("currentTime", String.valueOf((double) ((currentTime - alcoholUnit.getTimeAddedToSession()) / 1000) / 3600));
         }
         return currentPerMill;
     }
