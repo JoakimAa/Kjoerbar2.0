@@ -14,25 +14,35 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdapter.BeverageViewHolder> {
-
     private final LayoutInflater mInflater;
-    private final List<Drink> dataSet;
+    private List<Drink> dataSet = new ArrayList<>();
     private final OnItemClickListener onItemClickListener;
 
-    public DrinkRecyclerAdapter(Context context, List<Drink> dataSet, OnItemClickListener onItemClickListener) {
+    public DrinkRecyclerAdapter(Context context, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
-        this.dataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void addDataSet(List<Drink> drinks) {
+        dataSet = drinks;
+        notifyItemRangeChanged(0, drinks.size()-1);
+    }
+
+    public void addDrink(Drink drink, int position) {
+        // Not in use yet
+        dataSet.add(drink);
+        notifyItemInserted(position);
     }
 
     @NonNull
     @Override
     public BeverageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.fragment_drink_detail, viewGroup, false);
+        View view = mInflater.inflate(R.layout.card_layout_catalog_drink, viewGroup, false);
         return new BeverageViewHolder(view, onItemClickListener);
     }
 
@@ -65,8 +75,8 @@ public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdap
 
         public void bind(Drink currentDrink) {
             textViewName.setText(currentDrink.getName());
-            textViewPercent.setText(String.format(Locale.ENGLISH, "%s %%", String.valueOf(currentDrink.getPercent())));
-            textViewVolume.setText(String.format(Locale.ENGLISH, "%s dl", String.valueOf(currentDrink.getVolume())));
+            textViewPercent.setText(String.format(Locale.ENGLISH, "%s %%", currentDrink.getPercent()));
+            textViewVolume.setText(String.format(Locale.ENGLISH, "%s dl", currentDrink.getVolume()));
         }
 
         @Override
@@ -74,8 +84,7 @@ public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdap
             if (view == itemView)
                 onItemClickListener.onItemClick(getAdapterPosition());
             else if (view == imageView) {
-                String beverageDetailFragment = "beverageDetailFragment";
-                onItemClickListener.onItemClick(beverageDetailFragment);
+                onItemClickListener.onItemClick("beverageDetailFragment");
             }
         }
     }

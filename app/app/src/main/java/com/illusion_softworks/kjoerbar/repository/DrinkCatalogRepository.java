@@ -4,10 +4,11 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.illusion_softworks.kjoerbar.interfaces.ICallBack;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,9 @@ import java.util.List;
  */
 public class DrinkCatalogRepository {
     private static DrinkCatalogRepository sInstance;
-    private ArrayList<Drink> mDataSet = new ArrayList<>();
-
-    private static final String BEVERAGE_CATALOG = "beverageCatalog";
-    private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
-
+    private final MutableLiveData<List<Drink>> mDataSet = new MutableLiveData<>();
+    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final CollectionReference drinkCollection = firestore.collection("beverageCatalog");
 
     public static DrinkCatalogRepository getInstance() {
         if (sInstance == null) {
@@ -32,24 +31,39 @@ public class DrinkCatalogRepository {
         return sInstance;
     }
 
-    public List<Drink> getDrinks() {
+    public MutableLiveData<List<Drink>> getDrinks(ICallBack callback) {
         // Database queries
-
-        getUserDrinks();
-//        MutableLiveData<List<Drink>> data = new MutableLiveData<>();
-//        data.setValue();
-
-        return mDataSet;
-    }
-
-    private void getUserDrinks() {
-        userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
+        ArrayList<Drink> drinks = new ArrayList<>();
+        drinkCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
 
-                    mDataSet.add(document.toObject(Drink.class));
+                    drinks.add(document.toObject(Drink.class));
                 }
+
+                mDataSet.setValue(drinks);
+                callback.call();
+            } else {
+                Log.w("DATAHANDLER", "Error getting user", task.getException());
+            }
+        });
+//        getCatalogDrinks();
+//        setDrinksWithDummyData();
+        return mDataSet;
+    }
+
+    private void getCatalogDrinks() {
+        ArrayList<Drink> drinks = new ArrayList<>();
+        drinkCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
+
+                    drinks.add(document.toObject(Drink.class));
+                }
+
+                mDataSet.setValue(drinks);
             } else {
                 Log.w("DATAHANDLER", "Error getting user", task.getException());
             }
@@ -57,10 +71,14 @@ public class DrinkCatalogRepository {
     }
 
     private void setDrinksWithDummyData() {
-        mDataSet.add(new Drink("Whiskey", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Wine", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Rum", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Beer", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Bruh", "Rum", "cl", 200, 40));
+        ArrayList<Drink> drinks = new ArrayList<>();
+
+        drinks.add(new Drink("Whiskey", "Rum", "cl", 200, 40));
+        drinks.add(new Drink("Wine", "Rum", "cl", 200, 40));
+        drinks.add(new Drink("Rum", "Rum", "cl", 200, 40));
+        drinks.add(new Drink("Beer", "Rum", "cl", 200, 40));
+        drinks.add(new Drink("Bruh", "Rum", "cl", 200, 40));
+
+        mDataSet.setValue(drinks);
     }
 }

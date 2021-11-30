@@ -1,4 +1,4 @@
-package com.illusion_softworks.kjoerbar.datahandler;
+package com.illusion_softworks.kjoerbar.handler;
 
 // @TODO: REMOVE THIS CLASS
 
@@ -9,12 +9,11 @@ import androidx.annotation.NonNull;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.referencehandler.BeverageCatalogCollectionReferenceHandler;
 
 import java.util.ArrayList;
 
 public class BeverageCatalogDataHandler {
-    private static final CollectionReference beverageCatalogReference = BeverageCatalogCollectionReferenceHandler.getUserDocumentReferenceFromFirestore();
+    private static final CollectionReference beverageCatalogReference = FirestoreHandler.getDrinkCollectionReference();
     private static final ArrayList<Drink> drinks = new ArrayList<>();
 
     public static void getAlcoholUnitCatalog() {
