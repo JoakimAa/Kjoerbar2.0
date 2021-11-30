@@ -53,21 +53,6 @@
         app:layout_constraintTop_toTopOf="@+id/textCurrentTime" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/remove_beverage_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_baseline_remove_circle_24"
-        android:contentDescription="@string/remove_alcohol_unit"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="@+id/textTimer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.669"
-        app:layout_constraintStart_toStartOf="@+id/textTimer"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/add_beverage_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
