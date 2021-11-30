@@ -15,7 +15,7 @@
 
     <style name="ThemeOverlay.AppCompat.navTheme">
         <!-- Color of text and icon when SELECTED -->
-        <item name="colorPrimary">@color/colorSecondaryVariant</item>
+        <item name="colorPrimary">@color/secondaryLightColor</item>
         <!-- Background color when SELECTED -->
         <!--<item name="colorControlHighlight">@color/colorSecondary</item>-->
     </style>
