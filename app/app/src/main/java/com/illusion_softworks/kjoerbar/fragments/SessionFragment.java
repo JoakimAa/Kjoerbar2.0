@@ -249,5 +249,17 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addDrinkFragment);
     }
 
-
+    private void createPositiveButton(DialogInterface dialog, int id) {
+        session.setName(session.getStartDateTime().toString());
+        textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
+        int size = alcoholUnits.size();
+        session.addAlcoholUnits(alcoholUnits);
+        session.setEndDateTime(LocalDateTime.now());
+        UserDataHandler.addSessionToHistory(session);
+        alcoholUnits.clear();
+        adapter.notifyItemRangeRemoved(0, size);
+        Toast.makeText(SessionFragment.this.getContext(),
+                "The session was saved", Toast.LENGTH_SHORT)
+                .show();
+    }
 }
