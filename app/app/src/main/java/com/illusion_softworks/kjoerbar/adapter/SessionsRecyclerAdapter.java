@@ -13,17 +13,22 @@ import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecyclerAdapter.SessionsViewHolder> {
     private final LayoutInflater mInflater;
-    private final List<Session> dataSet;
+    private List<Session> dataSet = new ArrayList<>();
     private final OnItemClickListener onItemClickListener;
 
-    public SessionsRecyclerAdapter(Context context, List<Session> dataSet, OnItemClickListener onItemClickListener) {
+    public SessionsRecyclerAdapter(Context context, OnItemClickListener onItemClickListener) {
         this.mInflater = LayoutInflater.from(context);
-        this.dataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void addDataSet(List<Session> sessions) {
+        dataSet = sessions;
+        notifyItemRangeChanged(0, sessions.size() - 1);
     }
 
     @NonNull
@@ -64,8 +69,8 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
 
         public void bind(Session currentData) {
             date.setText(currentData.getName());
-            userWeight.setText("bruh");
-            sex.setText("Female");
+            userWeight.setText(String.valueOf(currentData.getMaxPerMill()));
+            sex.setText(String.valueOf(((currentData.getEndTime() - currentData.getStartTime()) / 1000)));
         }
 
         @Override
