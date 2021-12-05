@@ -44,7 +44,10 @@ public class MainActivity extends AppCompatActivity {
                 // All fragments where hamburger is visible
                 R.id.sessionFragment,
                 R.id.mapFragment,
-                R.id.friendsFragment)
+                R.id.friendsFragment,
+                R.id.drinkCatalogFragment,
+                R.id.sessionHistoryFragment,
+                R.id.settingsFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
