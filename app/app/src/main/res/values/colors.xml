@@ -17,15 +17,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#f0f0f0</color>
-    <color name="beverageRecycleViewBackground">#f0f0f0</color>
-
-    <color name="colorPrimary">#1583d1</color>
-    <color name="colorPrimaryVariant">#58BAFF</color>
-    <color name="colorOnPrimary">#FF000000</color>
-
-    <color name="colorSecondary">#1583d1</color>
-    <color name="colorSecondaryVariant">#58BAFF</color>
-    <color name="colorOnSecondary">#FF000000</color>
+    <color name="beverageRecycleViewBackground">#bf5f82</color>
     <color name="red">#FF1100</color>
     <color name="blue">#0019FF</color>
+
+    <!--<color name="primaryColor">#1583d1</color>
+    <color name="primaryLightColor">#58BAFF</color>
+    <color name="primaryTextColor">#FF000000</color>
+
+    <color name="secondaryColor">#1583d1</color>
+    <color name="secondaryLightColor">#58BAFF</color>
+    <color name="secondaryTextColor">#FF000000</color>-->
+
 </resources>
