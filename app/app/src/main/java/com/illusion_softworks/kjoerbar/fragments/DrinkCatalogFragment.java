@@ -5,26 +5,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.databinding.FragmentDrinkCatalogBinding;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
-import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
-
-import java.util.List;
-import java.util.Objects;
 
 public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
     private static final String TAG = "Beverage Catalog";
@@ -50,6 +47,11 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void openBottomSheetDialog() {
+        BottomSheetAddDrinkFragment bottomSheetAddDrink = BottomSheetAddDrinkFragment.newInstance(requireActivity());
+        bottomSheetAddDrink.show(getParentFragmentManager(), BottomSheetAddDrinkFragment.TAG);
     }
 
     @Override
@@ -85,12 +87,9 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
             }
         });
 
-        Button addDrinkBtn = view.findViewById(R.id.add_drink);
-        addDrinkBtn.setOnClickListener(view1 -> {
-            Drink testDrink = new Drink("Testdrink", "Wine", 0.3, 0.3);
-            mViewModel.addDrinkSimulation(testDrink);
-            Log.d(TAG, "Added testdrink");
-        });
+        //Button addDrinkBtn = view.findViewById(R.id.add_drink);
+        FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_add_drink);
+        openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
 
         initRecyclerView(view);
     }
