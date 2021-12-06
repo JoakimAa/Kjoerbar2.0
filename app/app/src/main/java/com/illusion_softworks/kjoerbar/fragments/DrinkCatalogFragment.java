@@ -25,8 +25,6 @@ import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 public class DrinkCatalogFragment extends Fragment implements OnItemClickListener {
     private static final String TAG = "Beverage Catalog";
-    private RecyclerView recyclerView;
-    private DrinkCatalogViewModel mViewModel;
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
     private FragmentDrinkCatalogBinding binding;
@@ -44,7 +42,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
     }
 
     private void initRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
     }
@@ -64,9 +62,8 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         // Inflate the layout for this fragment
         requireActivity().setTitle(getString(R.string.beverage_catalog));
         binding = FragmentDrinkCatalogBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -74,7 +71,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         super.onViewCreated(view, savedInstanceState);
         mProgressBar = view.findViewById(R.id.progress_bar);
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);

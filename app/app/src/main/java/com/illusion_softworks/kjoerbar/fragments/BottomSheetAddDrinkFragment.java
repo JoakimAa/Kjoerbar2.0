@@ -2,20 +2,29 @@ package com.illusion_softworks.kjoerbar.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.model.Drink;
+import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
     public static final String TAG = "BottomSheetAddDrinkFragment";
-    public static Context context;
+    private EditText mName;
+    private EditText mCategory;
+    private EditText mVolume;
+    private EditText mPercent;
     private Button buttonAddDrink;
 
     public static BottomSheetAddDrinkFragment newInstance(Context context) {
@@ -25,7 +34,6 @@ public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context = context;
     }
 
     @Override
@@ -39,20 +47,36 @@ public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bottom_sheet_add_drink, container, false);
 
-        /*
-            Button buttonAddDrink =  bottomSheetView.findViewById(R.id.button_add_drink);
-            buttonAddDrink.setOnClickListener(v2 -> {
-                Drink testDrink = new Drink("Testdrink", "Wine", 0.3, 0.3);
-                mViewModel.addDrinkSimulation(testDrink);
-                Log.d(TAG, "Added testdrink");
-
-                // Hides bottomSheetView
-                bottomSheetAddDrink.dismiss();
-            });
-            */
-
-        // Initialize button
+        // Initialize views
         buttonAddDrink = view.findViewById(R.id.button_add_drink);
+        mName = view.findViewById(R.id.edittext_drink_name);
+        mCategory = view.findViewById(R.id.edittext_drink_category);
+        mVolume = view.findViewById(R.id.edittext_drink_volume);
+        mPercent = view.findViewById(R.id.edittext_drink_percent);
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        mViewModel.init();
+
+        buttonAddDrink.setOnClickListener(v2 -> {
+            Drink drink = new Drink(
+                    mName.getText().toString(),
+                    mCategory.getText().toString(),
+                    Double.parseDouble(mVolume.getText().toString()),
+                    Double.parseDouble(mPercent.getText().toString()));
+
+            //mViewModel.addDrinkSimulation(drink);
+
+            mViewModel.addDrink(drink);
+
+            // Hides bottomSheetView
+            this.dismiss();
+        });
     }
 }
