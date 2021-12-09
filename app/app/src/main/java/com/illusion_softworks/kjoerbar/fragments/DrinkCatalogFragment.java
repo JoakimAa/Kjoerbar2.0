@@ -14,8 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
@@ -48,8 +46,8 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
     }
 
     private void openBottomSheetDialog() {
-        BottomSheetAddDrinkFragment bottomSheetAddDrink = BottomSheetAddDrinkFragment.newInstance(requireActivity());
-        bottomSheetAddDrink.show(getParentFragmentManager(), BottomSheetAddDrinkFragment.TAG);
+        AddDrinkDialogFragment bottomSheetAddDrink = AddDrinkDialogFragment.newInstance(requireActivity());
+        bottomSheetAddDrink.show(getParentFragmentManager(), AddDrinkDialogFragment.TAG);
     }
 
     @Override

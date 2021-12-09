@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkInListRecyclerAdapter;
 import com.illusion_softworks.kjoerbar.calculation.Calculations;
@@ -39,10 +41,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
     private static final User user = new User(115, 188, 20, "Male", "Geir");
-
     private static Session session;
     private static CountDownTimer countDownTimer;
-    private static Map<String, Object> mapUser;
     private static final ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
     private static RecyclerView recyclerView;
     private static boolean isBeverageAdded = false;
@@ -65,11 +65,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         isBeverageAdded = true;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     private void setUpViews() {
         textTimer = view.findViewById(R.id.textTimer);
         textCurrentPerMill = view.findViewById(R.id.textCurrentPerMill);
@@ -77,11 +72,21 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         recyclerView = view.findViewById(R.id.beverageRecyclerView);
     }
 
+    private void openBottomSheetDialog() {
+        DrinkListDialogFragment drinkListDialogFragment = DrinkListDialogFragment.newInstance(requireActivity());
+        drinkListDialogFragment.show(getParentFragmentManager(), DrinkListDialogFragment.TAG);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
-        mapUser = new HashMap<>();
+        Map<String, Object> mapUser = new HashMap<>();
 
         mapUser.put("weight", user.getWeight());
         mapUser.put("height", user.getHeight());
@@ -90,11 +95,29 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         mapUser.put("age", user.getAge());
 
         setUpViews();
-        setUpButtons();
+
+//        MaterialButton addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
+//        addAlcoholUnitButton.setOnClickListener(view ->
+//                Navigation.findNavController(requireActivity(), R.id.nav_host)
+//                        .navigate(R.id.action_sessionFragment_to_addDrinkFragment));
+
+
         updateCountdown();
-        setupRecyclerView();
+
+        adapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
+
         notifyAdapterAfterAddedBeverage();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_session);
+        openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
     }
 
     private void notifyAdapterAfterAddedBeverage() {
@@ -102,17 +125,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
             adapter.notifyItemInserted(alcoholUnits.size() - 1);
             isBeverageAdded = false;
         }
-    }
-
-    private void setUpButtons() {
-        MaterialButton addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
-        addAlcoholUnitButton.setOnClickListener(this::navigateToAddBeverageFragment);
-    }
-
-    public void setupRecyclerView() {
-        adapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
     }
 
     private void updateCountdown() {
@@ -225,12 +237,8 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(String view) {
-        // Maybe handle what part of the beverage entry was clicked here?
-        if (view.equals("beverageDetailFragment"))
+        if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment);
-    }
-
-    private void navigateToAddBeverageFragment(View view) {
-        Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addDrinkFragment);
+        }
     }
 }
