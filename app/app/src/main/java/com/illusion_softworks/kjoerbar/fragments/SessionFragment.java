@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
     private DrinkInListRecyclerAdapter adapter;
+    private ProgressBar sessionTimer;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -96,12 +98,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         setUpViews();
 
-//        MaterialButton addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
-//        addAlcoholUnitButton.setOnClickListener(view ->
-//                Navigation.findNavController(requireActivity(), R.id.nav_host)
-//                        .navigate(R.id.action_sessionFragment_to_addDrinkFragment));
-
-
         updateCountdown();
 
         adapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
@@ -118,6 +114,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_session);
         openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
+
+        sessionTimer = view.findViewById(R.id.session_timer);
+        sessionTimer.setProgress(60);
+
+
     }
 
     private void notifyAdapterAfterAddedBeverage() {
