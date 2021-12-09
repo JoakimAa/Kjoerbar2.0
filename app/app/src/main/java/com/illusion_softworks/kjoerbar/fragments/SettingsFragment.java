@@ -24,9 +24,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
-    EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
-    ListPreference genderPreference;
-    User currentUser = new User();
+    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
+    private ListPreference genderPreference;
+    private static User currentUser = new User();
     Map<String, Object> mapUser = new HashMap<>();
 
     @Override
@@ -46,7 +46,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                updateUser();
             }
         });
-        System.out.println(currentUser.getUsername());
 
         //updateUser();
 
@@ -78,7 +77,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
-
     private void setOnPreferenceChangeListeners(Preference.OnPreferenceChangeListener changeListener, Preference.OnPreferenceChangeListener changeListenerFullName, Preference.OnPreferenceChangeListener changeListenerNumbers) {
         fullNamePreference.setOnPreferenceChangeListener(changeListenerFullName);
         usernamePreference.setOnPreferenceChangeListener(changeListener);
@@ -91,20 +89,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void updateUser() {
         if (SignInActivity.getResponse().isNewUser()) {
             fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
-            if (currentUser == null) {
-                Log.d("USERISNULL", "User is null");
-                UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
-                UserDataHandler.getUserData();
-            } else {
-                Log.d("USERISNULL", "User is not null");
-                //Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
+                // Log.d("USERISNULL", "User is null");
+                UserDataHandler.addUserToFirestore(currentUser);
+                // Log.d("USERISNULL", "User is not null");
+                // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
                 Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
-                setTextFields();
-            }
-        } else {
-            // Log.d("Current user", currentUser.toString());
-            setTextFields();
-        }
+        }  // Log.d("Current user", currentUser.toString());
+
+        setTextFields();
     }
 
     private void setNumberLimiter() {
@@ -131,8 +123,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void setTextFields() {
-//        Log.d("CurrentUserSetTextFields", currentUser.getUsername());
-
+        // Log.d("CurrentUserSetTextFields", currentUser.getUsername());
         fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
         usernamePreference.setText(currentUser.getUsername());
         genderPreference.setValue(currentUser.getGender());

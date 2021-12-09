@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
+import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +40,7 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
-    private static final User user = new User(115, 188, 20, "Male", "Geir");
+    private static User user;
 
     private static Session session;
     private static CountDownTimer countDownTimer;
@@ -82,18 +84,29 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
         mapUser = new HashMap<>();
-
-        mapUser.put("weight", user.getWeight());
-        mapUser.put("height", user.getHeight());
-        mapUser.put("gender", user.getGender());
-        mapUser.put("username", user.getUsername());
-        mapUser.put("age", user.getAge());
+//
+//        mapUser.put("weight", user.getWeight());
+//        mapUser.put("height", user.getHeight());
+//        mapUser.put("gender", user.getGender());
+//        mapUser.put("username", user.getUsername());
+//        mapUser.put("age", user.getAge());
 
         setUpViews();
         setUpButtons();
         updateCountdown();
         setupRecyclerView();
         notifyAdapterAfterAddedBeverage();
+
+        UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mViewModel.init();
+
+        mViewModel.getUser().observeForever( mUser -> user = mUser);
+        mViewModel.getIsUpdating().observeForever(isLoading -> {
+            if (!isLoading) {
+
+            }
+        });
+
         return view;
     }
 

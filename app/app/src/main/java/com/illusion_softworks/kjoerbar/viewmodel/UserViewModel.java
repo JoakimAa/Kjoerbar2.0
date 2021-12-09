@@ -12,9 +12,6 @@ public class UserViewModel extends ViewModel {
     private final MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
 
     public void init() {
-       /* if (mSessions != null) {
-            return;
-        }*/
         mIsUpdating.setValue(true);
         UserRepository mRepository = UserRepository.getInstance();
         mUser = mRepository.getUser(() -> mIsUpdating.setValue(false));

@@ -18,9 +18,8 @@ import com.illusion_softworks.kjoerbar.model.User;
  */
 public class UserRepository {
     private static UserRepository sInstance;
-    private final MutableLiveData<User> mDataSet = new MutableLiveData<>();
-    private static User user =  new User();
-    private final DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
+    private MutableLiveData<User> mDataSet = new MutableLiveData<>();
+    private static User user;
 
     public static UserRepository getInstance() {
         if (sInstance == null) {
@@ -31,19 +30,22 @@ public class UserRepository {
 
     public MutableLiveData<User> getUser(ICallBack callback) {
         // Database queries
+        user = new User();
+        DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
         userDocumentReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 final DocumentSnapshot document = task.getResult();
+                System.out.println(document);
                 if (document.exists()) {
                     Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
                     user = document.toObject(User.class);
+                    assert user != null;
                     Log.d("Current user user datahandler", user.toString());
                 } else {
                     Log.d("DATAHANDLER", "No such document");
                 }
                 mDataSet.setValue(user);
                 callback.call();
-            } else {
                 Log.d("DATAHANDLER", "get failed with ", task.getException());
             }
         });
