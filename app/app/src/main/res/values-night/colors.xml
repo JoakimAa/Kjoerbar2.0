@@ -17,14 +17,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#f0f0f0</color>
-    <color name="beverageRecycleViewBackground">#FF000000</color>
+    <color name="beverageRecycleViewBackground">#a00037</color>
 
+    <!--
     <color name="colorPrimary">#1583d1</color>
     <color name="colorPrimaryVariant">#58BAFF</color>
     <color name="colorOnPrimary">#FFFFFFFF</color>
     <color name="colorSecondary">#1583d1</color>
     <color name="colorSecondaryVariant">#58BAFF</color>
     <color name="colorOnSecondary">#FFFFFFFF</color>
+    -->
 
     <color name="red">#FF1100</color>
     <color name="blue">#0019FF</color>

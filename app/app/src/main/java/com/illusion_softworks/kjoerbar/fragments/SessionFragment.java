@@ -107,20 +107,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private void setUpButtons() {
         MaterialButton addAlcoholUnitButton = view.findViewById(R.id.add_beverage_button);
         addAlcoholUnitButton.setOnClickListener(this::navigateToAddBeverageFragment);
-
-
-        // Todo: Remove this
-        MaterialButton removeAlcoholUnitButton = view.findViewById(R.id.remove_beverage_button);
-        removeAlcoholUnitButton.setOnClickListener(view1 -> {
-            if (alcoholUnits.size() > 0) {
-                AlcoholUnit alcoholUnit = alcoholUnits.get(alcoholUnits.size() - 1);
-                alcoholUnits.remove(alcoholUnit);
-                session.setMaxPerMill(session.getMaxPerMill() - Calculations.calculatePerMillPerUnit(user, alcoholUnit.getDrink(), 0));
-                updateCountDownTimer();
-                UserDataHandler.updateUserOnFireStore(mapUser);
-                adapter.notifyItemRemoved(alcoholUnits.size());
-            }
-        });
     }
 
     public void setupRecyclerView() {
@@ -130,7 +116,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void updateCountdown() {
-
         if (session != null) {
             updateCountDownTimer();
         }
@@ -247,19 +232,5 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     private void navigateToAddBeverageFragment(View view) {
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_addDrinkFragment);
-    }
-
-    private void createPositiveButton(DialogInterface dialog, int id) {
-        session.setName(session.getStartDateTime().toString());
-        textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
-        int size = alcoholUnits.size();
-        session.addAlcoholUnits(alcoholUnits);
-        session.setEndDateTime(LocalDateTime.now());
-        UserDataHandler.addSessionToHistory(session);
-        alcoholUnits.clear();
-        adapter.notifyItemRangeRemoved(0, size);
-        Toast.makeText(SessionFragment.this.getContext(),
-                "The session was saved", Toast.LENGTH_SHORT)
-                .show();
     }
 }
