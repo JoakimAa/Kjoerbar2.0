@@ -12,6 +12,6 @@
 
     <!-- Session Timer -->
     <dimen name="session_timer_thickness">8dp</dimen>
-    <dimen name="session_timer_inner_radius">2.5</dimen>
-    <dimen name="session_timer_size">300dp</dimen>
+    <dimen name="session_timer_inner_radius">2.2</dimen>
+    <dimen name="session_timer_size">250dp</dimen>
 </resources>

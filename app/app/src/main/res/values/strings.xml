@@ -71,6 +71,8 @@
     <string name="volume">Volum</string>
     <string name="percent">Prosent</string>
     <string name="choose_drink">Velg drikke</string>
+    <string name="fab_session_description">Knapp som åpner liste av drikker</string>
+    <string name="your_drinks">Dine drikker</string>
 
 
 </resources>

@@ -41,6 +41,7 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
+    private static final String TAG = "Session_Fragment";
     private static final User user = new User(115, 188, 20, "Male", "Geir");
     private static Session session;
     private static CountDownTimer countDownTimer;
@@ -49,8 +50,9 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private static boolean isBeverageAdded = false;
     private TextView textTimer, textCurrentPerMill, textCurrentTime;
     private View view;
-    private DrinkInListRecyclerAdapter adapter;
-    private ProgressBar sessionTimer;
+    private DrinkInListRecyclerAdapter mAdapter;
+    private ProgressBar mSessionTimer;
+
 
     public SessionFragment() {
         // Required empty public constructor
@@ -79,6 +81,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         drinkListDialogFragment.show(getParentFragmentManager(), DrinkListDialogFragment.TAG);
     }
 
+    private void updateTimer(long remainingTimeInMilliSeconds, long elapsedTimeInMilliSeconds) {
+        long progress = (long)((float)elapsedTimeInMilliSeconds / remainingTimeInMilliSeconds * 100);
+        mSessionTimer.setProgress(Math.toIntExact(progress));
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +107,9 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         updateCountdown();
 
-        adapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
+        mAdapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
 
         notifyAdapterAfterAddedBeverage();
         return view;
@@ -115,15 +122,15 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_session);
         openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
 
-        sessionTimer = view.findViewById(R.id.session_timer);
-        sessionTimer.setProgress(60);
+        mSessionTimer = view.findViewById(R.id.session_timer);
+        mSessionTimer.setProgress(0);
 
 
     }
 
     private void notifyAdapterAfterAddedBeverage() {
         if (isBeverageAdded) {
-            adapter.notifyItemInserted(alcoholUnits.size() - 1);
+            mAdapter.notifyItemInserted(alcoholUnits.size() - 1);
             isBeverageAdded = false;
         }
     }
@@ -140,9 +147,9 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         updatePerMill();
         long countDownPeriod = Calculations.calculateTimeUntilSober(session.getCurrentPerMill());
+
         Log.d("countDownperiod_currentPerMill", String.valueOf(session.getCurrentPerMill()));
         Log.d("countDownperiod", String.valueOf(countDownPeriod));
-
         Log.d("TAG", String.format(Locale.ENGLISH,
                 "%s: %02d:%02d:%02d",
                 view.getContext().getString(R.string.time_left),
@@ -154,6 +161,8 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 long millisBetween = System.currentTimeMillis() - session.getStartTime();
+
+                updateTimer(countDownPeriod, millisUntilFinished);
 
                 formatToHours(millisUntilFinished, textTimer, R.string.time_left);
                 textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", view.getContext().getString(R.string.current_per_mill), session.getCurrentPerMill()));
@@ -205,6 +214,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void createPositiveButton(DialogInterface dialog, int id) {
+        mSessionTimer.setProgress(0);
         session.setName(String.valueOf(session.getStartTime()));
         textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
         int size = alcoholUnits.size();
@@ -212,7 +222,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         session.setEndTime(System.currentTimeMillis());
         UserDataHandler.addSessionToHistory(session);
         alcoholUnits.clear();
-        adapter.notifyItemRangeRemoved(0, size);
+        mAdapter.notifyItemRangeRemoved(0, size);
         session = null;
         Toast.makeText(SessionFragment.this.getContext(),
                 "The session was saved", Toast.LENGTH_SHORT)
@@ -231,7 +241,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onItemClick(int position) {
         AlcoholUnit alcoholUnit = alcoholUnits.remove(position);
-        adapter.notifyItemRemoved(position);
+        mAdapter.notifyItemRemoved(position);
         updateCountdown();
         Log.d("onItemClickSession", "onItemClick: " + alcoholUnit.getDrink().getName() + " pos:" + position);
     }
