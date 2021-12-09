@@ -70,6 +70,7 @@
     <string name="category">Kategori</string>
     <string name="volume">Volum</string>
     <string name="percent">Prosent</string>
+    <string name="choose_drink">Velg drikke</string>
 
 
 </resources>
