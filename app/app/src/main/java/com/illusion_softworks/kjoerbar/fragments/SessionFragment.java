@@ -84,12 +84,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         view = inflater.inflate(R.layout.fragment_session, container, false);
         requireActivity().setTitle(getString(R.string.session));
         mapUser = new HashMap<>();
-//
-//        mapUser.put("weight", user.getWeight());
-//        mapUser.put("height", user.getHeight());
-//        mapUser.put("gender", user.getGender());
-//        mapUser.put("username", user.getUsername());
-//        mapUser.put("age", user.getAge());
 
         setUpViews();
         setUpButtons();
@@ -140,15 +134,10 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         updatePerMill();
         long countDownPeriod = Calculations.calculateTimeUntilSober(session.getCurrentPerMill());
+
         Log.d("countDownperiod_currentPerMill", String.valueOf(session.getCurrentPerMill()));
         Log.d("countDownperiod", String.valueOf(countDownPeriod));
-
-        Log.d("TAG", String.format(Locale.ENGLISH,
-                "%s: %02d:%02d:%02d",
-                view.getContext().getString(R.string.time_left),
-                TimeUnit.MILLISECONDS.toHours(countDownPeriod),
-                TimeUnit.MILLISECONDS.toMinutes(countDownPeriod) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownPeriod)),
-                TimeUnit.MILLISECONDS.toSeconds(countDownPeriod) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownPeriod))));
+        LogTime(countDownPeriod, "TAG");
 
         countDownTimer = new CountDownTimer(countDownPeriod, 1000) {
             @Override
@@ -160,13 +149,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 formatToHours(millisBetween, textCurrentTime, R.string.time_elapsed);
 
                 Log.d("UserTick", session.toString());
-
-                Log.d("millisUntilFinished", String.format(Locale.ENGLISH,
-                        "%s: %02d:%02d:%02d",
-                        view.getContext().getString(R.string.time_left),
-                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                LogTime(millisUntilFinished, "millisUntilFinished");
 
                 updatePerMill();
             }
@@ -180,6 +163,15 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }.start();
     }
 
+    private void LogTime(long countDownPeriod, String tag) {
+        Log.d(tag, String.format(Locale.ENGLISH,
+                "%s: %02d:%02d:%02d",
+                view.getContext().getString(R.string.time_left),
+                TimeUnit.MILLISECONDS.toHours(countDownPeriod),
+                TimeUnit.MILLISECONDS.toMinutes(countDownPeriod) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownPeriod)),
+                TimeUnit.MILLISECONDS.toSeconds(countDownPeriod) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownPeriod))));
+    }
+
     private void formatToHours(long millisUntilFinished, TextView textTimer, int p) {
         textTimer.setText(String.format(Locale.ENGLISH,
                 "%s: %02d:%02d:%02d",
@@ -191,13 +183,13 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     private void confirmFinishDialog() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-        builder1.setMessage("You are sober. \nDo you want to end and save the session?")
+        builder1.setMessage(R.string.finish_dialog_text)
                 .setCancelable(true)
                 .setPositiveButton(
-                        "Yes",
+                        R.string.yes,
                         this::createPositiveButton)
                 .setNegativeButton(
-                        "Continue drinking",
+                        R.string.continue_drinking,
                         (dialog, id) -> dialog.cancel());
 
         AlertDialog alert11 = builder1.create();

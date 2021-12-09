@@ -70,6 +70,9 @@
     <string name="category">Kategori</string>
     <string name="volume">Volum</string>
     <string name="percent">Prosent</string>
+    <string name="finish_dialog_text">You are sober. \nDo you want to end and save the session?</string>
+    <string name="yes">Yes</string>
+    <string name="continue_drinking">Continue drinking</string>
 
 
 </resources>
