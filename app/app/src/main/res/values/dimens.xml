@@ -7,4 +7,11 @@
     <dimen name="font_size_large">22sp</dimen>
     <dimen name="font_size_extra_large">26sp</dimen>
     <dimen name="button_size">35dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+
+    <!-- Session Timer -->
+    <dimen name="session_timer_thickness">8dp</dimen>
+    <dimen name="session_timer_inner_radius">2.2</dimen>
+    <dimen name="session_timer_size">250dp</dimen>
 </resources>
