@@ -54,6 +54,7 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     def nav_version = "2.3.5"
 
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -114,4 +115,11 @@ dependencies {
 
     // Safe-ARgs
     //classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
+    //Material Design
+    implementation "com.google.android.material:material:1.3.0-alpha04"
+
+    // Chart and graph library, not currently in use
+    // implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    // implementation 'com.nineoldandroids:library:2.4.0'
 }

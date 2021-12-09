@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadiusRatio="@dimen/session_timer_inner_radius"
+    android:shape="ring"
+    android:thickness="@dimen/session_timer_thickness"
+    android:useLevel="false">
+
+    <solid android:color="@color/gray" />
+</shape>

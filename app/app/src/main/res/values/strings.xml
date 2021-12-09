@@ -60,8 +60,26 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+  
+  
     <string name="you_have_no_friends">You have no friends :(</string>
     <string name="add_drink">Add Drink</string>
+    <string name="placeholder_session_card_date">28/11/21</string>
+    <string name="placeholder_session_card_userWeight">82,6 kg</string>
+    <string name="placeholder_session_card_sex">Male</string>
+    <string name="add_drink_no">Legg til en drikke</string>
+    <string name="name">Navn</string>
+    <string name="category">Kategori</string>
+    <string name="volume">Volum</string>
+    <string name="percent">Prosent</string>
+
+    <string name="finish_dialog_text">You are sober. \nDo you want to end and save the session?</string>
+    <string name="yes">Yes</string>
+    <string name="continue_drinking">Continue drinking</string>
+    <string name="choose_drink">Velg drikke</string>
+    <string name="fab_session_description">Knapp som åpner liste av drikker</string>
+    <string name="your_drinks">Dine drikker</string>
+
 
 
 </resources>

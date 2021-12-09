@@ -18,7 +18,7 @@
         android:id="@+id/menu_middle"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/settings"
+            android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/settings" />
     </group>

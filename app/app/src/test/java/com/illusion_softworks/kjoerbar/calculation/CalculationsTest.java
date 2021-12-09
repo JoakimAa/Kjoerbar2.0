@@ -1,17 +1,8 @@
 package com.illusion_softworks.kjoerbar.calculation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
-import com.illusion_softworks.kjoerbar.model.Beverage;
-import com.illusion_softworks.kjoerbar.model.User;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 class CalculationsTest {
 
-    @Test
+    /*@Test
     @DisplayName("Calculate per mill")
     void testCalculatePerMill() {
 
@@ -24,5 +15,5 @@ class CalculationsTest {
 
         // Verify the results
         assertEquals(0.7549714285714288, result, 0.0001);
-    }
+    }*/
 }

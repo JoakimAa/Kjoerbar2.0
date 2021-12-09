@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -13,41 +14,38 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.activities.SignInActivity;
-import com.illusion_softworks.kjoerbar.datahandler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.model.User;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
-    EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
-    ListPreference genderPreference;
-    User currentUser = UserDataHandler.getUser();
+    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
+    private ListPreference genderPreference;
+    private static User currentUser = new User();
     Map<String, Object> mapUser = new HashMap<>();
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_user_preferences, rootKey);
-        UserDataHandler.updateUserDocumentReference();
-
-        Thread getUserThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UserDataHandler.getUserData();
-                    updateUI();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        getUserThread.start();
 
         findPreferences();
         clearFields();
         setNumberLimiter();
+
+        UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mViewModel.init();
+
+        mViewModel.getUser().observeForever( user -> currentUser = user);
+        mViewModel.getIsUpdating().observeForever(isLoading -> {
+            if (!isLoading) {
+               updateUser();
+            }
+        });
 
         //updateUser();
 
@@ -67,7 +65,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                     .setDisplayName((newValue.toString()))
                     .build();
-            LocalFirebaseUser.getFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
+            FirestoreHandler.getFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d("Display name: ", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                 }
@@ -77,15 +75,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         setOnPreferenceChangeListeners(changeListener, changeListenerFullName, changeListenerNumbers);
 
-    }
-
-    private void updateUI() {
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateUser();
-            }
-        });
     }
 
     private void setOnPreferenceChangeListeners(Preference.OnPreferenceChangeListener changeListener, Preference.OnPreferenceChangeListener changeListenerFullName, Preference.OnPreferenceChangeListener changeListenerNumbers) {
@@ -98,23 +87,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void updateUser() {
-        currentUser = UserDataHandler.getUser();
         if (SignInActivity.getResponse().isNewUser()) {
-            fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
-            if (currentUser == null) {
-                Log.d("USERISNULL", "User is null");
-                UserDataHandler.addUserToFirestore(new User(0, 0, 0, "", ""));
-                UserDataHandler.getUserData();
-            } else {
-                Log.d("USERISNULL", "User is not null");
-                //Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
+            fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
+                // Log.d("USERISNULL", "User is null");
+                UserDataHandler.addUserToFirestore(currentUser);
+                // Log.d("USERISNULL", "User is not null");
+                // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
                 Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
-                setTextFields();
-            }
-        } else {
-            // Log.d("Current user", currentUser.toString());
-            setTextFields();
-        }
+        }  // Log.d("Current user", currentUser.toString());
+
+        setTextFields();
     }
 
     private void setNumberLimiter() {
@@ -141,9 +123,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void setTextFields() {
-//        Log.d("CurrentUserSetTextFields", currentUser.getUsername());
-
-        fullNamePreference.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+        // Log.d("CurrentUserSetTextFields", currentUser.getUsername());
+        fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
         usernamePreference.setText(currentUser.getUsername());
         genderPreference.setValue(currentUser.getGender());
         agePreference.setText(String.valueOf(currentUser.getAge() != 0 ? currentUser.getAge() : ""));
@@ -159,4 +140,3 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 weightPreference.getText() != null;
     }
 }
-

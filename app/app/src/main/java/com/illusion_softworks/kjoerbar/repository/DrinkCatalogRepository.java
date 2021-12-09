@@ -2,12 +2,21 @@ package com.illusion_softworks.kjoerbar.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.interfaces.ICallBack;
 import com.illusion_softworks.kjoerbar.model.Drink;
-import com.illusion_softworks.kjoerbar.referencehandler.UserDocumentReferenceHandler;
+import com.illusion_softworks.kjoerbar.model.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +28,12 @@ import java.util.List;
  */
 public class DrinkCatalogRepository {
     private static DrinkCatalogRepository sInstance;
-    private ArrayList<Drink> mDataSet = new ArrayList<>();
-
-    private static final String BEVERAGE_CATALOG = "beverageCatalog";
-    private static final DocumentReference userDocumentReference = UserDocumentReferenceHandler.getUserDocumentReferenceFromFirestore();
-
+    private static final String TAG = "Drink_Catalog_Repo";
+    private static final String DRINK_CATALOG = "beverageCatalog";
+    private final MutableLiveData<List<Drink>> mDataSet = new MutableLiveData<>();
+    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final CollectionReference drinkCollection = firestore.collection("beverageCatalog");
+    private final DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
 
     public static DrinkCatalogRepository getInstance() {
         if (sInstance == null) {
@@ -32,35 +42,30 @@ public class DrinkCatalogRepository {
         return sInstance;
     }
 
-    public List<Drink> getDrinks() {
+    public MutableLiveData<List<Drink>> getDrinks(ICallBack callBack) {
         // Database queries
+        ArrayList<Drink> drinks = new ArrayList<>();
+        userDocumentReference.collection(DRINK_CATALOG)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
 
-        getUserDrinks();
-//        MutableLiveData<List<Drink>> data = new MutableLiveData<>();
-//        data.setValue();
+                            drinks.add(document.toObject(Drink.class));
+                        }
 
+                        mDataSet.setValue(drinks);
+                        callBack.call();
+                    } else {
+                        Log.w("DATAHANDLER", "Error getting user", task.getException());
+                    }
+                });
         return mDataSet;
     }
 
-    private void getUserDrinks() {
-        userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
-
-                    mDataSet.add(document.toObject(Drink.class));
-                }
-            } else {
-                Log.w("DATAHANDLER", "Error getting user", task.getException());
-            }
-        });
-    }
-
-    private void setDrinksWithDummyData() {
-        mDataSet.add(new Drink("Whiskey", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Wine", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Rum", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Beer", "Rum", "cl", 200, 40));
-        mDataSet.add(new Drink("Bruh", "Rum", "cl", 200, 40));
+    public void postDrink(Drink newDrink) {
+        // Database queries
+        UserDataHandler.addBeverageToCatalog(newDrink);
     }
 }

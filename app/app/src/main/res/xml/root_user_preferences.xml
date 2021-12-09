@@ -38,7 +38,8 @@
         <EditTextPreference
             app:key="weight"
             app:title="@string/user_weight"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            />
 
     </PreferenceCategory>
 
