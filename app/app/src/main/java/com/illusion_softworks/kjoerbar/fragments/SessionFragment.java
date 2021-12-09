@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
+import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +43,8 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
+    private static User user;
     private static final String TAG = "Session_Fragment";
-    private static final User user = new User(115, 188, 20, "Male", "Geir");
     private static Session session;
     private static CountDownTimer countDownTimer;
     private static final ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
@@ -97,12 +99,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         requireActivity().setTitle(getString(R.string.session));
         Map<String, Object> mapUser = new HashMap<>();
 
-        mapUser.put("weight", user.getWeight());
-        mapUser.put("height", user.getHeight());
-        mapUser.put("gender", user.getGender());
-        mapUser.put("username", user.getUsername());
-        mapUser.put("age", user.getAge());
-
         setUpViews();
 
         updateCountdown();
@@ -112,6 +108,17 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         recyclerView.setAdapter(mAdapter);
 
         notifyAdapterAfterAddedBeverage();
+
+        UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mViewModel.init();
+
+        mViewModel.getUser().observeForever( mUser -> user = mUser);
+        mViewModel.getIsUpdating().observeForever(isLoading -> {
+            if (!isLoading) {
+
+            }
+        });
+
         return view;
     }
 
@@ -150,12 +157,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         Log.d("countDownperiod_currentPerMill", String.valueOf(session.getCurrentPerMill()));
         Log.d("countDownperiod", String.valueOf(countDownPeriod));
-        Log.d("TAG", String.format(Locale.ENGLISH,
-                "%s: %02d:%02d:%02d",
-                view.getContext().getString(R.string.time_left),
-                TimeUnit.MILLISECONDS.toHours(countDownPeriod),
-                TimeUnit.MILLISECONDS.toMinutes(countDownPeriod) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownPeriod)),
-                TimeUnit.MILLISECONDS.toSeconds(countDownPeriod) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownPeriod))));
+        LogTime(countDownPeriod, "TAG");
 
         countDownTimer = new CountDownTimer(countDownPeriod, 1000) {
             @Override
@@ -169,13 +171,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 formatToHours(millisBetween, textCurrentTime, R.string.time_elapsed);
 
                 Log.d("UserTick", session.toString());
-
-                Log.d("millisUntilFinished", String.format(Locale.ENGLISH,
-                        "%s: %02d:%02d:%02d",
-                        view.getContext().getString(R.string.time_left),
-                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                LogTime(millisUntilFinished, "millisUntilFinished");
 
                 updatePerMill();
             }
@@ -189,6 +185,15 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }.start();
     }
 
+    private void LogTime(long countDownPeriod, String tag) {
+        Log.d(tag, String.format(Locale.ENGLISH,
+                "%s: %02d:%02d:%02d",
+                view.getContext().getString(R.string.time_left),
+                TimeUnit.MILLISECONDS.toHours(countDownPeriod),
+                TimeUnit.MILLISECONDS.toMinutes(countDownPeriod) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownPeriod)),
+                TimeUnit.MILLISECONDS.toSeconds(countDownPeriod) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownPeriod))));
+    }
+
     private void formatToHours(long millisUntilFinished, TextView textTimer, int p) {
         textTimer.setText(String.format(Locale.ENGLISH,
                 "%s: %02d:%02d:%02d",
@@ -200,13 +205,13 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     private void confirmFinishDialog() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-        builder1.setMessage("You are sober. \nDo you want to end and save the session?")
+        builder1.setMessage(R.string.finish_dialog_text)
                 .setCancelable(true)
                 .setPositiveButton(
-                        "Yes",
+                        R.string.yes,
                         this::createPositiveButton)
                 .setNegativeButton(
-                        "Continue drinking",
+                        R.string.continue_drinking,
                         (dialog, id) -> dialog.cancel());
 
         AlertDialog alert11 = builder1.create();

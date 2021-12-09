@@ -31,6 +31,7 @@ public class UserDataHandler {
     }
 
     public static void addUserToFirestore(User user) {
+        updateUserDocumentReference();
         userDocumentReference
                 .set(user)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully written!"))
@@ -38,6 +39,7 @@ public class UserDataHandler {
     }
 
     public static void removeUserFromFirebase() {
+        updateUserDocumentReference();
         userDocumentReference
                 .delete()
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "User successfully removed!"))
@@ -45,6 +47,7 @@ public class UserDataHandler {
     }
 
     public static void updateUserOnFireStore(Map<String, Object> user) {
+        updateUserDocumentReference();
         for (Map.Entry<String, Object> entry : user.entrySet())
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
@@ -53,6 +56,7 @@ public class UserDataHandler {
     }
 
     public static void addSessionToHistory(@NonNull Session session) {
+        updateUserDocumentReference();
         userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getStartTime()))
                 .set(session)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Session successfully added to history!"))
@@ -60,6 +64,7 @@ public class UserDataHandler {
     }
 
     public static void addBeverageToCatalog(@NonNull Drink drink) {
+        updateUserDocumentReference();
         userDocumentReference.collection(BEVERAGE_CATALOG).document(drink.getName())
                 .set(drink)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Beverage successfully added to user catalog!"))
@@ -73,6 +78,7 @@ public class UserDataHandler {
     }
 
     public static void getUserBeverageCatalog() {
+        updateUserDocumentReference();
         userDocumentReference.collection(BEVERAGE_CATALOG).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
