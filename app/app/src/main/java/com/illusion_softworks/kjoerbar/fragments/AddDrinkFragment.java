@@ -30,10 +30,8 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class AddDrinkFragment extends Fragment implements OnItemClickListener {
-    private static final List<Drink> data = UserDataHandler.getDrinks();
     private static final String TAG = "Add_Drink_Fragment";
-    private RecyclerView recyclerView;
-    private DrinkCatalogViewModel mViewModel;
+    private static final List<Drink> data = UserDataHandler.getDrinks();
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
 
@@ -50,7 +48,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     }
 
     private void initRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.beverageRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.beverageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
     }
@@ -73,7 +71,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
         super.onViewCreated(view, savedInstanceState);
         mProgressBar = view.findViewById(R.id.progress_bar);
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);

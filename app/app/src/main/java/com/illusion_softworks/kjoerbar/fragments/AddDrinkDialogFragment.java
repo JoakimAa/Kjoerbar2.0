@@ -2,7 +2,6 @@ package com.illusion_softworks.kjoerbar.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,13 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
-public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
+public class AddDrinkDialogFragment extends BottomSheetDialogFragment {
     public static final String TAG = "BottomSheetAddDrinkFragment";
     private EditText mName;
     private EditText mCategory;
@@ -27,8 +25,8 @@ public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
     private EditText mPercent;
     private Button buttonAddDrink;
 
-    public static BottomSheetAddDrinkFragment newInstance(Context context) {
-        return new BottomSheetAddDrinkFragment();
+    public static AddDrinkDialogFragment newInstance(Context context) {
+        return new AddDrinkDialogFragment();
     }
 
     @Override
@@ -45,7 +43,7 @@ public class BottomSheetAddDrinkFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bottom_sheet_add_drink, container, false);
+        View view = inflater.inflate(R.layout.fragment_dialog_add_drink, container, false);
 
         // Initialize views
         buttonAddDrink = view.findViewById(R.id.button_add_drink);
