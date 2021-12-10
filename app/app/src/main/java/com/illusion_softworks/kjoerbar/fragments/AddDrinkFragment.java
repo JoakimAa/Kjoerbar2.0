@@ -23,7 +23,6 @@ import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +33,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     private static final List<Drink> data = UserDataHandler.getDrinks();
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
+    private String mName;
 
     public AddDrinkFragment() {
         // Required empty public constructor
@@ -89,7 +89,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(int position) {
-        SessionFragment.startNewSession();
+        SessionFragment.startNewSession(mName);
         SessionFragment.addDrink(data.get(position));
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
         Log.d("TAG", "onItemClick: " + data.get(position));

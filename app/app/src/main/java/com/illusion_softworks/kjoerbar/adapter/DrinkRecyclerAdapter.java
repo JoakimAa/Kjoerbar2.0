@@ -33,6 +33,10 @@ public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdap
         notifyItemRangeChanged(0, drinks.size()-1);
     }
 
+    public Drink getDrink(int position) {
+        return dataSet.get(position);
+    }
+
     public void addDrink(Drink drink, int position) {
         // Not in use yet
         dataSet.add(drink);
