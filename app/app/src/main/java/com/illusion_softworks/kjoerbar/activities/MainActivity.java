@@ -18,8 +18,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         UserDataHandler.getUserBeverageCatalog();
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         setSignOut(navView);
         setDrawerInfo(navView);
+
+        if (SignInActivity.getResponse().isNewUser()) {
+            navController.navigate(R.id.setEssentialSettingsFragment);
+        }
     }
 
     private void setDrawerInfo(NavigationView navView) {

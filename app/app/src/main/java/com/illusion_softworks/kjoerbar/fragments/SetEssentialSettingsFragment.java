@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -23,16 +24,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
-    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
-    private ListPreference genderPreference;
+public class SetEssentialSettingsFragment extends PreferenceFragmentCompat {
     private static User currentUser = new User();
     Map<String, Object> mapUser = new HashMap<>();
+    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
+    private ListPreference genderPreference;
+    private Preference mButtonProceed;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_user_preferences, rootKey);
-        requireActivity().setTitle(R.string.settings);
 
         findPreferences();
         clearFields();
@@ -41,14 +42,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         mViewModel.init();
 
-        mViewModel.getUser().observeForever( user -> currentUser = user);
+        mViewModel.getUser().observeForever(user -> currentUser = user);
         mViewModel.getIsUpdating().observeForever(isLoading -> {
             if (!isLoading) {
-               updateUser();
+                updateUser();
             }
         });
 
-        //updateUser();
+        mButtonProceed.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
+                return true;
+            }
+        });
 
         Preference.OnPreferenceChangeListener changeListener = (preference, newValue) -> {
             mapUser.put(preference.getKey(), newValue);
@@ -75,7 +82,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         };
 
         setOnPreferenceChangeListeners(changeListener, changeListenerFullName, changeListenerNumbers);
-
     }
 
     private void setOnPreferenceChangeListeners(Preference.OnPreferenceChangeListener changeListener, Preference.OnPreferenceChangeListener changeListenerFullName, Preference.OnPreferenceChangeListener changeListenerNumbers) {
@@ -90,11 +96,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void updateUser() {
         if (SignInActivity.getResponse().isNewUser()) {
             fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
-                // Log.d("USERISNULL", "User is null");
-                UserDataHandler.addUserToFirestore(currentUser);
-                // Log.d("USERISNULL", "User is not null");
-                // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
-                Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
+            // Log.d("USERISNULL", "User is null");
+            UserDataHandler.addUserToFirestore(currentUser);
+            // Log.d("USERISNULL", "User is not null");
+            // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
+            Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
         }  // Log.d("Current user", currentUser.toString());
 
         setTextFields();
@@ -113,6 +119,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         heightPreference = findPreference("height");
         weightPreference = findPreference("weight");
         genderPreference = findPreference("gender");
+        mButtonProceed = findPreference(getString(R.string.proceed));
     }
 
     private void clearFields() {

@@ -3,7 +3,6 @@ package com.illusion_softworks.kjoerbar.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -18,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.handler.BeverageCatalogDataHandler;
-import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
+                .setIsSmartLockEnabled(true)
                 .setTosAndPrivacyPolicyUrls(
                         "https://example.com/terms.html",
                         "https://example.com/privacy.html")
@@ -78,16 +77,9 @@ public class SignInActivity extends AppCompatActivity {
             assert response != null;
             Log.d("New user signin", String.valueOf(response));
 
-            if (response.isNewUser()) {
-                UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
-                Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }
+            UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             // Sign in failed
             if (response == null) {

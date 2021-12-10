@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_sessionFragment_to_addDrinkFragment"
             app:destination="@id/addDrinkFragment" />
+        <action
+            android:id="@+id/action_sessionFragment_to_drinkDetailFragment2"
+            app:destination="@id/drinkDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -62,5 +65,9 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settings" />
+    <fragment
+        android:id="@+id/setEssentialSettingsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SetEssentialSettingsFragment"
+        android:label="@string/settings" />
 </navigation>

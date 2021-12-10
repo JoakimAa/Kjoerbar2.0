@@ -31,6 +31,11 @@ public class Session {
         this.alcoholUnits = alcoholUnits;
     }
 
+    public Session(String name, int userWeight, String userGender) {
+        this(userWeight, userGender);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

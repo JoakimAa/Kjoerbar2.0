@@ -79,7 +79,8 @@
     <string name="choose_drink">Velg drikke</string>
     <string name="fab_session_description">Knapp som åpner liste av drikker</string>
     <string name="your_drinks">Dine drikker</string>
-
-
+    <string name="start_new_session">Start new session</string>
+    <string name="start_session">Start Session</string>
+    <string name="proceed">Proceed</string>
 
 </resources>

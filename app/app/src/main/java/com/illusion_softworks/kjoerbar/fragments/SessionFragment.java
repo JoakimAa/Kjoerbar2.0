@@ -33,9 +33,7 @@ import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,7 +42,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionFragment extends Fragment implements OnItemClickListener {
     private static User user;
-    private static final String TAG = "Session_Fragment";
     private static Session session;
     private static CountDownTimer countDownTimer;
     private static final ArrayList<AlcoholUnit> alcoholUnits = new ArrayList<>();
@@ -60,10 +57,52 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         // Required empty public constructor
     }
 
-    public static void startNewSession() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_session, container, false);
+        requireActivity().setTitle(getString(R.string.session));
+
+        setUpViews();
+        updateCountdown();
+        setUpRecyclerView();
+        notifyAdapterAfterAddedBeverage();
+        setUpUserViewModel();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_session);
+        openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
+
+        mSessionTimer = view.findViewById(R.id.session_timer);
+        mSessionTimer.setProgress(0);
+    }
+
+    public static void startNewSession(String name) {
         if (session == null) {
-            session = new Session(user.getWeight(), user.getGender());
+            session = new Session(name, user.getWeight(), user.getGender());
         }
+    }
+
+    private void setUpUserViewModel() {
+        UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mViewModel.init();
+        mViewModel.getUser().observeForever( mUser -> user = mUser);
+    }
+
+    private void setUpRecyclerView() {
+        mAdapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(mAdapter);
     }
 
     public static void addDrink(Drink drink) {
@@ -79,60 +118,18 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void openBottomSheetDialog() {
-        DrinkListDialogFragment drinkListDialogFragment = DrinkListDialogFragment.newInstance(requireActivity());
-        drinkListDialogFragment.show(getParentFragmentManager(), DrinkListDialogFragment.TAG);
+        if (session == null) {
+            StartNewSessionDialogFragment startNewSessionDialogFragment = StartNewSessionDialogFragment.newInstance(requireActivity());
+            startNewSessionDialogFragment.show(getParentFragmentManager(), StartNewSessionDialogFragment.TAG);
+        } else {
+            DrinkListDialogFragment drinkListDialogFragment = DrinkListDialogFragment.newInstance(requireActivity());
+            drinkListDialogFragment.show(getParentFragmentManager(), DrinkListDialogFragment.TAG);
+        }
     }
 
     private void updateTimer(long remainingTimeInMilliSeconds, long elapsedTimeInMilliSeconds) {
         long progress = (long)((float)elapsedTimeInMilliSeconds / remainingTimeInMilliSeconds * 100);
         mSessionTimer.setProgress(Math.toIntExact(progress));
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_session, container, false);
-        requireActivity().setTitle(getString(R.string.session));
-        Map<String, Object> mapUser = new HashMap<>();
-
-        setUpViews();
-
-        updateCountdown();
-
-        mAdapter = new DrinkInListRecyclerAdapter(view.getContext(), alcoholUnits, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(mAdapter);
-
-        notifyAdapterAfterAddedBeverage();
-
-        UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        mViewModel.init();
-
-        mViewModel.getUser().observeForever( mUser -> user = mUser);
-        mViewModel.getIsUpdating().observeForever(isLoading -> {
-            if (!isLoading) {
-
-            }
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        FloatingActionButton openBottomSheetFAB = view.findViewById(R.id.fab_bottom_sheet_session);
-        openBottomSheetFAB.setOnClickListener(v -> openBottomSheetDialog());
-
-        mSessionTimer = view.findViewById(R.id.session_timer);
-        mSessionTimer.setProgress(0);
-
-
     }
 
     private void notifyAdapterAfterAddedBeverage() {
@@ -220,7 +217,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     private void createPositiveButton(DialogInterface dialog, int id) {
         mSessionTimer.setProgress(0);
-        session.setName(String.valueOf(session.getStartTime()));
         textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
         int size = alcoholUnits.size();
         session.addAlcoholUnits(alcoholUnits);
