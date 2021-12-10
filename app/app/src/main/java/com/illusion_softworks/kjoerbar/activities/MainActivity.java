@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         setSignOut(navView);
         setDrawerInfo(navView);
 
-        if (SignInActivity.getResponse().isNewUser()) {
+        //if (SignInActivity.getResponse().isNewUser()) {
             navController.navigate(R.id.setEssentialSettingsFragment);
-        }
+        //}
     }
 
     private void setDrawerInfo(NavigationView navView) {
@@ -86,5 +86,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
         return NavigationUI.navigateUp(controller, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    public void proceed(View view) {
+        Navigation.findNavController(this, R.id.nav_host).navigate(R.id.sessionFragment);
     }
 }

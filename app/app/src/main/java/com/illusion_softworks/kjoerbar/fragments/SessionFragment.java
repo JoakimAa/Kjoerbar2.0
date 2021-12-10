@@ -232,11 +232,12 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     public void updatePerMill() {
         session.setCurrentPerMill(Calculations.calculateCurrentPerMill(alcoholUnits, user, System.currentTimeMillis()));
+        session.setMaxPerMill(Calculations.calculateMaxPerMill(session.getMaxPerMill(), session.getCurrentPerMill()));
+
         Log.d("currentPerMill_currentPerMill", String.valueOf(session.getCurrentPerMill()));
         Log.d("currentPerMill_alcoholunits", String.valueOf(alcoholUnits));
         Log.d("currentPerMill_user", String.valueOf(user));
         Log.d("currentPerMill_System.currentTimeMillis()", String.valueOf(System.currentTimeMillis()));
-        session.setMaxPerMill(Calculations.calculateMaxPerMill(session.getMaxPerMill(), session.getCurrentPerMill()));
     }
 
     @Override

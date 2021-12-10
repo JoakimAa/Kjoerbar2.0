@@ -3,6 +3,7 @@
     android:id="@+id/proceedButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/proceed">
-
+    android:text="@string/proceed"
+    android:layout_marginStart="60dp"
+    android:onClick="proceed">
 </Button>
