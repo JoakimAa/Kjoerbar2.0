@@ -179,7 +179,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 textTimer.setText(R.string.you_are_sober);
                 textCurrentPerMill.setText(view.getContext().getString(R.string.current_per_mill_format));
                 confirmFinishDialog();
-                Notifications.showNotification(requireActivity(), 1);
+                Notifications.showNotification(Notifications.SESSION_COMPLETE);
             }
         }.start();
     }
