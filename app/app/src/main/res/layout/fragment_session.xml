@@ -12,33 +12,23 @@
     tools:context=".fragments.SessionFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/component_session_timer"/>
+        <!-- Session Timer -->
+        <include
+            layout="@layout/component_session_timer"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/your_drinks"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/beverageRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-
-        </ScrollView>
+        <!-- Session Drinks -->
+        <include layout="@layout/component_session_drinks" />
 
     </LinearLayout>
 
@@ -46,9 +36,9 @@
         android:id="@+id/fab_bottom_sheet_session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:src="@drawable/ic_baseline_add_24"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/fab_session_description"
+        android:src="@drawable/ic_baseline_add_24"
         app:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
