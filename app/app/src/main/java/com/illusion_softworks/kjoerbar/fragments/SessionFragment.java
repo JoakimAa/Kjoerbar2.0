@@ -195,7 +195,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void formatToHours(long millisUntilFinished, @NonNull TextView textTimer, int p) {
-        textTimer.setText(FormatTime.getFormattedTime(millisUntilFinished));
+        textTimer.setText(String.format(Locale.ENGLISH, "%s: %s", getString(p), FormatTime.getFormattedTime(millisUntilFinished)));
     }
 
     private void confirmFinishDialog() {
