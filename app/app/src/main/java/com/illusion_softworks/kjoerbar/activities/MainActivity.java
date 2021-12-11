@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.utilities.Notifications;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
+        Notifications.init(this);
         setSignOut(navView);
         setDrawerInfo(navView);
 

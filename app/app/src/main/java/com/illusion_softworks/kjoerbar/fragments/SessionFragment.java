@@ -30,6 +30,7 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
+import com.illusion_softworks.kjoerbar.utilities.Notifications;
 import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -189,6 +190,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 textTimer.setText(R.string.you_are_sober);
                 textCurrentPerMill.setText(view.getContext().getString(R.string.current_per_mill_format));
                 confirmFinishDialog();
+                Notifications.showNotification(Notifications.SESSION_COMPLETE);
             }
         }.start();
     }
@@ -227,18 +229,31 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void createPositiveButton(DialogInterface dialog, int id) {
-        mSessionTimer.setProgress(0);
-        textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
-        int size = alcoholUnits.size();
-        session.addAlcoholUnits(alcoholUnits);
-        session.setEndTime(System.currentTimeMillis());
-        UserDataHandler.addSessionToHistory(session);
-        alcoholUnits.clear();
-        mAdapter.notifyItemRangeRemoved(0, size);
-        session = null;
+        endSession();
+        resetAdapter();
         Toast.makeText(SessionFragment.this.getContext(),
                 "The session was saved", Toast.LENGTH_SHORT)
                 .show();
+
+    }
+
+    private void resetAdapter() {
+        int size = alcoholUnits.size();
+        alcoholUnits.clear();
+        mAdapter.notifyItemRangeRemoved(0, size);
+    }
+
+    private void endSession() {
+        // Update views
+        mSessionTimer.setProgress(0);
+        textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
+
+        // Save and reset session
+        session.setName(String.valueOf(session.getStartTime()));
+        session.addAlcoholUnits(alcoholUnits);
+        session.setEndTime(System.currentTimeMillis());
+        UserDataHandler.addSessionToHistory(session);
+        session = null;
     }
 
     @Override
