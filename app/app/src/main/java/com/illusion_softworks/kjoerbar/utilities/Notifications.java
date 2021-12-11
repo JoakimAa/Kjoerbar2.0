@@ -1,22 +1,30 @@
 package com.illusion_softworks.kjoerbar.utilities;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.illusion_softworks.kjoerbar.R;
+import com.illusion_softworks.kjoerbar.activities.MainActivity;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Notifications {
     public static final int SESSION_COMPLETE = 1;
 
+    private static final Map<Integer, NotificationCompat.Builder> notificationMap = new HashMap<>();
     private static final String CHANNEL_ID = "channel_id";
     private static Context context;
-    private static final Map<Integer, NotificationCompat.Builder> notificationMap = new HashMap<>();
+    private static int smallIcon = R.drawable.beverage_item_bg;
 
     public static void init(Context ctx) {
         context = ctx;
@@ -43,11 +51,23 @@ public class Notifications {
     }
 
     private static void setNotifications() {
-        // Put notifications in map
+        // Shave and a haircut vibrate pattern
+        long[] vibrate = new long[]{100, 200, 100, 100, 75, 25, 100, 200, 100, 500, 100, 200, 100, 500};
+
+        // Add notifications to map
         notificationMap.put(SESSION_COMPLETE, new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.beverage_item_bg)
-                .setContentTitle("Du er edru!")
-                .setContentText("Nå er du i stand til å kjøre bil")
-                .setPriority(NotificationCompat.PRIORITY_HIGH));
+                .setSmallIcon(smallIcon)
+                .setContentTitle("Drikkeøkten er fullført")
+                .setContentText("Du er nå edru og i stand til å kjøre bil.")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVibrate(vibrate)
+                .setContentIntent(createPendingIntent())
+                .setAutoCancel(true));
+    }
+
+    private static PendingIntent createPendingIntent() {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return PendingIntent.getActivity(context, 0, intent, 0);
     }
 }
