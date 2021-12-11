@@ -40,7 +40,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
-        //DummyData.addBeverageToCatalog();
+        //BeverageCatalogDataHandler.addAlcoholUnitToCatalog();
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
         Log.d("SIGNIN", "Signin");
     }
