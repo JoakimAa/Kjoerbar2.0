@@ -15,6 +15,8 @@ import com.illusion_softworks.kjoerbar.model.Session;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecyclerAdapter.SessionsViewHolder> {
     private final LayoutInflater mInflater;
@@ -51,26 +53,32 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
 
     static class SessionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final OnItemClickListener onItemClickListener;
-        private final TextView date;
-        private final TextView userWeight;
-        private final TextView sex;
+        private final TextView mName;
+        private final TextView mPerMill;
+        private final TextView mDuration;
 
 
         public SessionsViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
 
-            date = itemView.findViewById(R.id.date);
-            userWeight = itemView.findViewById(R.id.userWeight);
-            sex = itemView.findViewById(R.id.sex);
+            mName = itemView.findViewById(R.id.name);
+            mPerMill = itemView.findViewById(R.id.maxPerMill);
+            mDuration = itemView.findViewById(R.id.duration);
 
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Session currentData) {
-            date.setText(currentData.getName());
-            userWeight.setText(String.valueOf(currentData.getMaxPerMill()));
-            sex.setText(String.valueOf(((currentData.getEndTime() - currentData.getStartTime()) / 1000)));
+            mName.setText(currentData.getName());
+            mPerMill.setText(String.format(Locale.ENGLISH, "%.3f", currentData.getMaxPerMill()));
+            mDuration.setText(String.valueOf(((currentData.getEndTime() - currentData.getStartTime()) / 1000)));
+            long duration = currentData.getEndTime() - currentData.getStartTime();
+            mDuration.setText(String.format(Locale.ENGLISH,
+                    "%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(duration),
+                    TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)),
+                    TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))));
         }
 
         @Override

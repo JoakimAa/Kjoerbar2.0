@@ -54,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(true)
+                .setIsSmartLockEnabled(false)
                 .setTosAndPrivacyPolicyUrls(
                         "https://example.com/terms.html",
                         "https://example.com/privacy.html")

@@ -46,8 +46,7 @@
 
     <Preference
         android:key="@string/proceed"
-        android:title="@string/proceed"
-        android:widgetLayout="@layout/proceed_button"/>
+        android:layout="@layout/proceed_button"/>
 
     <!--<PreferenceCategory app:title="@string/messages_header">
 
