@@ -3,6 +3,7 @@ package com.illusion_softworks.kjoerbar.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -25,33 +26,36 @@ import java.util.List;
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
-    private static IdpResponse response;
+    private final String TAG = "SIGN_IN";
+    private boolean isNewUser = false;
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
     );
 
-    public static IdpResponse getResponse() {
-        return response;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "Signing in...");
+
+        auth = FirebaseAuth.getInstance();
+        createAuthStateListener();
         setContentView(R.layout.activity_login);
-        createSignInIntent();
-        //DummyData.addBeverageToCatalog();
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
-        Log.d("SIGNIN", "Signin");
     }
 
-    public void createSignInIntent() {
+    private void createSignInIntent() {
+        Log.d(TAG, "I Visited createSignInIntent()");
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
         // Create and launch sign-in intent
-        Intent signInIntent = AuthUI.getInstance()
+        signInLauncher.launch(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setIsSmartLockEnabled(false)
@@ -60,38 +64,73 @@ public class SignInActivity extends AppCompatActivity {
                         "https://example.com/privacy.html")
                 .setLogo(R.drawable.ic_baseline_glass_mug_variant)      // Set logo drawable
                 .setTheme(R.style.Theme_Kjoerbar_Login)      // Set theme
-                .build();
-        signInLauncher.launch(signInIntent);
+                .build());
     }
 
     private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
-        response = result.getIdpResponse();
+        IdpResponse response = result.getIdpResponse();
 
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            FirestoreHandler.setFirebaseUser(firebaseUser);
-            Log.d("New user signin", String.valueOf(firebaseUser));
-            assert firebaseUser != null;
-            Log.d("USER", firebaseUser.toString());
             assert response != null;
-            Log.d("New user signin", String.valueOf(response));
+            isNewUser = response.isNewUser();
+
+            FirebaseUser firebaseUser = auth.getCurrentUser();
+            FirestoreHandler.setFirebaseUser(firebaseUser);
+
+            Log.d(TAG, "New user signin" + firebaseUser);
+            assert firebaseUser != null;
+            Log.d(TAG, "USER" + firebaseUser.toString());
+            Log.d(TAG, "New user signin" + response);
 
             UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            //navigateToMain();
         } else {
             // Sign in failed
             if (response == null) {
                 // Toast.makeText(getApplicationContext(), R.string.sign_in_failed, Toast.LENGTH_LONG).show();
-                Log.d("SIGNIN", "Signin failed");
+                Log.d(TAG, "Signin failed");
                 return;
             }
 
             if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
                 //Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_LONG).show();
-                Log.d("SIGNIN", "No network");
+                Log.d(TAG, "No network");
             }
         }
+    }
+
+    private void navigateToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("isNewUser", isNewUser);
+        startActivity(intent);
+
+        isNewUser = false;
+    }
+
+    private void createAuthStateListener() {
+        authStateListener = firebaseAuth -> {
+            FirebaseUser user = auth.getCurrentUser();
+
+            if (user == null) {
+                createSignInIntent();
+            } else {
+                String text = "Inlogget som " + user.getDisplayName();
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                navigateToMain();
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        auth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        auth.removeAuthStateListener(authStateListener);
     }
 }
