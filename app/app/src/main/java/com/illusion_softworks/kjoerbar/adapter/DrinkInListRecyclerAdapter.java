@@ -75,19 +75,18 @@ public class DrinkInListRecyclerAdapter extends RecyclerView.Adapter<DrinkInList
 
         public void bind(AlcoholUnit currentData) {
             Drink currentDrink = currentData.getDrink();
-
             textViewName.setText(currentDrink.getName());
-            textViewPercent.setText(String.format(Locale.ENGLISH, "%s %%", String.valueOf(currentDrink.getPercent())));
-            textViewVolume.setText(String.format(Locale.ENGLISH, "%s dl", String.valueOf(currentDrink.getVolume())));
+            textViewPercent.setText(String.format(Locale.ENGLISH, "%s %%", currentDrink.getPercent()));
+            textViewVolume.setText(String.format(Locale.ENGLISH, "%s dl", currentDrink.getVolume()));
         }
 
         @Override
         public void onClick(View view) {
             if (view == imageViewDelete)
-                onItemClickListener.onItemClick(getAdapterPosition());
+                onItemClickListener.onItemClick(getBindingAdapterPosition());
             else if (view == imageViewInfo) {
                 String beverageDetailFragment = "beverageDetailFragment";
-                onItemClickListener.onItemClick(beverageDetailFragment);
+                onItemClickListener.onItemClick(beverageDetailFragment, getBindingAdapterPosition());
             }
         }
     }

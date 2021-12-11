@@ -30,11 +30,11 @@ import com.illusion_softworks.kjoerbar.model.AlcoholUnit;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
+import com.illusion_softworks.kjoerbar.utilities.FormatTime;
 import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -191,21 +191,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void LogTime(long countDownPeriod, String tag) {
-        Log.d(tag, String.format(Locale.ENGLISH,
-                "%s: %02d:%02d:%02d",
-                view.getContext().getString(R.string.time_left),
-                TimeUnit.MILLISECONDS.toHours(countDownPeriod),
-                TimeUnit.MILLISECONDS.toMinutes(countDownPeriod) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownPeriod)),
-                TimeUnit.MILLISECONDS.toSeconds(countDownPeriod) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownPeriod))));
+        Log.d(tag, FormatTime.getFormattedTime(countDownPeriod));
     }
 
     private void formatToHours(long millisUntilFinished, @NonNull TextView textTimer, int p) {
-        textTimer.setText(String.format(Locale.ENGLISH,
-                "%s: %02d:%02d:%02d",
-                view.getContext().getString(p),
-                TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+        textTimer.setText(FormatTime.getFormattedTime(millisUntilFinished));
     }
 
     private void confirmFinishDialog() {
@@ -247,7 +237,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onItemClick(@NonNull String view) {
+    public void onItemClick(@NonNull String view, int position) {
         if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment);
         }

@@ -59,7 +59,11 @@
         android:id="@+id/sessionHistoryFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
         android:label="@string/session_history"
-        tools:layout="@layout/fragment_session_history" />
+        tools:layout="@layout/fragment_session_history">
+        <action
+            android:id="@+id/action_sessionHistoryFragment_to_sessionHistoryDetailFragment"
+            app:destination="@id/sessionHistoryDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/drinkCatalogFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.DrinkCatalogFragment"
@@ -102,4 +106,13 @@
             android:id="@+id/action_drinkListDialogFragment_to_sessionFragment"
             app:destination="@id/sessionFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/sessionHistoryDetailFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryDetailFragment"
+        android:label="@string/session_title_dynamic"
+        tools:layout="@layout/fragment_session_history_detail">
+        <action
+            android:id="@+id/action_sessionHistoryDetailFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment" />
+    </fragment>
 </navigation>

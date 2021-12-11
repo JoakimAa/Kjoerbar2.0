@@ -97,7 +97,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
     }
 
     @Override
-    public void onItemClick(String view) {
+    public void onItemClick(String view, int position) {
 
     }
 

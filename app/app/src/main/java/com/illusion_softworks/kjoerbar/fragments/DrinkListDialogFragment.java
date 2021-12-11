@@ -103,9 +103,11 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
     }
 
     @Override
-    public void onItemClick(String view) {
+    public void onItemClick(String view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", mAdapter.getDrink(position).getName());
         if (view.equals("beverageDetailFragment")) {
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment);
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment, bundle);
             this.dismiss();
         }
     }

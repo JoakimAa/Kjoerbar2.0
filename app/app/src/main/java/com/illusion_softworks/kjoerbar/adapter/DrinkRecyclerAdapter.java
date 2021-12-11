@@ -86,9 +86,9 @@ public class DrinkRecyclerAdapter extends RecyclerView.Adapter<DrinkRecyclerAdap
         @Override
         public void onClick(View view) {
             if (view == itemView)
-                onItemClickListener.onItemClick(getAdapterPosition());
+                onItemClickListener.onItemClick(getBindingAdapterPosition());
             else if (view == imageView) {
-                onItemClickListener.onItemClick("beverageDetailFragment");
+                onItemClickListener.onItemClick("beverageDetailFragment", getBindingAdapterPosition());
             }
         }
     }
