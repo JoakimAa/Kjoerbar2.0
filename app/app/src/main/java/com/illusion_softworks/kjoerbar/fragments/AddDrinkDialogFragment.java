@@ -37,7 +37,6 @@ public class AddDrinkDialogFragment extends BottomSheetDialogFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 
     @Nullable

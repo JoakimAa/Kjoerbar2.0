@@ -18,7 +18,6 @@ public class StartNewSessionDialogFragment extends BottomSheetDialogFragment {
     public static final String TAG = "BottomSheetStartNewSessionFragment";
 
     private EditText mSessionName;
-    private Button mStartNewSessionButton;
 
 
     public static StartNewSessionDialogFragment newInstance(Context context) {
@@ -38,20 +37,16 @@ public class StartNewSessionDialogFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start_new_session, container, false);
-
-        // Initialize views
-        mStartNewSessionButton = view.findViewById(R.id.button_start_session);
-        mSessionName = view.findViewById(R.id.edittext_session_name);
-//        mCategory = view.findViewById(R.id.edittext_drink_category);
-//        mVolume = view.findViewById(R.id.edittext_drink_volume);
-//        mPercent = view.findViewById(R.id.edittext_drink_percent);
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Initialize views
+        Button mStartNewSessionButton = view.findViewById(R.id.button_start_session);
+        mSessionName = view.findViewById(R.id.edittext_session_name);
 
         mStartNewSessionButton.setOnClickListener(v2 -> {
             DrinkListDialogFragment drinkListDialogFragment = DrinkListDialogFragment.newInstance(requireActivity(), mSessionName.getText().toString());

@@ -6,8 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -94,26 +92,23 @@ public class UserDataHandler {
 
     public static void getUserData() {
         updateUserDocumentReference();
-        userDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
+        userDocumentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
 
-                        if (document.getData() != null) user = document.toObject(User.class);
-                        else user = new User();
+                    if (document.getData() != null) user = document.toObject(User.class);
+                    else user = new User();
 
-                        assert user != null;
-                        Log.d("Current user user datahandler", user.toString());
+                    assert user != null;
+                    Log.d("Current user user datahandler", user.toString());
 
-                    } else {
-                        Log.d("DATAHANDLER", "No such document");
-                    }
                 } else {
-                    Log.d("DATAHANDLER", "get failed with ", task.getException());
+                    Log.d("DATAHANDLER", "No such document");
                 }
+            } else {
+                Log.d("DATAHANDLER", "get failed with ", task.getException());
             }
         });
     }

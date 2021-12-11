@@ -35,6 +35,27 @@ public class BeverageCatalogDataHandler {
         }
     }
 
+
+    public static void addAlcoholUnitToCatalog() {
+        Drink grevensPaere = new Drink("Low Vin", "Vin", "Vin", 1, 0.001);
+        addBeverageToCatalog(grevensPaere);
+        /*
+        UserDataHandler.addAlcoholUnitToCatalog(grevensPaere);
+        UserDataHandler.addAlcoholUnitToCatalog(grevensEple);
+        UserDataHandler.addAlcoholUnitToCatalog(grevensIsteOgFersken);
+        UserDataHandler.addAlcoholUnitToCatalog(tuborg);
+        UserDataHandler.addAlcoholUnitToCatalog(heineken);
+        UserDataHandler.addAlcoholUnitToCatalog(absolute);
+        */
+
+      /*  AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensPaere);
+        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensEple);
+        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(grevensIsteOgFersken);
+        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(tuborg);
+        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(heineken);
+        AlcoholUnitCatalogDataHandler.addAlcoholUnitToCatalog(absolute);*/
+    }
+
     public static void addBeverageToCatalog(@NonNull Drink drink) {
         beverageCatalogReference.document(drink.getName())
                 .set(drink)

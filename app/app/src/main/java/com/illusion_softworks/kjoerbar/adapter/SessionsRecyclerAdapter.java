@@ -33,6 +33,10 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
         notifyItemRangeChanged(0, sessions.size() - 1);
     }
 
+    public Session getSession(int position) {
+        return dataSet.get(position);
+    }
+
     @NonNull
     @Override
     public SessionsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -72,7 +76,7 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
         public void bind(Session currentData) {
             mName.setText(currentData.getName());
             mPerMill.setText(String.format(Locale.ENGLISH, "%.3f", currentData.getMaxPerMill()));
-            mDuration.setText(String.valueOf(((currentData.getEndTime() - currentData.getStartTime()) / 1000)));
+            //mDuration.setText(String.valueOf(((currentData.getEndTime() - currentData.getStartTime()) / 1000)));
             long duration = currentData.getEndTime() - currentData.getStartTime();
             mDuration.setText(String.format(Locale.ENGLISH,
                     "%02d:%02d:%02d",
@@ -84,7 +88,7 @@ public class SessionsRecyclerAdapter extends RecyclerView.Adapter<SessionsRecycl
         @Override
         public void onClick(View view) {
             if (view == itemView) {
-                onItemClickListener.onItemClick(getAdapterPosition());
+                onItemClickListener.onItemClick(getBindingAdapterPosition());
             }
         }
     }

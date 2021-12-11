@@ -10,8 +10,6 @@ import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 import com.illusion_softworks.kjoerbar.interfaces.ICallBack;
 import com.illusion_softworks.kjoerbar.model.User;
 
-// @TODO: Unfinished
-
 /**
  * Repository with Singleton pattern
  * This is to prevent multiple connections to database at once

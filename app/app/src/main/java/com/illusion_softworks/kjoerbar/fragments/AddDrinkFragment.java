@@ -62,7 +62,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requireActivity().setTitle(getString(R.string.add_beverage));
+        //requireActivity().setTitle(getString(R.string.add_beverage));
         return inflater.inflate(R.layout.fragment_add_drink, container, false);
     }
 
@@ -96,7 +96,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onItemClick(String view) {
+    public void onItemClick(String view, int position) {
         if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addDrinkFragment_to_drinkDetailFragment);
         }
