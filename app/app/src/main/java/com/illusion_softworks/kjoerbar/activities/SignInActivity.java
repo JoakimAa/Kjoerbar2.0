@@ -26,33 +26,30 @@ import java.util.List;
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
-    private static IdpResponse response;
+    private final String TAG = "SIGN_IN";
+    private boolean isNewUser = false;
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
     );
 
-    private FirebaseAuth auth;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
-    public static IdpResponse getResponse() {
-        return response;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(TAG, "Signing in...");
+
         auth = FirebaseAuth.getInstance();
         createAuthStateListener();
         setContentView(R.layout.activity_login);
-        // createSignInIntent();
-
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
-        Log.d("SIGNIN", "Signin");
     }
 
     private void createSignInIntent() {
+        Log.d(TAG, "I Visited createSignInIntent()");
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
@@ -71,47 +68,56 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
-        response = result.getIdpResponse();
+        IdpResponse response = result.getIdpResponse();
 
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
+            assert response != null;
+            isNewUser = response.isNewUser();
 
             FirebaseUser firebaseUser = auth.getCurrentUser();
             FirestoreHandler.setFirebaseUser(firebaseUser);
 
-            Log.d("New user signin", String.valueOf(firebaseUser));
-            Log.d("USER", firebaseUser.toString());
-            Log.d("New user signin", String.valueOf(response));
+            Log.d(TAG, "New user signin" + firebaseUser);
+            assert firebaseUser != null;
+            Log.d(TAG, "USER" + firebaseUser.toString());
+            Log.d(TAG, "New user signin" + response);
 
             UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            //navigateToMain();
         } else {
             // Sign in failed
             if (response == null) {
                 // Toast.makeText(getApplicationContext(), R.string.sign_in_failed, Toast.LENGTH_LONG).show();
-                Log.d("SIGNIN", "Signin failed");
+                Log.d(TAG, "Signin failed");
                 return;
             }
 
             if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
                 //Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_LONG).show();
-                Log.d("SIGNIN", "No network");
+                Log.d(TAG, "No network");
             }
         }
     }
 
+    private void navigateToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("isNewUser", isNewUser);
+        startActivity(intent);
+
+        isNewUser = false;
+    }
+
     private void createAuthStateListener() {
         authStateListener = firebaseAuth -> {
-            FirebaseUser currentUser = auth.getCurrentUser();
+            FirebaseUser user = auth.getCurrentUser();
 
-            if (currentUser == null) {
+            if (user == null) {
                 createSignInIntent();
-            }
-            else {
-                Toast.makeText(getApplicationContext(),
-                        "Inlogget som " + currentUser.getDisplayName(),
-                        Toast.LENGTH_LONG).show();
+            } else {
+                String text = "Inlogget som " + user.getDisplayName();
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                navigateToMain();
             }
         };
     }
