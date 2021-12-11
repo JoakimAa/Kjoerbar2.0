@@ -12,20 +12,18 @@
     tools:context=".fragments.SessionFragment">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Session Timer -->
-        <include
-            layout="@layout/component_session_timer"
-            android:layout_width="200dp"
+        <include layout="@layout/component_session_timer"
             android:layout_height="200dp"
-            android:layout_gravity="center" />
+            android:layout_width="200dp"/>
 
         <!-- Session Drinks -->
         <include layout="@layout/component_session_drinks" />
