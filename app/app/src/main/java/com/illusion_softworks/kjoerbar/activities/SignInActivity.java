@@ -3,6 +3,7 @@ package com.illusion_softworks.kjoerbar.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -31,6 +32,9 @@ public class SignInActivity extends AppCompatActivity {
             this::onSignInResult
     );
 
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     public static IdpResponse getResponse() {
         return response;
     }
@@ -38,20 +42,23 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        auth = FirebaseAuth.getInstance();
+        createAuthStateListener();
         setContentView(R.layout.activity_login);
-        createSignInIntent();
-        //DummyData.addBeverageToCatalog();
+        // createSignInIntent();
+
         BeverageCatalogDataHandler.getAlcoholUnitCatalog();
         Log.d("SIGNIN", "Signin");
     }
 
-    public void createSignInIntent() {
+    private void createSignInIntent() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
         // Create and launch sign-in intent
-        Intent signInIntent = AuthUI.getInstance()
+        signInLauncher.launch(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setIsSmartLockEnabled(false)
@@ -60,8 +67,7 @@ public class SignInActivity extends AppCompatActivity {
                         "https://example.com/privacy.html")
                 .setLogo(R.drawable.ic_baseline_glass_mug_variant)      // Set logo drawable
                 .setTheme(R.style.Theme_Kjoerbar_Login)      // Set theme
-                .build();
-        signInLauncher.launch(signInIntent);
+                .build());
     }
 
     private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
@@ -69,12 +75,12 @@ public class SignInActivity extends AppCompatActivity {
 
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            FirebaseUser firebaseUser = auth.getCurrentUser();
             FirestoreHandler.setFirebaseUser(firebaseUser);
+
             Log.d("New user signin", String.valueOf(firebaseUser));
-            assert firebaseUser != null;
             Log.d("USER", firebaseUser.toString());
-            assert response != null;
             Log.d("New user signin", String.valueOf(response));
 
             UserDataHandler.addBeverageToCatalog(BeverageCatalogDataHandler.getBeverages());
@@ -93,5 +99,32 @@ public class SignInActivity extends AppCompatActivity {
                 Log.d("SIGNIN", "No network");
             }
         }
+    }
+
+    private void createAuthStateListener() {
+        authStateListener = firebaseAuth -> {
+            FirebaseUser currentUser = auth.getCurrentUser();
+
+            if (currentUser == null) {
+                createSignInIntent();
+            }
+            else {
+                Toast.makeText(getApplicationContext(),
+                        "Inlogget som " + currentUser.getDisplayName(),
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        auth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        auth.removeAuthStateListener(authStateListener);
     }
 }
