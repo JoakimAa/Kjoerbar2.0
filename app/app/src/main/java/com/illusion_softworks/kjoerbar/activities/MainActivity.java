@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // All fragments where hamburger is visible
                 R.id.sessionFragment,
-                R.id.mapFragment,
+                R.id.mapsFragment,
                 R.id.friendsFragment,
                 R.id.drinkCatalogFragment,
                 R.id.sessionHistoryFragment,

@@ -58,7 +58,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requireActivity().setTitle(getString(R.string.beverage_catalog));
+        // requireActivity().setTitle(getString(R.string.beverage_catalog));
         binding = FragmentDrinkCatalogBinding.inflate(inflater, container, false);
 
         return binding.getRoot();

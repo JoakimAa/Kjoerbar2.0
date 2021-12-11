@@ -52,7 +52,7 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requireActivity().setTitle(getString(R.string.session_history));
+        // requireActivity().setTitle(getString(R.string.session_history));
         View view = inflater.inflate(R.layout.fragment_session_history, container, false);
 
         return view;

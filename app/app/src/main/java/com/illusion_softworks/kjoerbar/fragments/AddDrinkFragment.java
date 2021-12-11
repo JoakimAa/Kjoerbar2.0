@@ -62,7 +62,7 @@ public class AddDrinkFragment extends Fragment implements OnItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requireActivity().setTitle(getString(R.string.add_beverage));
+        //requireActivity().setTitle(getString(R.string.add_beverage));
         return inflater.inflate(R.layout.fragment_add_drink, container, false);
     }
 
