@@ -21,7 +21,7 @@
         <include layout="@layout/space_between"/>
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_date"
@@ -30,7 +30,7 @@
         <include layout="@layout/space_between"/>
 
         <TextView
-            android:id="@+id/userWeight"
+            android:id="@+id/maxPerMill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_userWeight"
@@ -39,7 +39,7 @@
         <include layout="@layout/space_between"/>
 
         <TextView
-            android:id="@+id/sex"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_sex"

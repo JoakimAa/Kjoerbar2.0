@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         setSignOut(navView);
         setDrawerInfo(navView);
 
-        //if (SignInActivity.getResponse().isNewUser()) {
+        if (SignInActivity.getResponse().isNewUser()) {
             navController.navigate(R.id.setEssentialSettingsFragment);
-        //}
+        }
     }
 
     private void setDrawerInfo(NavigationView navView) {

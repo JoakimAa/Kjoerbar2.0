@@ -12,10 +12,12 @@ public class Calculations {
     public static double calculatePerMillPerUnit(User user, Drink drink, double time) {
         double perMillPerUnit;
         if (user.getGender().equals("Male")) {
-            perMillPerUnit = drink.getGramAlcoholPerUnit() / (user.getWeight() * 0.7) - (0.15 * time);
+            perMillPerUnit = (drink.getGramAlcoholPerUnit() / (user.getWeight() * 0.7)) - (0.15 * time);
         } else {
-            perMillPerUnit = drink.getGramAlcoholPerUnit() / ((user.getWeight() * 0.6) - (0.15 * time));
+            perMillPerUnit = (drink.getGramAlcoholPerUnit() / (user.getWeight() * 0.6)) - (0.15 * time);
         }
+        Log.d("currentTime_perMillUnit", String.valueOf(((perMillPerUnit))));
+
         return perMillPerUnit < 0 ? 0 : perMillPerUnit;
     }
 

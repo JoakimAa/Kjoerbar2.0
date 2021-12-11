@@ -51,7 +51,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private View view;
     private DrinkInListRecyclerAdapter mAdapter;
     private ProgressBar mSessionTimer;
-
+    private static final long maxCountDownPeriod = 0;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -145,6 +145,16 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }
     }
 
+    public void updatePerMill() {
+        session.setCurrentPerMill(Calculations.calculateCurrentPerMill(alcoholUnits, user, System.currentTimeMillis()));
+        session.setMaxPerMill(Calculations.calculateMaxPerMill(session.getMaxPerMill(), session.getCurrentPerMill()));
+
+        Log.d("currentPerMill_currentPerMill", String.valueOf(session.getCurrentPerMill()));
+        Log.d("currentPerMill_alcoholunits", String.valueOf(alcoholUnits));
+        Log.d("currentPerMill_user", String.valueOf(user));
+        Log.d("currentPerMill_System.currentTimeMillis()", String.valueOf(System.currentTimeMillis()));
+    }
+
     private void updateCountDownTimer() {
         if (countDownTimer != null)
             countDownTimer.cancel();
@@ -162,6 +172,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
                 long millisBetween = System.currentTimeMillis() - session.getStartTime();
 
                 updateTimer(countDownPeriod, millisUntilFinished);
+                Log.d("UserTick", "countDownPeriod: " + countDownPeriod + ". MillisUntilFinished: " + millisUntilFinished);
 
                 formatToHours(millisUntilFinished, textTimer, R.string.time_left);
                 textCurrentPerMill.setText(String.format(Locale.ENGLISH, "%s: %.3f", view.getContext().getString(R.string.current_per_mill), session.getCurrentPerMill()));
@@ -228,16 +239,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         Toast.makeText(SessionFragment.this.getContext(),
                 "The session was saved", Toast.LENGTH_SHORT)
                 .show();
-    }
-
-    public void updatePerMill() {
-        session.setCurrentPerMill(Calculations.calculateCurrentPerMill(alcoholUnits, user, System.currentTimeMillis()));
-        session.setMaxPerMill(Calculations.calculateMaxPerMill(session.getMaxPerMill(), session.getCurrentPerMill()));
-
-        Log.d("currentPerMill_currentPerMill", String.valueOf(session.getCurrentPerMill()));
-        Log.d("currentPerMill_alcoholunits", String.valueOf(alcoholUnits));
-        Log.d("currentPerMill_user", String.valueOf(user));
-        Log.d("currentPerMill_System.currentTimeMillis()", String.valueOf(System.currentTimeMillis()));
     }
 
     @Override
