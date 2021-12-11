@@ -51,6 +51,8 @@ android {
 
 }
 
+def core_version = "1.6.0"
+
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
@@ -127,4 +129,7 @@ dependencies {
     // Chart and graph library, not currently in use
     // implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
     // implementation 'com.nineoldandroids:library:2.4.0'
+
+    // For notifications
+    implementation "androidx.core:core:$core_version"
 }
