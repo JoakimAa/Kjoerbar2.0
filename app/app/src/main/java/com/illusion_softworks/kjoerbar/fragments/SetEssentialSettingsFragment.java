@@ -14,7 +14,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.activities.SignInActivity;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.model.User;
@@ -34,6 +33,7 @@ public class SetEssentialSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_user_preferences, rootKey);
+        requireActivity().setTitle(R.string.settings);
 
         findPreferences();
         clearFields();
@@ -94,14 +94,15 @@ public class SetEssentialSettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void updateUser() {
-        if (SignInActivity.getResponse().isNewUser()) {
-            fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
-            // Log.d("USERISNULL", "User is null");
-            UserDataHandler.addUserToFirestore(currentUser);
-            // Log.d("USERISNULL", "User is not null");
-            // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
-            Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
-        }  // Log.d("Current user", currentUser.toString());
+        UserDataHandler.addUserToFirestore(currentUser);
+//        if (SignInActivity.getResponse().isNewUser()) {
+//            fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
+//            // Log.d("USERISNULL", "User is null");
+//
+//            // Log.d("USERISNULL", "User is not null");
+//            // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
+//            Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
+//        }  // Log.d("Current user", currentUser.toString());
 
         setTextFields();
     }

@@ -23,8 +23,8 @@ public class UserDataHandler {
     private static final String SESSION_HISTORY = "sessionHistory";
     private static DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
     private static User user;
-    private static ArrayList<Drink> mDrinks = new ArrayList<>();
-    private static ArrayList<Session> mSessions = new ArrayList<>();
+    private static final ArrayList<Drink> mDrinks = new ArrayList<>();
+    private static final ArrayList<Session> mSessions = new ArrayList<>();
 
     public static void updateUserDocumentReference() {
         UserDataHandler.userDocumentReference = FirestoreHandler.getUserDocumentReference();
@@ -51,13 +51,13 @@ public class UserDataHandler {
         for (Map.Entry<String, Object> entry : user.entrySet())
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
-                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey().toString(), entry.getValue().toString())))
+                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey(), entry.getValue().toString())))
                     .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing user", e));
     }
 
     public static void addSessionToHistory(@NonNull Session session) {
         updateUserDocumentReference();
-        userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getStartTime()))
+        userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getName()))
                 .set(session)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Session successfully added to history!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing session from history", e));
