@@ -19,6 +19,8 @@
     <color name="gray">#f0f0f0</color>
     <color name="beverageRecycleViewBackground">#a00037</color>
 
+    <!--<color name="pieChartText">Color.WHITE</color>
+-->
     <!--
     <color name="colorPrimary">#1583d1</color>
     <color name="colorPrimaryVariant">#58BAFF</color>

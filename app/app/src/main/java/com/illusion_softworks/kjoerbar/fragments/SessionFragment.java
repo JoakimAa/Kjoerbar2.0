@@ -32,6 +32,7 @@ import com.illusion_softworks.kjoerbar.model.Session;
 import com.illusion_softworks.kjoerbar.model.User;
 import com.illusion_softworks.kjoerbar.utilities.FormatTime;
 import com.illusion_softworks.kjoerbar.utilities.Notifications;
+import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
 import com.illusion_softworks.kjoerbar.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private DrinkInListRecyclerAdapter mAdapter;
     private ProgressBar mSessionTimer;
     private static final long maxCountDownPeriod = 0;
+    private DrinkCatalogViewModel mDrinkCatalogViewModel;
 
     public SessionFragment() {
         // Required empty public constructor
@@ -76,7 +78,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
         setUpViews();
         setUpRecyclerView();
-        setUpUserViewModel();
+        setUpViewModels();
         notifyAdapterAfterBeverageIsAdded();
         updateCountdown();
 
@@ -99,10 +101,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         }
     }
 
-    private void setUpUserViewModel() {
+    private void setUpViewModels() {
         UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         mViewModel.init();
-        mViewModel.getUser().observeForever( mUser -> user = mUser);
+        mViewModel.getUser().observeForever(mUser -> user = mUser);
+        mDrinkCatalogViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
     }
 
     private void setUpRecyclerView() {
@@ -251,8 +254,11 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(@NonNull String view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", alcoholUnits.get(position).getDrink().getName());
+        mDrinkCatalogViewModel.setSelectedDrink(alcoholUnits.get(position).getDrink());
         if (view.equals("beverageDetailFragment")) {
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment);
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment, bundle);
         }
     }
 }

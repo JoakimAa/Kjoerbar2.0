@@ -9,15 +9,4 @@
         <item>male</item>
         <item>female</item>
     </string-array>
-
-
-    <string-array name="languages_entries">
-        <item>Norsk</item>
-        <item>English</item>
-    </string-array>
-
-    <string-array name="languages_values">
-        <item>norsk</item>
-        <item>english</item>
-    </string-array>
 </resources>

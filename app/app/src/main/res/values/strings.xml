@@ -75,6 +75,11 @@
     <string name="alcoholPercentage">Alcohol percent</string>
     <string name="producer">Producer</string>
     <string name="picture_of_drink">Picture of drink</string>
+
     <string name="language">Language</string>
+    <string name="darkMode">Enable dark mode</string>
+    <string name="enableDarkMode">Enable dark mode</string>
+    <string name="drink_categories">Drink categories</string>
+    <string name="drinks_by_category">Drinks by Category</string>
 
 </resources>

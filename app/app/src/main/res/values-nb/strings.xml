@@ -74,7 +74,11 @@
     <string name="duration">Varighet</string>
     <string name="session_title_dynamic">Økt: {title}</string>
 
-
     <string name="picture_of_drink">Bilde av en enhet</string>
+    <string name="language">Språk</string>
+    <string name="darkMode">Mørk modus</string>
+    <string name="enableDarkMode">Skru på mørk modus</string>
+    <string name="drink_categories">Enhets kategori</string>
+    <string name="drinks_by_category">Kategori</string>
 
 </resources>

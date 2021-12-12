@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -23,15 +25,15 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
-    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
-    private ListPreference genderPreference;
     private static User currentUser = new User();
     Map<String, Object> mapUser = new HashMap<>();
+    private EditTextPreference fullNamePreference, usernamePreference, agePreference, heightPreference, weightPreference;
+    private ListPreference genderPreference;
+    private SwitchPreferenceCompat enableDarkMode;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        requireActivity().setTitle(R.string.settings);
 
         findPreferences();
         clearFields();
@@ -40,14 +42,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         UserViewModel mViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         mViewModel.init();
 
-        mViewModel.getUser().observeForever( user -> currentUser = user);
+        mViewModel.getUser().observeForever(user -> currentUser = user);
         mViewModel.getIsUpdating().observeForever(isLoading -> {
             if (!isLoading) {
-               updateUser();
+                setTextFields();
             }
         });
 
-        //updateUser();
+        Preference.OnPreferenceChangeListener changeListenerDarkMode = (preference, newValue) -> {
+            boolean isChecked = (boolean) newValue;
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            return true;
+        };
 
         Preference.OnPreferenceChangeListener changeListener = (preference, newValue) -> {
             mapUser.put(preference.getKey(), newValue);
@@ -73,6 +83,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         };
 
+        enableDarkMode.setOnPreferenceChangeListener(changeListenerDarkMode);
         setOnPreferenceChangeListeners(changeListener, changeListenerFullName, changeListenerNumbers);
 
     }
@@ -84,19 +95,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         agePreference.setOnPreferenceChangeListener(changeListenerNumbers);
         heightPreference.setOnPreferenceChangeListener(changeListenerNumbers);
         weightPreference.setOnPreferenceChangeListener(changeListenerNumbers);
-    }
-
-    private void updateUser() {
-//        if (SignInActivity.getResponse().isNewUser()) {
-//            fullNamePreference.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
-//                // Log.d("USERISNULL", "User is null");
-//                UserDataHandler.addUserToFirestore(currentUser);
-//                // Log.d("USERISNULL", "User is not null");
-//                // Log.d("SettingsUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), user.getWeight(), user.getAge(), user.getHeight(), user.getGender()));
-//                Log.d("SettingsCurrentUser: ", String.format("Username: %s, Weight: %d, Age: %d, Height: %d, Gender: %s", currentUser.getUsername(), currentUser.getWeight(), currentUser.getAge(), currentUser.getHeight(), currentUser.getGender()));
-//        }  // Log.d("Current user", currentUser.toString());
-
-        setTextFields();
     }
 
     private void setNumberLimiter() {
@@ -112,6 +110,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         heightPreference = findPreference("height");
         weightPreference = findPreference("weight");
         genderPreference = findPreference("gender");
+        enableDarkMode = findPreference("dark_mode");
     }
 
     private void clearFields() {
