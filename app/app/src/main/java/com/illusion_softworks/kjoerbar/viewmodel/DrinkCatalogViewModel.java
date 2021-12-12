@@ -32,7 +32,7 @@ public class DrinkCatalogViewModel extends ViewModel {
         return mIsUpdating;
     }
 
-    public Drink getSelectedSession() {
+    public Drink getSelectedDrink() {
         return mSelectedDrink;
     }
 

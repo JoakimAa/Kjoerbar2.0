@@ -144,14 +144,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSessionDuration" />
 
-            <!-- <ScrollView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toBottomOf="@+id/textViewAlcoholUnits">-->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/beverageRecyclerView"
                 android:layout_width="match_parent"
@@ -159,7 +151,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewAlcoholUnits" />
 
-            <!--</ScrollView>-->
+            <include
+                layout="@layout/component_pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="@dimen/list_item_spacing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/beverageRecyclerView" />
 
         </LinearLayout>
     </ScrollView>

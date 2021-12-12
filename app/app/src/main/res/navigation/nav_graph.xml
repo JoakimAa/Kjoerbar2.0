@@ -72,6 +72,12 @@
         <action
             android:id="@+id/action_drinkCatalogFragment_to_addDrinkDialogFragment"
             app:destination="@id/addDrinkDialogFragment" />
+        <action
+            android:id="@+id/action_drinkCatalogFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment" />
+        <action
+            android:id="@+id/action_drinkCatalogFragment_to_addDrinkFragment"
+            app:destination="@id/addDrinkFragment" />
     </fragment>
     <fragment
         android:id="@+id/drinkDetailFragment"

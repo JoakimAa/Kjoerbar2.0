@@ -30,6 +30,8 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
     private static String mName;
+    private DrinkCatalogViewModel mViewModel;
+
 
     private void showProgressBar() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -76,7 +78,7 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
 
         mProgressBar = view.findViewById(R.id.progress_bar);
 
-        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
@@ -106,6 +108,7 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
     public void onItemClick(String view, int position) {
         Bundle bundle = new Bundle();
         bundle.putString("title", mAdapter.getDrink(position).getName());
+        mViewModel.setSelectedDrink(mAdapter.getDrink(position));
         if (view.equals("beverageDetailFragment")) {
             Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment, bundle);
             this.dismiss();
