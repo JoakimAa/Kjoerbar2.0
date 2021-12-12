@@ -29,7 +29,7 @@ public class SessionHistoryDetailFragment extends Fragment implements OnItemClic
     private static Session mSession;
     private static RecyclerView recyclerView;
     private TextView mSessionName, mSessionMaxPerMill, mSessionStartTime, mSessionEndTime, mSessionDuration;
-    private SessionHistoryViewModel sessionHistoryViewModel;
+    private SessionHistoryViewModel mSessionHistoryViewModel;
     private DrinkRecyclerAdapter mAdapter;
     private View view;
     private int position;
@@ -56,8 +56,8 @@ public class SessionHistoryDetailFragment extends Fragment implements OnItemClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sessionHistoryViewModel = new ViewModelProvider(requireActivity()).get(SessionHistoryViewModel.class);
-        mSession = sessionHistoryViewModel.getSelectedSession();
+        mSessionHistoryViewModel = new ViewModelProvider(requireActivity()).get(SessionHistoryViewModel.class);
+        mSession = mSessionHistoryViewModel.getSelectedSession();
 
         setUpRecyclerView();
 

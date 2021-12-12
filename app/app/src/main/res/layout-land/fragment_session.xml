@@ -21,9 +21,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Session Timer -->
-        <include layout="@layout/component_session_timer"
+        <include
+            layout="@layout/component_session_timer"
             android:layout_height="200dp"
-            android:layout_width="200dp"/>
+            android:layout_width="200dp"
+            android:layout_marginEnd="30dp" />
 
         <!-- Session Drinks -->
         <include layout="@layout/component_session_drinks" />
@@ -34,7 +36,7 @@
         android:id="@+id/fab_bottom_sheet_session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="4dp"
         android:contentDescription="@string/fab_session_description"
         android:src="@drawable/ic_baseline_add_24"
         app:elevation="12dp"

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Lille promille</string>
 
@@ -14,8 +15,6 @@
     <string name="settings">Settings</string>
     <string name="friends">Friends</string>
     <string name="map">Map</string>
-    <string name="you_are_in_the_friends_fragment">You are in the friends fragment</string>
-    <string name="you_are_in_the_map_fragment">You are in the map fragment</string>
     <string name="add_beverage">Add beverage</string>
 
     <!-- Session -->
@@ -45,49 +44,37 @@
     <string name="placeholder_beverage_name">"Bacardi"</string>
     <string name="placeholder_beverage_alcohol">40%</string>
     <string name="placeholder_beverage_volume">30ml</string>
-    <string name="info">info</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-
+    <string name="info">Info</string>
 
     <string name="you_have_no_friends">You have no friends :(</string>
     <string name="add_drink">Add Drink</string>
     <string name="placeholder_session_card_date">28/11/21</string>
     <string name="placeholder_session_card_userWeight">82,6 kg</string>
     <string name="placeholder_session_card_sex">Male</string>
-    <string name="add_drink_no">Legg til en drikke</string>
-    <string name="name">Navn</string>
-    <string name="category">Kategori</string>
+    <string name="add_drink_no">Add a drink</string>
+    <string name="name">Name</string>
+    <string name="category">Category</string>
     <string name="volume">Volum</string>
-    <string name="percent">Prosent</string>
+    <string name="percent">Percent</string>
 
     <string name="finish_dialog_text">You are sober. \nDo you want to end and save the session?</string>
     <string name="yes">Yes</string>
     <string name="continue_drinking">Continue drinking</string>
-    <string name="choose_drink">Velg drikke</string>
-    <string name="fab_session_description">Knapp som åpner liste av drikker</string>
-    <string name="your_drinks">Dine drikker</string>
+    <string name="choose_drink">Choose drink</string>
+    <string name="fab_session_description">Button that opens a list of drinks</string>
+    <string name="your_drinks">Your drinks</string>
     <string name="start_new_session">Start new session</string>
     <string name="start_session">Start Session</string>
     <string name="proceed">Proceed</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="maxPerMill">Max per mill</string>
     <string name="startTime">Start time</string>
     <string name="endTime">End time</string>
     <string name="duration">Duration</string>
     <string name="session_title_dynamic">Session: {title}</string>
+    <string name="alcoholPercentage">Alcohol percent</string>
+    <string name="producer">Producer</string>
+    <string name="picture_of_drink">Picture of drink</string>
+    <string name="language">Language</string>
 
 </resources>

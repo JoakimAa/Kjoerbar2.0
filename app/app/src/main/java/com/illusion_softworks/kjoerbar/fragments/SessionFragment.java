@@ -197,7 +197,7 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     }
 
     private void formatToHours(long millisUntilFinished, @NonNull TextView textTimer, int p) {
-        textTimer.setText(String.format(Locale.ENGLISH, "%s: %s", getString(p), FormatTime.getFormattedTime(millisUntilFinished)));
+        textTimer.setText(String.format(Locale.ENGLISH, "%s: %s", requireActivity().getString(p), FormatTime.getFormattedTime(millisUntilFinished)));
     }
 
     private void confirmFinishDialog() {
@@ -221,7 +221,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         Toast.makeText(SessionFragment.this.getContext(),
                 "The session was saved", Toast.LENGTH_SHORT)
                 .show();
-
     }
 
     private void resetAdapter() {
@@ -236,7 +235,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
         textCurrentTime.setText(view.getContext().getString(R.string.time_elapsed_format));
 
         // Save and reset session
-        session.setName(String.valueOf(session.getStartTime()));
         session.addAlcoholUnits(alcoholUnits);
         session.setEndTime(System.currentTimeMillis());
         UserDataHandler.addSessionToHistory(session);

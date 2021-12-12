@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
     private FragmentDrinkCatalogBinding binding;
+    private DrinkCatalogViewModel mViewModel;
 
     public DrinkCatalogFragment() {
         // Required empty public constructor
@@ -69,7 +71,7 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
         super.onViewCreated(view, savedInstanceState);
         mProgressBar = view.findViewById(R.id.progress_bar);
 
-        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
@@ -98,7 +100,12 @@ public class DrinkCatalogFragment extends Fragment implements OnItemClickListene
 
     @Override
     public void onItemClick(String view, int position) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("title", mAdapter.getDrink(position).getName());
+        mViewModel.setSelectedDrink(mAdapter.getDrink(position));
+        if (view.equals("beverageDetailFragment")) {
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_drinkCatalogFragment_to_drinkDetailFragment, bundle);
+        }
     }
 
     @Override

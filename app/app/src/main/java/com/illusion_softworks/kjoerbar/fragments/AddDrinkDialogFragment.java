@@ -23,6 +23,7 @@ public class AddDrinkDialogFragment extends BottomSheetDialogFragment {
     private EditText mCategory;
     private EditText mVolume;
     private EditText mPercent;
+    private EditText mProducer;
     private Button buttonAddDrink;
 
     public static AddDrinkDialogFragment newInstance(Context context) {
@@ -50,6 +51,7 @@ public class AddDrinkDialogFragment extends BottomSheetDialogFragment {
         mCategory = view.findViewById(R.id.edittext_drink_category);
         mVolume = view.findViewById(R.id.edittext_drink_volume);
         mPercent = view.findViewById(R.id.edittext_drink_percent);
+        mProducer = view.findViewById(R.id.edittext_drink_producer);
 
         return view;
     }
@@ -64,6 +66,7 @@ public class AddDrinkDialogFragment extends BottomSheetDialogFragment {
         buttonAddDrink.setOnClickListener(v2 -> {
             Drink drink = new Drink(
                     mName.getText().toString(),
+                    mProducer.getText().toString(),
                     mCategory.getText().toString(),
                     Double.parseDouble(mVolume.getText().toString()),
                     Double.parseDouble(mPercent.getText().toString()));
