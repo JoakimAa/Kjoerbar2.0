@@ -81,5 +81,7 @@
     <string name="enableDarkMode">Enable dark mode</string>
     <string name="drink_categories">Drink categories</string>
     <string name="drinks_by_category">Drinks by Category</string>
+    <string name="session_is_complete">The session is finished</string>
+    <string name="you_are_now_sober">You are now sober and are able to drive.</string>
 
 </resources>

@@ -1,6 +1,6 @@
 package com.illusion_softworks.kjoerbar.utilities;
 
-import android.app.Activity;
+import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,18 +13,16 @@ import androidx.core.app.NotificationManagerCompat;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.activities.MainActivity;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Notifications {
+public class Notifications extends Application {
     public static final int SESSION_COMPLETE = 1;
 
     private static final Map<Integer, NotificationCompat.Builder> notificationMap = new HashMap<>();
     private static final String CHANNEL_ID = "channel_id";
     private static Context context;
-    private static int smallIcon = R.drawable.beverage_item_bg;
+    private static final int smallIcon = R.drawable.beverage_item_bg;
 
     public static void init(Context ctx) {
         context = ctx;
@@ -57,8 +55,8 @@ public class Notifications {
         // Add notifications to map
         notificationMap.put(SESSION_COMPLETE, new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(smallIcon)
-                .setContentTitle("Drikkeøkten er fullført")
-                .setContentText("Du er nå edru og i stand til å kjøre bil.")
+                .setContentTitle(context.getString(R.string.session_is_complete))
+                .setContentText(context.getString(R.string.you_are_now_sober))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVibrate(vibrate)
                 .setContentIntent(createPendingIntent())
