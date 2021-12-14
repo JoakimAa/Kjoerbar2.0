@@ -36,7 +36,7 @@
     <string name="user_height">Vekt</string>
     <string name="user_weight">Høyde</string>
     <string name="user_username">Brukernavn</string>
-    <string name="user_full_name">Fult navn</string>
+    <string name="user_full_name">Fullt navn</string>
     <string name="user_gender">Kjønn</string>
 
     <!-- Placeholders -->
