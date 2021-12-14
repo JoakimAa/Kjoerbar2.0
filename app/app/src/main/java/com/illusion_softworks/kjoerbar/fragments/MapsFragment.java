@@ -9,9 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.illusion_softworks.kjoerbar.R;
 
 public class MapsFragment extends Fragment {
@@ -29,11 +31,11 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(@NonNull GoogleMap googleMap) {
-            //LatLng sydney = new LatLng(-34, 151);
+            LatLng halden = new LatLng(59, 11);
             //googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
             //googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude())));
-            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(halden));
         }
     };
 
