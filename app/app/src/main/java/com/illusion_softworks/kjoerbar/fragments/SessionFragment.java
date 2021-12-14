@@ -53,7 +53,6 @@ public class SessionFragment extends Fragment implements OnItemClickListener {
     private View view;
     private DrinkInListRecyclerAdapter mAdapter;
     private ProgressBar mSessionTimer;
-    private static final long maxCountDownPeriod = 0;
     private DrinkCatalogViewModel mDrinkCatalogViewModel;
 
     public SessionFragment() {

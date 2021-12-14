@@ -80,5 +80,7 @@
     <string name="enableDarkMode">Skru på mørk modus</string>
     <string name="drink_categories">Enhets kategori</string>
     <string name="drinks_by_category">Kategori</string>
+    <string name="session_is_complete">Drikkeøkten er fullført</string>
+    <string name="you_are_now_sober">Du er nå edru og i stand til å kjøre bil.</string>
 
 </resources>
