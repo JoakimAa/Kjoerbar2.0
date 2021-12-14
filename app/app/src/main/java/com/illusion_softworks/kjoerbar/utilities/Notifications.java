@@ -1,6 +1,5 @@
 package com.illusion_softworks.kjoerbar.utilities;
 
-import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,13 +15,13 @@ import com.illusion_softworks.kjoerbar.activities.MainActivity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Notifications extends Application {
+public class Notifications {
     public static final int SESSION_COMPLETE = 1;
 
     private static final Map<Integer, NotificationCompat.Builder> notificationMap = new HashMap<>();
     private static final String CHANNEL_ID = "channel_id";
     private static Context context;
-    private static final int smallIcon = R.drawable.beverage_item_bg;
+    private static final int smallIcon = R.drawable.ic_lille_promille_icon;
 
     public static void init(Context ctx) {
         context = ctx;
