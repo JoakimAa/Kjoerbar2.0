@@ -1,0 +1,19 @@
+\section{Hvilke valg ble tatt underveis}
+\subsection{Viewmodel + Repository}
+For å hente og behandle data fra firestore databasen valgte vi å bruke viewmodel sammen med repository. Grunnen til dette er at det er en fleksibel og oversiktlig måte å strukturere databasekoblingen på, samt at hvert view kan lastes mens data hentes fra databasen asynkront. Viewmodel hjelper med å oppdatere et view automatisk når data hentes, slik at det blir en myk overgang når viewet lastes.
+
+\subsection{Progressbar som viser gjenstående tid}
+For å vise tiden som gjenstår av drikkeøkten, valgte vi å bruke en progressbar. Dette var et valg tok for å komplimetere teksten og tydeliggjøre gjenværende tid
+
+
+\subsection{Navigasjonselementer}
+Vi valgte å dele opp navigasjonen i en drawer og en bottom navigasjone. Kart, økt og vennesiden ble plassert på bottom navigasjon, dette skyldes at vi forventer at dette er de sidene en bruker vil besøke mest. Og bottom navigasjon er den mest naturlige plasseringen da disse skal være tilgjengelig fra alle steder i appe. I følge material design, er dette også den optimale måten å strukturere det på, siden vi har tre top nivå elementer. 
+
+De øvrige menupunktene ble plassert i en navigasjon drawer. Dette inkluderer instillinger, enhets katalog, lagrede økter og utlogging. 
+
+\subsection{Bottom Sheet Dialog}
+For å legge til en enhet i en økt brukes det en bottom sheet dialog. Dette er et bevist valg fordi det "streamliner" prosessen med å legge til en enhet og forhindrer unødvendig navigasjon.
+
+\subsection{Oppbygging av notifikasjoner}
+Siden vi har kun en hoved-aktivitet (MainActivity) betyr det at vi også kun har en kontekst. Det gjør det lettvint å samle alle notifikasjoner i en java-klasse. I denne klassen lagres en hashmap som inneholder alle notifikasjoner og deres id. Dette var en ryddig løsning som unngår at man må bygge en ny notifikasjon rundt omkring i appen, siden da er alle bygget på ett sted.
+
