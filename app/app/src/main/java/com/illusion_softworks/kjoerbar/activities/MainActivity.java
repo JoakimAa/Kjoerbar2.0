@@ -2,100 +2,95 @@ package com.illusion_softworks.kjoerbar.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.referencehandler.LocalFirebaseUser;
+import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.utilities.Notifications;
 
 public class MainActivity extends AppCompatActivity {
-    private static final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private ActionBarDrawerToggle toggle;
-    private DrawerLayout drawer;
-    private Toolbar toolbar;
-    private TextView username;
-
-    private FragmentManager supportFragmentManager;
-    private NavHostFragment navHostFragment;
-    private NavController navController;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setFragmentNavigation();
-        setNavigationView();
-        setToolBarAndDrawer();
-    }
+        UserDataHandler.getUserBeverageCatalog();
 
-    private void setFragmentNavigation() {
-        supportFragmentManager = getSupportFragmentManager();
-        navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         assert navHostFragment != null;
-        navController = navHostFragment.getNavController();
-    }
-    private void setNavigationView() {
-        NavigationView navigationView = findViewById(R.id.nav_viewer);
-        View headerView = navigationView.getHeaderView(0);
-        username = headerView.findViewById(R.id.username);
-        username.setText(LocalFirebaseUser.getFirebaseUser().getDisplayName());
+        NavController navController = navHostFragment.getNavController();
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
-            Log.d("ITEM", String.valueOf(id));
-            if (id == R.id.nav_home) {
-                navController.navigate(R.id.action_global_mainFragment);
-            } else if (id == R.id.nav_alcohol_units_catalog) {
-                navController.navigate(R.id.action_global_unitCatalogFragment);
-            } else if (id == R.id.nav_history) {
-                navController.navigate(R.id.action_global_historyFragment);
-            } else if (id == R.id.nav_settings) {
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-            } else if (id == R.id.log_out) {
-                signOut();
-            }
-            drawer.closeDrawer(GravityCompat.START);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
+
+        setSupportActionBar(toolbar);
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                // All fragments where hamburger is visible
+                R.id.sessionFragment,
+                R.id.mapsFragment,
+                R.id.friendsFragment,
+                R.id.drinkCatalogFragment,
+                R.id.sessionHistoryFragment,
+                R.id.settingsFragment)
+                .setOpenableLayout(drawerLayout)
+                .build();
+
+        NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(bottomNav, navController);
+
+        Notifications.init(this);
+        setSignOut(navView);
+        setDrawerInfo(navView);
+
+        if (getIntent().getBooleanExtra("isNewUser", false)) {
+            navController.navigate(R.id.setEssentialSettingsFragment);
+        }
+    }
+
+    private void setDrawerInfo(NavigationView navView) {
+        View headerView = navView.getHeaderView(0);
+        TextView username = headerView.findViewById(R.id.username);
+        username.setText(FirestoreHandler.getFirebaseUser().getDisplayName());
+    }
+
+    public void setSignOut(NavigationView navView) {
+        navView.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(menuItem -> {
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(task -> {
+                        startActivity(new Intent(this, SignInActivity.class));
+                        finish();
+                    });
             return true;
         });
     }
 
-    private void setToolBarAndDrawer() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_open, R.string.nav_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-    }
-
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START))
-            drawer.closeDrawer(GravityCompat.START);
-        else super.onBackPressed();
+    public boolean onSupportNavigateUp() {
+        NavController controller = Navigation.findNavController(this, R.id.nav_host);
+        return NavigationUI.navigateUp(controller, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
-    public void signOut() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    startActivity(new Intent(this, SignInActivity.class));
-                    finish();
-                });
+    public void proceed(View view) {
+        Navigation.findNavController(this, R.id.nav_host).navigate(R.id.sessionFragment);
     }
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/add_drink_no"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="12sp"
+        android:labelFor="@id/edittext_drink_name" />
+
+    <EditText
+        android:id="@+id/edittext_drink_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        android:autofillHints="name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:textSize="12sp"
+        android:labelFor="@id/edittext_drink_category" />
+
+    <EditText
+        android:id="@+id/edittext_drink_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        android:autofillHints="category" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/volume"
+        android:textSize="12sp"
+        android:labelFor="@id/edittext_drink_volume" />
+
+    <EditText
+        android:id="@+id/edittext_drink_volume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text=""
+        android:autofillHints="volume" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/percent"
+        android:textSize="12sp"
+        android:labelFor="@id/edittext_drink_percent" />
+
+    <EditText
+        android:id="@+id/edittext_drink_percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text=""
+        android:autofillHints="percent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/edittext_drink_producer"
+        android:text="@string/producer"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edittext_drink_producer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="producer"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/button_add_drink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/add_drink_no" />
+</LinearLayout>
