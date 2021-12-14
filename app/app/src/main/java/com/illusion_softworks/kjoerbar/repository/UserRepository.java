@@ -10,16 +10,16 @@ import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
 import com.illusion_softworks.kjoerbar.interfaces.ICallBack;
 import com.illusion_softworks.kjoerbar.model.User;
 
-// @TODO: Unfinished
-
 /**
  * Repository with Singleton pattern
  * This is to prevent multiple connections to database at once
  */
 public class UserRepository {
     private static UserRepository sInstance;
-    private MutableLiveData<User> mDataSet = new MutableLiveData<>();
+    private final MutableLiveData<User> mDataSet = new MutableLiveData<>();
     private static User user;
+    private static DocumentReference userDocumentReference;
+
 
     public static UserRepository getInstance() {
         if (sInstance == null) {
@@ -28,10 +28,14 @@ public class UserRepository {
         return sInstance;
     }
 
+    public static void updateUserDocumentReference() {
+        userDocumentReference = FirestoreHandler.getUserDocumentReference();
+    }
+
     public MutableLiveData<User> getUser(ICallBack callback) {
         // Database queries
         user = new User();
-        DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
+        userDocumentReference = FirestoreHandler.getUserDocumentReference();
         userDocumentReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 final DocumentSnapshot document = task.getResult();
@@ -51,19 +55,4 @@ public class UserRepository {
         });
         return mDataSet;
     }
-
-//    private void getUser() {
-//        userDocumentReference.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                for (QueryDocumentSnapshot document : task.getResult()) {
-//                    Log.d("DATAHANDLER_getUserBeverageCatalog", String.valueOf(document));
-//
-//                    mDataSet.add(document.toObject(Drink.class));
-//                }
-//            } else {
-//                Log.w("DATAHANDLER", "Error getting user", task.getException());
-//            }
-//        });
-//    }
-
 }

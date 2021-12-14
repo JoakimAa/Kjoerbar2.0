@@ -18,8 +18,9 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.illusion_softworks.kjoerbar.R;
-import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.handler.FirestoreHandler;
+import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
+import com.illusion_softworks.kjoerbar.utilities.Notifications;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         UserDataHandler.getUserBeverageCatalog();
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // All fragments where hamburger is visible
                 R.id.sessionFragment,
-                R.id.mapFragment,
+                R.id.mapsFragment,
                 R.id.friendsFragment,
                 R.id.drinkCatalogFragment,
                 R.id.sessionHistoryFragment,
@@ -55,8 +57,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
+        Notifications.init(this);
         setSignOut(navView);
         setDrawerInfo(navView);
+
+        if (getIntent().getBooleanExtra("isNewUser", false)) {
+            navController.navigate(R.id.setEssentialSettingsFragment);
+        }
     }
 
     private void setDrawerInfo(NavigationView navView) {
@@ -81,5 +88,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host);
         return NavigationUI.navigateUp(controller, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    public void proceed(View view) {
+        Navigation.findNavController(this, R.id.nav_host).navigate(R.id.sessionFragment);
     }
 }

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.illusion_softworks.kjoerbar.R;
 import com.illusion_softworks.kjoerbar.adapter.DrinkRecyclerAdapter;
-import com.illusion_softworks.kjoerbar.handler.UserDataHandler;
 import com.illusion_softworks.kjoerbar.interfaces.OnItemClickListener;
 import com.illusion_softworks.kjoerbar.model.Drink;
 import com.illusion_softworks.kjoerbar.viewmodel.DrinkCatalogViewModel;
@@ -27,9 +26,12 @@ import java.util.List;
 
 public class DrinkListDialogFragment extends BottomSheetDialogFragment implements OnItemClickListener {
     public static final String TAG = "BottomSheetAddDrinkFragment";
-    private static final List<Drink> data = UserDataHandler.getDrinks();
+    private static List<Drink> data;
     private DrinkRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
+    private static String mName;
+    private DrinkCatalogViewModel mViewModel;
+
 
     private void showProgressBar() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -37,6 +39,11 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
 
     private void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    public static DrinkListDialogFragment newInstance(Context context, String name) {
+        DrinkListDialogFragment.mName = name;
+        return new DrinkListDialogFragment();
     }
 
     public static DrinkListDialogFragment newInstance(Context context) {
@@ -71,7 +78,7 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
 
         mProgressBar = view.findViewById(R.id.progress_bar);
 
-        DrinkCatalogViewModel mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrinkCatalogViewModel.class);
         mViewModel.init();
 
         mAdapter = new DrinkRecyclerAdapter(view.getContext(), this);
@@ -89,18 +96,22 @@ public class DrinkListDialogFragment extends BottomSheetDialogFragment implement
 
     @Override
     public void onItemClick(int position) {
-        SessionFragment.startNewSession();
-        SessionFragment.addDrink(data.get(position));
+        SessionFragment.startNewSession(mName);
+        SessionFragment.addDrink(mAdapter.getDrink(position));
         Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.sessionFragment);
-        Log.d("TAG", "onItemClick: " + data.get(position));
+        Log.d("TAG", "onItemClick: " + mAdapter.getDrink(position));
         // Close bottom dialog
         this.dismiss();
     }
 
     @Override
-    public void onItemClick(String view) {
+    public void onItemClick(String view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", mAdapter.getDrink(position).getName());
+        mViewModel.setSelectedDrink(mAdapter.getDrink(position));
         if (view.equals("beverageDetailFragment")) {
-            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_addDrinkFragment_to_drinkDetailFragment);
+            Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionFragment_to_drinkDetailFragment, bundle);
+            this.dismiss();
         }
     }
 }

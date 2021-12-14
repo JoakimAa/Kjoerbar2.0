@@ -8,33 +8,44 @@
     <fragment
         android:id="@+id/sessionFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionFragment"
-        android:label="fragment_session"
+        android:label="@string/session"
         tools:layout="@layout/fragment_session">
         <action
-            android:id="@+id/action_sessionFragment_to_mapFragment"
-            app:destination="@id/mapFragment"
+            android:id="@+id/action_sessionFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment"
             app:enterAnim="@anim/fui_slide_in_right"
             app:exitAnim="@anim/fui_slide_out_left" />
         <action
             android:id="@+id/action_sessionFragment_to_friendsFragment"
             app:destination="@id/friendsFragment" />
         <action
+            android:id="@+id/action_sessionFragment_to_drinkCatalogFragment"
+            app:destination="@id/drinkCatalogFragment" />
+        <action
+            android:id="@+id/action_sessionFragment_to_startNewSessionDialogFragment"
+            app:destination="@id/startNewSessionDialogFragment" />
+        <action
             android:id="@+id/action_sessionFragment_to_drinkDetailFragment"
             app:destination="@id/drinkDetailFragment" />
-        <action
-            android:id="@+id/action_sessionFragment_to_addDrinkFragment"
-            app:destination="@id/addDrinkFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.illusion_softworks.kjoerbar.fragments.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map"/>
+        android:id="@+id/mapsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.MapsFragment"
+        android:label="@string/map"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapsFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.FriendsFragment"
-        android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
+        android:label="@string/friends"
+        tools:layout="@layout/fragment_friends">
+        <action
+            android:id="@+id/action_friendsFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addDrinkFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.AddDrinkFragment"
@@ -47,20 +58,67 @@
     <fragment
         android:id="@+id/sessionHistoryFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryFragment"
-        android:label="fragment_session_history"
-        tools:layout="@layout/fragment_session_history" />
+        android:label="@string/session_history"
+        tools:layout="@layout/fragment_session_history">
+        <action
+            android:id="@+id/action_sessionHistoryFragment_to_sessionHistoryDetailFragment"
+            app:destination="@id/sessionHistoryDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/drinkCatalogFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.DrinkCatalogFragment"
-        android:label="fragment_drink_catalog"
-        tools:layout="@layout/fragment_drink_catalog" />
+        android:label="@string/beverage_catalog"
+        tools:layout="@layout/fragment_drink_catalog">
+        <action
+            android:id="@+id/action_drinkCatalogFragment_to_addDrinkDialogFragment"
+            app:destination="@id/addDrinkDialogFragment" />
+        <action
+            android:id="@+id/action_drinkCatalogFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment" />
+        <action
+            android:id="@+id/action_drinkCatalogFragment_to_addDrinkFragment"
+            app:destination="@id/addDrinkFragment" />
+    </fragment>
     <fragment
         android:id="@+id/drinkDetailFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.DrinkDetailFragment"
-        android:label="fragment_drink_detail"
+        android:label="{title}"
         tools:layout="@layout/fragment_drink_detail" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.illusion_softworks.kjoerbar.fragments.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settings" />
+    <fragment
+        android:id="@+id/setEssentialSettingsFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SetEssentialSettingsFragment"
+        android:label="@string/settings" />
+    <dialog
+        android:id="@+id/addDrinkDialogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.AddDrinkDialogFragment"
+        android:label="@string/add_drink" />
+    <dialog
+        android:id="@+id/startNewSessionDialogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.StartNewSessionDialogFragment"
+        android:label="@string/start_new_session">
+        <action
+            android:id="@+id/action_startNewSessionDialogFragment_to_drinkListDialogFragment"
+            app:destination="@id/drinkListDialogFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/drinkListDialogFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.DrinkListDialogFragment"
+        android:label="@string/add_drink">
+        <action
+            android:id="@+id/action_drinkListDialogFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/sessionHistoryDetailFragment"
+        android:name="com.illusion_softworks.kjoerbar.fragments.SessionHistoryDetailFragment"
+        android:label="@string/session_title_dynamic"
+        tools:layout="@layout/fragment_session_history_detail">
+        <action
+            android:id="@+id/action_sessionHistoryDetailFragment_to_drinkDetailFragment"
+            app:destination="@id/drinkDetailFragment" />
+    </fragment>
 </navigation>

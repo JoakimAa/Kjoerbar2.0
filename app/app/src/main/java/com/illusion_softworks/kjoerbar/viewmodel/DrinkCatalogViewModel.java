@@ -11,6 +11,7 @@ import java.util.List;
 
 public class DrinkCatalogViewModel extends ViewModel {
     private final MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
+    private Drink mSelectedDrink;
     private MutableLiveData<List<Drink>> mDrinks;
     private DrinkCatalogRepository mRepository;
 
@@ -29,6 +30,14 @@ public class DrinkCatalogViewModel extends ViewModel {
 
     public LiveData<Boolean> getIsUpdating() {
         return mIsUpdating;
+    }
+
+    public Drink getSelectedDrink() {
+        return mSelectedDrink;
+    }
+
+    public void setSelectedDrink(Drink selectedDrink) {
+        this.mSelectedDrink = selectedDrink;
     }
 
     public void addDrink(Drink drink) {

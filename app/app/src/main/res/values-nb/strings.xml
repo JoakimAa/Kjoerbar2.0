@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Lille promille</string>
+
+    <string name="logged_in_as">Logget in som:&#160;</string>
+    <string name="log_out">Logg ut</string>
+    <string name="add_alcohol_unit">Legg til enhet</string>
+
+    <string name="username">Brukernavn</string>
+    <string name="history">Lagrede økter</string>
+    <string name="beverage_catalog">Enhets Katalog</string>
+    <string name="session">Økt</string>
+
+    <!-- Nav -->
+    <string name="settings">Innstillinger</string>
+    <string name="friends">Venner</string>
+    <string name="map">Kart</string>
+    <string name="add_beverage">Legg til enhet</string>
+
+    <!-- Session -->
+    <string name="time_left">Tid igjen </string>
+    <string name="time_left_format">Tid igjen: 00:00:00</string>
+    <string name="current_per_mill">Nåværende promille </string>
+    <string name="current_per_mill_format">Nåværende promille: 0.000</string>
+    <string name="time_elapsed">Varighet</string>
+    <string name="time_elapsed_format">Varighet: 00:00:00 </string>
+    <string name="remove_alcohol_unit">Fjern enhet</string>
+    <string name="you_are_sober">Du er edru :)</string>
+    <string name="session_history">Lagrede økter</string>
+
+    <!-- Settings-->
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!--User info-->
+    <string name="user_info">Bruker info</string>
+    <string name="user_age">Alder</string>
+    <string name="user_height">Vekt</string>
+    <string name="user_weight">Høyde</string>
+    <string name="user_username">Brukernavn</string>
+    <string name="user_full_name">Fult navn</string>
+    <string name="user_gender">Kjønn</string>
+
+    <!-- Placeholders -->
+    <string name="placeholder_beverage_name">"Bacardi"</string>
+    <string name="placeholder_beverage_alcohol">40%</string>
+    <string name="placeholder_beverage_volume">30ml</string>
+    <string name="info">info</string>
+
+    <string name="you_have_no_friends">Du har ingen venner :(</string>
+    <string name="add_drink">Legg til enhet</string>
+    <string name="placeholder_session_card_date">28/11/21</string>
+    <string name="placeholder_session_card_userWeight">82,6 kg</string>
+    <string name="placeholder_session_card_sex">Male</string>
+    <string name="add_drink_no">Legg til en drikke</string>
+    <string name="name">Navn</string>
+    <string name="category">Kategori</string>
+    <string name="volume">Volum</string>
+    <string name="percent">Prosent</string>
+    <string name="producer">Produsent</string>
+    <string name="alcoholPercentage">Alkohol prosent</string>
+
+    <string name="finish_dialog_text">Du er edru. \nVil du avslutte og lagre økten?</string>
+    <string name="yes">Ja</string>
+    <string name="continue_drinking">Fortsett økten</string>
+    <string name="choose_drink">Velg drikke</string>
+    <string name="fab_session_description">Knapp som åpner liste av drikker</string>
+    <string name="your_drinks">Dine drikker</string>
+    <string name="start_new_session">Start ny økt</string>
+    <string name="start_session">Start økt</string>
+    <string name="proceed">Fortsett</string>
+
+    <string name="maxPerMill">Maks promille</string>
+    <string name="startTime">Start tid</string>
+    <string name="endTime">Slutt tid</string>
+    <string name="duration">Varighet</string>
+    <string name="session_title_dynamic">Økt: {title}</string>
+
+    <string name="picture_of_drink">Bilde av en enhet</string>
+    <string name="language">Språk</string>
+    <string name="darkMode">Mørk modus</string>
+    <string name="enableDarkMode">Skru på mørk modus</string>
+    <string name="drink_categories">Enhets kategori</string>
+    <string name="drinks_by_category">Kategori</string>
+    <string name="session_is_complete">Drikkeøkten er fullført</string>
+    <string name="you_are_now_sober">Du er nå edru og i stand til å kjøre bil.</string>
+
+</resources>

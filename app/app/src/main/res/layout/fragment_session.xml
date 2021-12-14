@@ -5,90 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+    android:paddingStart="26dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="26dp"
+    android:paddingBottom="4dp"
     tools:context=".fragments.SessionFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
+        <!-- Session Timer -->
+        <include
+            layout="@layout/component_session_timer"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center" />
 
-            <!-- The Countdown Timer -->
-            <ProgressBar
-                android:id="@+id/session_timer"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="@dimen/session_timer_size"
-                android:layout_height="@dimen/session_timer_size"
-                android:background="@drawable/circular_shape"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Session Information -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textTimer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/time_left_format" />
-
-                <TextView
-                    android:id="@+id/textCurrentPerMill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/current_per_mill_format" />
-
-                <TextView
-                    android:id="@+id/textCurrentTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/time_elapsed_format" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/your_drinks"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/beverageRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-
-        </ScrollView>
+        <!-- Session Drinks -->
+        <include layout="@layout/component_session_drinks" />
 
     </LinearLayout>
 
@@ -96,9 +36,9 @@
         android:id="@+id/fab_bottom_sheet_session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_baseline_add_24"
+        android:layout_marginBottom="4dp"
         android:contentDescription="@string/fab_session_description"
+        android:src="@drawable/ic_baseline_add_24"
         app:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

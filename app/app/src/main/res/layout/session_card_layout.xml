@@ -18,34 +18,34 @@
         android:gravity="center"
         android:background="@color/beverageRecycleViewBackground">
 
-        <include layout="@layout/space_between"/>
+        <include layout="@layout/utility_space_between"/>
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_date"
             android:textSize="@dimen/font_size_medium" />
 
-        <include layout="@layout/space_between"/>
+        <include layout="@layout/utility_space_between"/>
 
         <TextView
-            android:id="@+id/userWeight"
+            android:id="@+id/maxPerMill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_userWeight"
             android:textSize="@dimen/font_size_medium" />
 
-        <include layout="@layout/space_between"/>
+        <include layout="@layout/utility_space_between"/>
 
         <TextView
-            android:id="@+id/sex"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_session_card_sex"
             android:textSize="@dimen/font_size_medium" />
 
-        <include layout="@layout/space_between"/>
+        <include layout="@layout/utility_space_between"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

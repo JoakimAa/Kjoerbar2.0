@@ -22,6 +22,8 @@
     <color name="red">#FF1100</color>
     <color name="blue">#0019FF</color>
 
+    <!--<color name="pieChartText">-16777216</color>-->
+
     <!--<color name="primaryColor">#1583d1</color>
     <color name="primaryLightColor">#58BAFF</color>
     <color name="primaryTextColor">#FF000000</color>

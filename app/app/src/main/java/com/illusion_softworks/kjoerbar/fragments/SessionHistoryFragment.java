@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,7 +53,7 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requireActivity().setTitle(getString(R.string.session_history));
+        // requireActivity().setTitle(getString(R.string.session_history));
         View view = inflater.inflate(R.layout.fragment_session_history, container, false);
 
         return view;
@@ -85,11 +86,14 @@ public class SessionHistoryFragment extends Fragment implements OnItemClickListe
 
     @Override
     public void onItemClick(int position) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("title", mAdapter.getSession(position).getName());
+        mViewModel.setSelectedSession(mAdapter.getSession(position));
+        Navigation.findNavController(requireActivity(), R.id.nav_host).navigate(R.id.action_sessionHistoryFragment_to_sessionHistoryDetailFragment, bundle);
     }
 
     @Override
-    public void onItemClick(String view) {
+    public void onItemClick(String view, int position) {
 
     }
 }

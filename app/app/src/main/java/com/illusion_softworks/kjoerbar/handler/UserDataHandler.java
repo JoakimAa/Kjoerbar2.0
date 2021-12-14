@@ -6,8 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,8 +21,8 @@ public class UserDataHandler {
     private static final String SESSION_HISTORY = "sessionHistory";
     private static DocumentReference userDocumentReference = FirestoreHandler.getUserDocumentReference();
     private static User user;
-    private static ArrayList<Drink> mDrinks = new ArrayList<>();
-    private static ArrayList<Session> mSessions = new ArrayList<>();
+    private static final ArrayList<Drink> mDrinks = new ArrayList<>();
+    private static final ArrayList<Session> mSessions = new ArrayList<>();
 
     public static void updateUserDocumentReference() {
         UserDataHandler.userDocumentReference = FirestoreHandler.getUserDocumentReference();
@@ -51,13 +49,13 @@ public class UserDataHandler {
         for (Map.Entry<String, Object> entry : user.entrySet())
             userDocumentReference
                     .update(entry.getKey(), entry.getValue())
-                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey().toString(), entry.getValue().toString())))
+                    .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", String.format("User successfully updated! Key: %s, Value: %s", entry.getKey(), entry.getValue().toString())))
                     .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing user", e));
     }
 
     public static void addSessionToHistory(@NonNull Session session) {
         updateUserDocumentReference();
-        userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getStartTime()))
+        userDocumentReference.collection("sessionHistory").document(String.valueOf(session.getName()))
                 .set(session)
                 .addOnSuccessListener(aVoid -> Log.d("DATAHANDLER", "Session successfully added to history!"))
                 .addOnFailureListener(e -> Log.w("DATAHANDLER", "Error removing session from history", e));
@@ -94,26 +92,23 @@ public class UserDataHandler {
 
     public static void getUserData() {
         updateUserDocumentReference();
-        userDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
+        userDocumentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d("DATAHANDLER", "DocumentSnapshot data: " + document.getData());
 
-                        if (document.getData() != null) user = document.toObject(User.class);
-                        else user = new User();
+                    if (document.getData() != null) user = document.toObject(User.class);
+                    else user = new User();
 
-                        assert user != null;
-                        Log.d("Current user user datahandler", user.toString());
+                    assert user != null;
+                    Log.d("Current user user datahandler", user.toString());
 
-                    } else {
-                        Log.d("DATAHANDLER", "No such document");
-                    }
                 } else {
-                    Log.d("DATAHANDLER", "get failed with ", task.getException());
+                    Log.d("DATAHANDLER", "No such document");
                 }
+            } else {
+                Log.d("DATAHANDLER", "get failed with ", task.getException());
             }
         });
     }

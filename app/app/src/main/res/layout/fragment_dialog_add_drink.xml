@@ -85,6 +85,23 @@
         android:text=""
         android:autofillHints="percent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/edittext_drink_producer"
+        android:text="@string/producer"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edittext_drink_producer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="producer"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="" />
+
     <Button
         android:id="@+id/button_add_drink"
         android:layout_width="wrap_content"

@@ -11,19 +11,29 @@ import java.util.List;
 
 public class SessionHistoryViewModel extends ViewModel {
     private MutableLiveData<List<Session>> mSessions;
+    SessionHistoryRepository mRepository;
     private final MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
+    private Session mSelectedSession;
 
     public void init() {
        /* if (mSessions != null) {
             return;
         }*/
         mIsUpdating.setValue(true);
-        SessionHistoryRepository mRepository = SessionHistoryRepository.getInstance();
+        mRepository = SessionHistoryRepository.getInstance();
         mSessions = mRepository.getSessions(() -> mIsUpdating.setValue(false));
     }
 
     public LiveData<List<Session>> getSessions() {
         return mSessions;
+    }
+
+    public Session getSelectedSession() {
+        return mSelectedSession;
+    }
+
+    public void setSelectedSession(Session selectedSession) {
+        this.mSelectedSession = selectedSession;
     }
 
     public LiveData<Boolean> getIsUpdating() {
