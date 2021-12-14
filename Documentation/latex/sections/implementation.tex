@@ -1,7 +1,6 @@
 \section{Implementasjon}
-Lenke til GitHub: https://github.com/JoakimAa/Kjoerbar2.0
 
-Så langt i prosjektet har vi implementert basis funksjonalitet for appen. Dette inkluderer en innloggingsskjerm med integrasjon mot Firestore og navigasjon rundt i appen. Vi har inndelt appen i to aktiviteter: SignInActivity og MainActivity, hvor MainActivity er der begge komponentene for literal-navigation ligger, og inneholder en navHostFragment. 
+Så langt i prosjektet har vi implementert basis funksjonalitet for appen. Dette inkluderer en innloggingsskjerm med integrasjon mot Firebase og navigasjon rundt i appen. Vi har inndelt appen i to aktiviteter: SignInActivity og MainActivity, hvor MainActivity er der begge komponentene for literal-navigation ligger, og inneholder en navHostFragment. 
 
 \subsection{Database}
 Firestore er implementert til å behandle innlogging. Ved første oppstart vil appen vise en innloggingsskjerm hvor brukeren kan velge å logge inn med en google-bruker eller med en e-post. Innlogging via google fungerer på samme måte som når man logger inn i nettleseren, mens e-post innloggingen fungerer litt annerledes. Hvis e-posten man skriver inn ikke er registrert i databasen, vil man få valg om å opprette en ny bruker. For øvrig kan man ikke slette brukeren sin, men dette er noe vi tenker å implementere senere.
